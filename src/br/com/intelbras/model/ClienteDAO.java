@@ -37,6 +37,7 @@ public class ClienteDAO implements DAO {
         cliente._rs = cliente._st.executeQuery("Select * from cliente");
         
         while (cliente._rs.next()) {
+            
             System.out.println(cliente._rs.getString(1));
             System.out.println(cliente._rs.getString(2));
             System.out.println(cliente._rs.getString(3));
@@ -70,6 +71,10 @@ public class ClienteDAO implements DAO {
 //====================================================================================================================
 //====================================================================================================================
     public boolean cadastrar(Object obj) {
+        
+        Cliente cliente = (Cliente) obj;
+        
+        
 
         return false;
     }
