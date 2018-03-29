@@ -5,17 +5,24 @@
  */
 package br.com.intelbras.view;
 
+import br.com.intelbras.controler.InicioControler;
+
 /**
  *
  * @author aluno
  */
 public class InicioView extends javax.swing.JFrame {
 
+    InicioControler inicioControler;
+
     /**
      * Creates new form InicioView
      */
     public InicioView() {
         initComponents();
+        this.inicioControler = new InicioControler();
+
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -29,86 +36,155 @@ public class InicioView extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btn_login = new javax.swing.JButton();
+        btn_cliente = new javax.swing.JButton();
+        btn_funcionario = new javax.swing.JButton();
+        btn_pontos = new javax.swing.JButton();
+        btn_vendas = new javax.swing.JButton();
+        btn_produto = new javax.swing.JButton();
+        lbl_fundo = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
-        jMenu7 = new javax.swing.JMenu();
-        jMenu8 = new javax.swing.JMenu();
+        mnu_cliente = new javax.swing.JMenu();
+        mnu_funcionario = new javax.swing.JMenu();
+        mnu_vendas = new javax.swing.JMenu();
+        mnu_pontos = new javax.swing.JMenu();
+        mnu_produto = new javax.swing.JMenu();
+        mnu_login = new javax.swing.JMenu();
+        mnu_alterarFundo = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setOpaque(false);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("Login");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 90, 70));
-
-        jButton2.setText("Cliente");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        btn_login.setText("Login");
+        btn_login.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                btn_loginMouseDragged(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 90, 70));
+        jPanel1.add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 110, 70));
 
-        jButton3.setText("Funcionário");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 90, 70));
+        btn_cliente.setText("Cliente");
+        btn_cliente.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                btn_clienteMouseDragged(evt);
+            }
+        });
+        btn_cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clienteActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, 70));
 
-        jButton4.setText("Pontos");
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 90, 70));
+        btn_funcionario.setText("Funcionário");
+        btn_funcionario.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                btn_funcionarioMouseDragged(evt);
+            }
+        });
+        btn_funcionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_funcionarioActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_funcionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 110, 70));
 
-        jButton5.setText("Vendas");
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 90, 70));
+        btn_pontos.setText("Pontos");
+        btn_pontos.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                btn_pontosMouseDragged(evt);
+            }
+        });
+        jPanel1.add(btn_pontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 110, 70));
 
-        jButton6.setText("Produto");
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 90, 70));
+        btn_vendas.setText("Vendas");
+        btn_vendas.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                btn_vendasMouseDragged(evt);
+            }
+        });
+        jPanel1.add(btn_vendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 110, 70));
 
-        jMenu3.setText("Cliente");
-        jMenuBar2.add(jMenu3);
+        btn_produto.setText("Produto");
+        btn_produto.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                btn_produtoMouseDragged(evt);
+            }
+        });
+        jPanel1.add(btn_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 110, 70));
 
-        jMenu4.setText("Funcionário");
-        jMenuBar2.add(jMenu4);
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 420));
+        getContentPane().add(lbl_fundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 420));
 
-        jMenu5.setText("Vendas");
-        jMenuBar2.add(jMenu5);
+        mnu_cliente.setText("Cliente");
+        jMenuBar2.add(mnu_cliente);
 
-        jMenu6.setText("Pontos");
-        jMenuBar2.add(jMenu6);
+        mnu_funcionario.setText("Funcionário");
+        jMenuBar2.add(mnu_funcionario);
 
-        jMenu7.setText("Produto");
-        jMenuBar2.add(jMenu7);
+        mnu_vendas.setText("Vendas");
+        jMenuBar2.add(mnu_vendas);
 
-        jMenu8.setText("Login");
-        jMenuBar2.add(jMenu8);
+        mnu_pontos.setText("Pontos");
+        jMenuBar2.add(mnu_pontos);
+
+        mnu_produto.setText("Produto");
+        jMenuBar2.add(mnu_produto);
+
+        mnu_login.setText("Login");
+        jMenuBar2.add(mnu_login);
+
+        mnu_alterarFundo.setText("Plano de Fundo");
+        mnu_alterarFundo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnu_alterarFundoMouseClicked(evt);
+            }
+        });
+        jMenuBar2.add(mnu_alterarFundo);
 
         setJMenuBar(jMenuBar2);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btn_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btn_clienteActionPerformed
+
+    private void btn_funcionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_funcionarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_funcionarioActionPerformed
+
+    private void btn_clienteMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_clienteMouseDragged
+        inicioControler.arrastarBotao(this.btn_cliente, evt);
+    }//GEN-LAST:event_btn_clienteMouseDragged
+
+    private void btn_funcionarioMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_funcionarioMouseDragged
+        inicioControler.arrastarBotao(this.btn_funcionario, evt);    }//GEN-LAST:event_btn_funcionarioMouseDragged
+
+    private void btn_vendasMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_vendasMouseDragged
+        inicioControler.arrastarBotao(this.btn_vendas, evt);    }//GEN-LAST:event_btn_vendasMouseDragged
+
+    private void btn_pontosMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pontosMouseDragged
+        inicioControler.arrastarBotao(this.btn_pontos, evt);
+    }//GEN-LAST:event_btn_pontosMouseDragged
+
+    private void btn_produtoMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_produtoMouseDragged
+        inicioControler.arrastarBotao(this.btn_produto, evt);
+    }//GEN-LAST:event_btn_produtoMouseDragged
+
+    private void btn_loginMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_loginMouseDragged
+        inicioControler.arrastarBotao(this.btn_login, evt);
+    }//GEN-LAST:event_btn_loginMouseDragged
+
+    private void mnu_alterarFundoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_alterarFundoMouseClicked
+        inicioControler.mudarPlanoFundo(lbl_fundo);
+    }//GEN-LAST:event_mnu_alterarFundoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -146,20 +222,22 @@ public class InicioView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenu jMenu8;
+    private javax.swing.JButton btn_cliente;
+    private javax.swing.JButton btn_funcionario;
+    private javax.swing.JButton btn_login;
+    private javax.swing.JButton btn_pontos;
+    private javax.swing.JButton btn_produto;
+    private javax.swing.JButton btn_vendas;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbl_fundo;
+    private javax.swing.JMenu mnu_alterarFundo;
+    private javax.swing.JMenu mnu_cliente;
+    private javax.swing.JMenu mnu_funcionario;
+    private javax.swing.JMenu mnu_login;
+    private javax.swing.JMenu mnu_pontos;
+    private javax.swing.JMenu mnu_produto;
+    private javax.swing.JMenu mnu_vendas;
     // End of variables declaration//GEN-END:variables
 }
