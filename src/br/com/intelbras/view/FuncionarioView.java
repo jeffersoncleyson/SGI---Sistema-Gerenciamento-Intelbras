@@ -5,18 +5,22 @@
  */
 package br.com.intelbras.view;
 
+import br.com.intelbras.controler.FuncionarioControler;
+
 /**
  *
  * @author aluno
  */
 public class FuncionarioView extends javax.swing.JFrame {
 
+    FuncionarioControler funcionarioControler;
     /**
      * Creates new form ClienteView
      */
     public FuncionarioView() {
         initComponents();
         
+        this.funcionarioControler = new FuncionarioControler();
         
     }
 
