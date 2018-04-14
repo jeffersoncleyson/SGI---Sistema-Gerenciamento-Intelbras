@@ -5,12 +5,17 @@
  */
 package br.com.intelbras.controler;
 
+import br.com.intelbras.model.Cliente;
+import br.com.intelbras.model.Funcionario;
+import br.com.intelbras.model.FuncionarioDAO;
+import br.com.intelbras.model.Login;
 import br.com.intelbras.model.LoginDAO;
 import br.com.intelbras.view.ClienteView;
 import br.com.intelbras.view.LoginManagerView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -24,6 +29,7 @@ import javax.swing.table.DefaultTableModel;
 public class LoginManagerControler implements AcaoTela{
     
     private LoginDAO loginDAO;
+    private FuncionarioDAO funcionarioDAO;
     private LoginManagerView tela;
     private DefaultTableModel dtm;
     private ArrayList<Object> array;
@@ -45,37 +51,101 @@ public class LoginManagerControler implements AcaoTela{
     }
     
     public void edicao(int selectedRow) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ((JTabbedPane) mapa.get("tbd_abas")).setSelectedIndex(0);
+        this.editar = true;
+        this.estadoBotoes(2);
+        
+        Login login = (Login) array.get(selectedRow);
+        this.idEdicao = login.getIdFuncionario();
+
+        ((JTextField) mapa.get("txt_email")).setText(login.getEmail());
+        ((JTextField) mapa.get("txt_username")).setText(login.getUsername());
+        ((JTextField) mapa.get("txt_idfuncionario")).setText(""+login.getId());
+        
+        
     }
     
     @Override
     public void editar(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            loginDAO.editar(obj);
+            this.cancelar();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 
     @Override
     public void excluir(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            if (id < 0) {
+                JOptionPane.showMessageDialog(tela, "Nenhuma Linha Selecionada", "Excluir", JOptionPane.WARNING_MESSAGE);
+            } else {
+                if (JOptionPane.showConfirmDialog(tela, "Deseja excluir o cliente?", "Excluir", JOptionPane.YES_NO_OPTION) != 1) {
+                    loginDAO.remover(((Login) array.get(id)).getIdFuncionario());
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(tela, "Erro ao excluir", "Erro", JOptionPane.ERROR);
+        }
     }
 
     @Override
     public void atualizar(JTable tabela) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dtm.getDataVector().removeAllElements();
+        ((DefaultTableModel) mapa.get("tbl_funcionario")).getDataVector().removeAllElements();
+        this.preencherTabela(tabela);
     }
 
     @Override
     public void cancelar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.editar = false;
+        this.idEdicao = -1;
+        this.limparCampos();
+        this.estadoBotoes(0);
     }
 
     @Override
     public void finalizar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      
+    
     }
 
     @Override
     public void preencherTabela(JTable tabela) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dtm = (DefaultTableModel) tabela.getModel();
+        array = loginDAO.listarTodos();
+
+        if (array != null) {
+            for (Object object : array) {
+                Login login = (Login) object;
+                if ( login != null) {
+                    this.dtm.insertRow(dtm.getRowCount(), new Object[]{
+                        login.getId(),
+                        login.getUsername(),
+                        login.getEmail()
+                    });
+                }
+            }
+        }
+        
+        dtm = (DefaultTableModel) mapa.get("tbl_funcionario");
+        ArrayList<Object> arrayF = funcionarioDAO.listarTodos();
+        
+        if (arrayF != null) {
+            for (Object object : arrayF) {
+                Funcionario funcionario = (Funcionario) object;
+                if ( funcionario != null) {
+                    this.dtm.insertRow(dtm.getRowCount(), new Object[]{
+                        funcionario.getIdFuncionario(),
+                        funcionario.getNomeFuncionario(),
+                        funcionario.getSetorFuncionario(),
+                        funcionario.getCpfFuncionario()
+                    });
+                }
+            }
+        }
+        
     }
     
         public void estadoBotoes(int estado) {
@@ -120,15 +190,9 @@ public class LoginManagerControler implements AcaoTela{
 
     private void limparCampos() {
         ((JTabbedPane) mapa.get("tbd_abas")).setSelectedIndex(0);
-        ((JTextField) mapa.get("txt_nome")).setText("");
-        ((JTextField) mapa.get("txt_cpf")).setText("");
-        ((JTextField) mapa.get("txt_rg")).setText("");
-        ((JRadioButton) mapa.get("rbtn_sexo")).setSelected(true);
-        ((JTextField) mapa.get("txt_dataNasc")).setText("");
-        ((JTextField) mapa.get("txt_bairro")).setText("");
-        ((JTextField) mapa.get("txt_cep")).setText("");
-        ((JTextField) mapa.get("txt_telefone")).setText("");
-        ((JTextField) mapa.get("txt_endereco")).setText("");
+        ((JTextField) mapa.get("txt_email")).setText("");
+        ((JTextField) mapa.get("txt_username")).setText("");
+        ((JTextField) mapa.get("txt_idfuncionario")).setText("");
     }
 
     private boolean validaDados() {
