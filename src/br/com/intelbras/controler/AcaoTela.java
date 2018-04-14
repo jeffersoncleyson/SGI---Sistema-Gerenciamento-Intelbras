@@ -5,17 +5,20 @@
  */
 package br.com.intelbras.controler;
 
+import javax.swing.JTable;
+
 /**
  *
  * @author WesleyReis
  */
 public interface AcaoTela {
     
-    public void cadastrar(Object obj);
-    public void editar(int id,Object obj);
+    public void cadastrar();
+    public void editar(Object obj);
     public void excluir(int id);
-    public void atualizar();
+    public void atualizar(JTable tabela);
     public void cancelar();
     public void finalizar();
+    public void preencherTabela(JTable tabela);
     
 }

@@ -10,10 +10,11 @@ package br.com.intelbras.model;
  * @author WesleyReis
  */
 public class Produto {
-    int idProduto;
-    String descricaoProduto;
-    String marcaProduto;
-    float valorProduto;
-    String modeloProduto;
-    String obsProduto;
+
+    private int idProduto;
+    private String descricaoProduto;
+    private String marcaProduto;
+    private float valorProduto;
+    private String modeloProduto;
+    private String obsProduto;
 }

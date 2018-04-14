@@ -17,7 +17,7 @@ public interface DAO {
     public ArrayList<Object> listarTodos();
     public boolean cadastrar(Object obj);
     public boolean editar(Object obj);
-    public boolean remover(Object obj);
+    public boolean remover(int id);
     public boolean abrirConexao();
     public void fecharConexao();
     

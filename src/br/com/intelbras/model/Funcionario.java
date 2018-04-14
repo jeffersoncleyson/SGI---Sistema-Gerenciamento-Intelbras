@@ -13,17 +13,16 @@ import java.util.Date;
  */
 public class Funcionario {
 
-    int idFuncionario;
-    String nomeFuncionario;
-    String cpfFuncionario;
-    String rgFuncionario;
-    String enderecoFuncionario;
-    String bairroFuncionario;
-    String telefoneFuncionario;
-    String sexoFuncionario;
-    float salarioFuncionario;
-    String setorFuncionario;
-    float comissaoFuncionario;
-
+    private int idFuncionario;
+    private String nomeFuncionario;
+    private String cpfFuncionario;
+    private String rgFuncionario;
+    private String enderecoFuncionario;
+    private String bairroFuncionario;
+    private String telefoneFuncionario;
+    private String sexoFuncionario;
+    private float salarioFuncionario;
+    private String setorFuncionario;
+    private float comissaoFuncionario;
 
 }

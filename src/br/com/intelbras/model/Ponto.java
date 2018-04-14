@@ -12,9 +12,9 @@ import java.util.Date;
  * @author WesleyReis
  */
 public class Ponto {
-    
-    int idPonto;
-    Date dataPonto;
-    String setorPonto;
-    
+
+    private int idPonto;
+    private Date dataPonto;
+    private String setorPonto;
+
 }

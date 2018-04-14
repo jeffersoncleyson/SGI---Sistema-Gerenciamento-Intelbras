@@ -13,10 +13,10 @@ import java.util.Date;
  * @author WesleyReis
  */
 public class Venda {
-    int idVenda;
-    Date dataVenda;
-    float valorTotalVenda;
-    String obsVenda;
-    ArrayList<Produto> produtos;
+   private int idVenda;
+   private Date dataVenda;
+   private float valorTotalVenda;
+   private String obsVenda;
+   private ArrayList<Produto> produtos;
     
 }

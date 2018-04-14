@@ -5,6 +5,7 @@
  */
 package br.com.intelbras.controler;
 
+import br.com.intelbras.view.InicioView;
 import br.com.intelbras.view.LoginView;
 
 /**
@@ -12,12 +13,29 @@ import br.com.intelbras.view.LoginView;
  * @author WesleyReis
  */
 public class Main {
-    
+
     public static void main(String[] args) {
-        
-       LoginControler loginControler = new LoginControler(new LoginView());
-        
-        
+
+        Main.setlookAndFeel();
+
+        LoginView loginView = new LoginView();
+        loginView.setLocationRelativeTo(null);
+        loginView.setVisible(true);
+
     }
-    
+
+    public static void setlookAndFeel() {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println("Erro Look And Feel");
+            System.out.println(ex);
+        }
+    }
+
 }

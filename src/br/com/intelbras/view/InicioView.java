@@ -51,6 +51,7 @@ public class InicioView extends javax.swing.JFrame {
         mnu_produto = new javax.swing.JMenu();
         mnu_login = new javax.swing.JMenu();
         mnu_alterarFundo = new javax.swing.JMenu();
+        mnu_sair = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -66,12 +67,22 @@ public class InicioView extends javax.swing.JFrame {
                 btn_loginMouseDragged(evt);
             }
         });
+        btn_login.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_loginMouseClicked(evt);
+            }
+        });
         jPanel1.add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 110, 70));
 
         btn_cliente.setText("Cliente");
         btn_cliente.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 btn_clienteMouseDragged(evt);
+            }
+        });
+        btn_cliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_clienteMouseClicked(evt);
             }
         });
         btn_cliente.addActionListener(new java.awt.event.ActionListener() {
@@ -87,6 +98,11 @@ public class InicioView extends javax.swing.JFrame {
                 btn_funcionarioMouseDragged(evt);
             }
         });
+        btn_funcionario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_funcionarioMouseClicked(evt);
+            }
+        });
         btn_funcionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_funcionarioActionPerformed(evt);
@@ -100,12 +116,22 @@ public class InicioView extends javax.swing.JFrame {
                 btn_pontosMouseDragged(evt);
             }
         });
+        btn_pontos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_pontosMouseClicked(evt);
+            }
+        });
         jPanel1.add(btn_pontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 110, 70));
 
         btn_vendas.setText("Vendas");
         btn_vendas.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 btn_vendasMouseDragged(evt);
+            }
+        });
+        btn_vendas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_vendasMouseClicked(evt);
             }
         });
         jPanel1.add(btn_vendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 110, 70));
@@ -116,27 +142,62 @@ public class InicioView extends javax.swing.JFrame {
                 btn_produtoMouseDragged(evt);
             }
         });
+        btn_produto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_produtoMouseClicked(evt);
+            }
+        });
         jPanel1.add(btn_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 110, 70));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 420));
         getContentPane().add(lbl_fundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 420));
 
         mnu_cliente.setText("Cliente");
+        mnu_cliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnu_clienteMouseClicked(evt);
+            }
+        });
         jMenuBar2.add(mnu_cliente);
 
         mnu_funcionario.setText("Funcionário");
+        mnu_funcionario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnu_funcionarioMouseClicked(evt);
+            }
+        });
         jMenuBar2.add(mnu_funcionario);
 
         mnu_vendas.setText("Vendas");
+        mnu_vendas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnu_vendasMouseClicked(evt);
+            }
+        });
         jMenuBar2.add(mnu_vendas);
 
         mnu_pontos.setText("Pontos");
+        mnu_pontos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnu_pontosMouseClicked(evt);
+            }
+        });
         jMenuBar2.add(mnu_pontos);
 
         mnu_produto.setText("Produto");
+        mnu_produto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnu_produtoMouseClicked(evt);
+            }
+        });
         jMenuBar2.add(mnu_produto);
 
         mnu_login.setText("Login");
+        mnu_login.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnu_loginMouseClicked(evt);
+            }
+        });
         jMenuBar2.add(mnu_login);
 
         mnu_alterarFundo.setText("Plano de Fundo");
@@ -146,6 +207,14 @@ public class InicioView extends javax.swing.JFrame {
             }
         });
         jMenuBar2.add(mnu_alterarFundo);
+
+        mnu_sair.setText("Sair");
+        mnu_sair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnu_sairMouseClicked(evt);
+            }
+        });
+        jMenuBar2.add(mnu_sair);
 
         setJMenuBar(jMenuBar2);
 
@@ -185,6 +254,58 @@ public class InicioView extends javax.swing.JFrame {
     private void mnu_alterarFundoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_alterarFundoMouseClicked
         inicioControler.mudarPlanoFundo(lbl_fundo);
     }//GEN-LAST:event_mnu_alterarFundoMouseClicked
+
+    private void mnu_sairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_sairMouseClicked
+        inicioControler.logout(this);
+    }//GEN-LAST:event_mnu_sairMouseClicked
+
+    private void btn_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_clienteMouseClicked
+        inicioControler.abrirCliente(this);
+    }//GEN-LAST:event_btn_clienteMouseClicked
+
+    private void btn_funcionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_funcionarioMouseClicked
+        inicioControler.abrirFuncionario(this);
+    }//GEN-LAST:event_btn_funcionarioMouseClicked
+
+    private void btn_vendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_vendasMouseClicked
+        inicioControler.abrirVenda(this);
+    }//GEN-LAST:event_btn_vendasMouseClicked
+
+    private void btn_pontosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pontosMouseClicked
+        inicioControler.abrirPonto(this);
+    }//GEN-LAST:event_btn_pontosMouseClicked
+
+    private void btn_produtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_produtoMouseClicked
+        inicioControler.abrirProduto(this);
+    }//GEN-LAST:event_btn_produtoMouseClicked
+
+    private void btn_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_loginMouseClicked
+        inicioControler.abrirLogin(this);
+    }//GEN-LAST:event_btn_loginMouseClicked
+
+    private void mnu_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_clienteMouseClicked
+        inicioControler.abrirCliente(this);
+    }//GEN-LAST:event_mnu_clienteMouseClicked
+
+    private void mnu_funcionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_funcionarioMouseClicked
+        inicioControler.abrirFuncionario(this);
+    }//GEN-LAST:event_mnu_funcionarioMouseClicked
+
+    private void mnu_vendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_vendasMouseClicked
+        inicioControler.abrirVenda(this);
+    }//GEN-LAST:event_mnu_vendasMouseClicked
+
+    private void mnu_pontosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_pontosMouseClicked
+        inicioControler.abrirPonto(this);
+    }//GEN-LAST:event_mnu_pontosMouseClicked
+
+    private void mnu_produtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_produtoMouseClicked
+        inicioControler.abrirProduto(this);
+    }//GEN-LAST:event_mnu_produtoMouseClicked
+
+    private void mnu_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_loginMouseClicked
+        inicioControler.abrirLogin(this);
+    }//GEN-LAST:event_mnu_loginMouseClicked
 
     /**
      * @param args the command line arguments
@@ -238,6 +359,7 @@ public class InicioView extends javax.swing.JFrame {
     private javax.swing.JMenu mnu_login;
     private javax.swing.JMenu mnu_pontos;
     private javax.swing.JMenu mnu_produto;
+    private javax.swing.JMenu mnu_sair;
     private javax.swing.JMenu mnu_vendas;
     // End of variables declaration//GEN-END:variables
 }

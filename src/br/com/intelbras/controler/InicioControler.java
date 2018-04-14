@@ -5,7 +5,14 @@
  */
 package br.com.intelbras.controler;
 
+import br.com.intelbras.view.ClienteView;
+import br.com.intelbras.view.FuncionarioView;
 import br.com.intelbras.view.InicioView;
+import br.com.intelbras.view.LoginManagerView;
+import br.com.intelbras.view.LoginView;
+import br.com.intelbras.view.PontosView;
+import br.com.intelbras.view.ProdutoView;
+import br.com.intelbras.view.VendasView;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,6 +38,8 @@ public class InicioControler {
 
     }
     
+    
+    
     public void arrastarBotao(JButton botao, MouseEvent evt) {
         botao.setLocation(botao.getLocation().x + evt.getX() - (botao.getSize().width /2) , botao.getLocation().y + evt.getY() - (botao.getSize().height /2));
     }
@@ -39,8 +48,44 @@ public class InicioControler {
         alterarImagem(label);
     }
     
-    
-    
+    public void logout(InicioView tela){
+        LoginView loginView = new LoginView();
+        loginView.setVisible(true);
+        tela.dispose();
+        
+    }
+     //============================== Abrir Views
+    //============================== 
+    public void abrirCliente(InicioView tela){
+        ClienteView cliente = new ClienteView();
+        cliente.setVisible(true);
+        cliente.setLocationRelativeTo(tela);
+    }
+    public void abrirFuncionario(InicioView tela){
+        FuncionarioView funcionario = new FuncionarioView();
+        funcionario.setVisible(true);
+        funcionario.setLocationRelativeTo(tela);
+    }
+    public void abrirProduto(InicioView tela){
+        ProdutoView produto = new ProdutoView();
+        produto.setVisible(true);
+        produto.setLocationRelativeTo(tela);
+    }
+    public void abrirPonto(InicioView tela){
+        PontosView ponto = new PontosView();
+        ponto.setVisible(true);
+        ponto.setLocationRelativeTo(tela);
+    }
+    public void abrirVenda(InicioView tela){
+        VendasView venda = new VendasView();
+        venda.setVisible(true);
+        venda.setLocationRelativeTo(tela);
+    }
+    public void abrirLogin(InicioView tela){
+        LoginManagerView loginManager = new LoginManagerView();
+        loginManager.setVisible(true);
+        loginManager.setLocationRelativeTo(tela);
+    }
     
     //============================== Metodos privados
     //============================== 
