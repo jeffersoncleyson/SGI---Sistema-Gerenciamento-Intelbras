@@ -141,10 +141,7 @@ public class LoginManagerView extends javax.swing.JFrame {
 
         tbl_funcionario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Id", "Funcionário", "Setor", "CPF"
@@ -224,10 +221,7 @@ public class LoginManagerView extends javax.swing.JFrame {
 
         tbl_listagem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Id", "Username", "Email"

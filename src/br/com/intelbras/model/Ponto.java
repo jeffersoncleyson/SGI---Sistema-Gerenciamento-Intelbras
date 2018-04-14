@@ -14,8 +14,7 @@ import java.util.Date;
 public class Ponto {
 
     private int idPonto;
-    private Date dataPonto;
-    private String setorPonto;
+    private String dataPonto;
     private Funcionario funcionario;
 
     public int getIdPonto() {
@@ -26,28 +25,20 @@ public class Ponto {
         this.idPonto = idPonto;
     }
 
-    public Date getDataPonto() {
-        return dataPonto;
-    }
-
-    public void setDataPonto(Date dataPonto) {
-        this.dataPonto = dataPonto;
-    }
-
-    public String getSetorPonto() {
-        return setorPonto;
-    }
-
-    public void setSetorPonto(String setorPonto) {
-        this.setorPonto = setorPonto;
-    }
-
     public Funcionario getFuncionario() {
         return funcionario;
     }
 
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
+    }
+
+    public String getDataPonto() {
+        return dataPonto;
+    }
+
+    public void setDataPonto(String dataPonto) {
+        this.dataPonto = dataPonto;
     }
     
     
