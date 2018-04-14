@@ -31,7 +31,7 @@ public class FuncionarioDAO implements DAO{
     public ArrayList<Object> listarTodos() {
         abrirConexao();
         try {
-
+            
         } catch (Exception ex) {
             System.out.println("Erro: Conexão Banco! :(");
         } finally {
@@ -43,8 +43,39 @@ public class FuncionarioDAO implements DAO{
 //====================================================================================================================
 //====================================================================================================================
     public boolean cadastrar(Object obj) {
+        abrirConexao();
+        
+        boolean gravou = true;
+        
+        try {
+            
+            Funcionario funcionario = (Funcionario) obj;
+            
+            this._pst = _con.prepareStatement("INSERT INTO `intelbras`.`funcionario`(`nomeFuncionario`,`cpfFuncionario`,`rgFuncionario`,"
+                    + "`enderecoFuncionario`,`cepFuncionario`,`bairroFuncionario`,`telefoneFuncionario`,"
+                    + "`sexoFuncionario`,`salarioFuncionario`,`setorFuncionario`,`comissaoFuncionario`)VALUES(?,?,?,?,?,?,?,?,?,?,?);");
+            this._pst.setString(1, funcionario.getNomeFuncionario());
+            this._pst.setString(2, funcionario.getCpfFuncionario());
+            this._pst.setString(3, funcionario.getRgFuncionario());
+            this._pst.setString(4, funcionario.getEnderecoFuncionario());
+            this._pst.setString(5, funcionario.getCepFuncionario());
+            this._pst.setString(6, funcionario.getBairroFuncionario());
+            this._pst.setString(7, funcionario.getTelefoneFuncionario());
+            this._pst.setString(8, funcionario.getSexoFuncionario());
+            this._pst.setFloat(9, funcionario.getSalarioFuncionario());
+            this._pst.setString(10, funcionario.getSetorFuncionario());
+            this._pst.setFloat(11, funcionario.getComissaoFuncionario());
 
-        return false;
+            this._pst.executeUpdate();
+            
+        } catch (Exception ex) {
+            gravou = false;
+            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println(ex);
+        } finally {
+            fecharConexao();
+        }
+        return gravou;
     }
 
     public boolean editar(Object obj) {
