@@ -6,6 +6,7 @@
 package br.com.intelbras.view;
 
 import br.com.intelbras.controler.LoginManagerControler;
+import java.util.HashMap;
 
 /**
  *
@@ -14,15 +15,18 @@ import br.com.intelbras.controler.LoginManagerControler;
 public class LoginManagerView extends javax.swing.JFrame {
 
     LoginManagerControler loginManagerControler;
-    
+    HashMap<String, Object> mapaComponentes;
     /**
      * Creates new form ClienteView
      */
     public LoginManagerView() {
         initComponents();
+        mapaComponentes = new HashMap<>();
+        this.inseriMapa();
+        this.loginManagerControler = new LoginManagerControler(mapaComponentes);
         
-        this.loginManagerControler = new LoginManagerControler();
-        
+        loginManagerControler.preencherTabela(tbl_listagem);
+        loginManagerControler.estadoBotoes(0);
         
     }
 
@@ -37,7 +41,7 @@ public class LoginManagerView extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel9 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tbd_abas = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         txt_email = new javax.swing.JTextField();
@@ -72,17 +76,11 @@ public class LoginManagerView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTabbedPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        tbd_abas.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jPanel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Email"));
-
-        txt_email.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_emailActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -102,12 +100,6 @@ public class LoginManagerView extends javax.swing.JFrame {
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Username"));
-
-        txt_username.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_usernameActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -202,7 +194,7 @@ public class LoginManagerView extends javax.swing.JFrame {
                 .addContainerGap(97, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Cadastro", jPanel1);
+        tbd_abas.addTab("Cadastro", jPanel1);
 
         tbl_listagem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -243,39 +235,59 @@ public class LoginManagerView extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Listagem", jPanel2);
+        tbd_abas.addTab("Listagem", jPanel2);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 500));
+        getContentPane().add(tbd_abas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 500));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_cadastrar.setText("Cadastrar");
-        btn_cadastrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cadastrarActionPerformed(evt);
+        btn_cadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_cadastrarMouseClicked(evt);
             }
         });
         jPanel3.add(btn_cadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 91, 52));
 
         btn_cancelar.setText("Cancelar");
+        btn_cancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_cancelarMouseClicked(evt);
+            }
+        });
         jPanel3.add(btn_cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 91, 52));
 
         btn_editar.setText("Editar");
+        btn_editar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_editarMouseClicked(evt);
+            }
+        });
         jPanel3.add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 91, 52));
 
         btn_atualizar.setText("Atualizar");
+        btn_atualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_atualizarMouseClicked(evt);
+            }
+        });
         jPanel3.add(btn_atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 91, 52));
 
         btn_finalizar.setText("Finalizar");
-        btn_finalizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_finalizarActionPerformed(evt);
+        btn_finalizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_finalizarMouseClicked(evt);
             }
         });
         jPanel3.add(btn_finalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 91, 52));
 
         btn_excluir.setText("Excluir");
+        btn_excluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_excluirMouseClicked(evt);
+            }
+        });
         jPanel3.add(btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 91, 52));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 0, 140, 500));
@@ -283,21 +295,41 @@ public class LoginManagerView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_cadastrarActionPerformed
+    private void btn_cadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cadastrarMouseClicked
+        if (btn_cadastrar.isEnabled()) {
+            loginManagerControler.cadastrar();
+        }
+    }//GEN-LAST:event_btn_cadastrarMouseClicked
 
-    private void btn_finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_finalizarActionPerformed
+    private void btn_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editarMouseClicked
+        if (btn_editar.isEnabled()) {
+            loginManagerControler.edicao(this.tbl_listagem.getSelectedRow());
+        }
+    }//GEN-LAST:event_btn_editarMouseClicked
 
-    private void txt_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_emailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_emailActionPerformed
+    private void btn_excluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_excluirMouseClicked
+        if (btn_excluir.isEnabled()) {
+            loginManagerControler.excluir(this.tbl_listagem.getSelectedRow());
+        }
+    }//GEN-LAST:event_btn_excluirMouseClicked
 
-    private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_usernameActionPerformed
+    private void btn_atualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_atualizarMouseClicked
+        if (btn_atualizar.isEnabled()) {
+            loginManagerControler.atualizar(tbl_listagem);
+        }
+    }//GEN-LAST:event_btn_atualizarMouseClicked
+
+    private void btn_finalizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_finalizarMouseClicked
+        if (btn_finalizar.isEnabled()) {
+            loginManagerControler.finalizar();
+        }
+    }//GEN-LAST:event_btn_finalizarMouseClicked
+
+    private void btn_cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cancelarMouseClicked
+        if (btn_cancelar.isEnabled()) {
+            loginManagerControler.cancelar();
+        }
+    }//GEN-LAST:event_btn_cancelarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -352,11 +384,30 @@ public class LoginManagerView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane tbd_abas;
     private javax.swing.JTable tbl_funcionario;
     private javax.swing.JTable tbl_listagem;
     private javax.swing.JTextField txt_email;
     private javax.swing.JTextField txt_idfuncionario;
     private javax.swing.JTextField txt_username;
     // End of variables declaration//GEN-END:variables
+
+    public void inseriMapa() {
+        this.mapaComponentes.put("tela", this);
+        this.mapaComponentes.put("btn_atualizar", this.btn_atualizar);
+        this.mapaComponentes.put("btn_cadastrar", this.btn_cadastrar);
+        this.mapaComponentes.put("btn_editar", this.btn_editar);
+        this.mapaComponentes.put("btn_excluir", this.btn_excluir);
+        this.mapaComponentes.put("btn_finalizar", this.btn_finalizar);
+        this.mapaComponentes.put("btn_cancelar", this.btn_cancelar);
+
+        this.mapaComponentes.put("txt_email", this.txt_email);
+        this.mapaComponentes.put("txt_idfuncionario", this.txt_idfuncionario);
+        this.mapaComponentes.put("txt_username", this.txt_username);
+        
+
+        this.mapaComponentes.put("tbl_listagem", this.tbl_listagem);
+        this.mapaComponentes.put("tbl_funcionario",this.tbl_funcionario);
+        this.mapaComponentes.put("tbd_abas", this.tbd_abas);
+    }
 }
