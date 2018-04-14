@@ -6,6 +6,7 @@
 package br.com.intelbras.view;
 
 import br.com.intelbras.controler.ProdutosControler;
+import java.util.HashMap;
 
 /**
  *
@@ -14,14 +15,21 @@ import br.com.intelbras.controler.ProdutosControler;
 public class ProdutoView extends javax.swing.JFrame {
 
     ProdutosControler produtoControler;
-    
+    HashMap<String, Object> mapaComponentes;
+
     /**
      * Creates new form ClienteView
      */
     public ProdutoView() {
         initComponents();
-        this.produtoControler = new ProdutosControler();
-        
+
+        mapaComponentes = new HashMap<>();
+        this.inseriMapa();
+        this.produtoControler = new ProdutosControler(mapaComponentes);
+
+        produtoControler.preencherTabela(tbl_listagem);     // busca os elementos do banco e insere na tabela
+        produtoControler.estadoBotoes(0);   //modifica estado dos botoes 
+
     }
 
     /**
@@ -35,7 +43,7 @@ public class ProdutoView extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel9 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tbd_abas = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         txt_descricao = new javax.swing.JTextField();
@@ -72,17 +80,16 @@ public class ProdutoView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTabbedPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        tbd_abas.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        tbd_abas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbd_abasMouseClicked(evt);
+            }
+        });
 
         jPanel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Descrição"));
-
-        txt_descricao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_descricaoActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -102,12 +109,6 @@ public class ProdutoView extends javax.swing.JFrame {
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Observação"));
-
-        txt_observacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_observacaoActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -215,14 +216,11 @@ public class ProdutoView extends javax.swing.JFrame {
                 .addContainerGap(260, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Cadastro", jPanel1);
+        tbd_abas.addTab("Cadastro", jPanel1);
 
         tbl_listagem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Id", "Descrição", "Marca", "Valor"
@@ -256,39 +254,59 @@ public class ProdutoView extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Listagem", jPanel2);
+        tbd_abas.addTab("Listagem", jPanel2);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 500));
+        getContentPane().add(tbd_abas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 500));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_cadastrar.setText("Cadastrar");
-        btn_cadastrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cadastrarActionPerformed(evt);
+        btn_cadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_cadastrarMouseClicked(evt);
             }
         });
         jPanel3.add(btn_cadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 91, 52));
 
         btn_cancelar.setText("Cancelar");
+        btn_cancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_cancelarMouseClicked(evt);
+            }
+        });
         jPanel3.add(btn_cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 91, 52));
 
         btn_editar.setText("Editar");
+        btn_editar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_editarMouseClicked(evt);
+            }
+        });
         jPanel3.add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 91, 52));
 
         btn_atualizar.setText("Atualizar");
+        btn_atualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_atualizarMouseClicked(evt);
+            }
+        });
         jPanel3.add(btn_atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 91, 52));
 
         btn_finalizar.setText("Finalizar");
-        btn_finalizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_finalizarActionPerformed(evt);
+        btn_finalizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_finalizarMouseClicked(evt);
             }
         });
         jPanel3.add(btn_finalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 91, 52));
 
         btn_excluir.setText("Excluir");
+        btn_excluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_excluirMouseClicked(evt);
+            }
+        });
         jPanel3.add(btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 91, 52));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 0, 140, 500));
@@ -296,21 +314,47 @@ public class ProdutoView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_cadastrarActionPerformed
+    private void btn_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editarMouseClicked
+        if (btn_editar.isEnabled()) {
+            produtoControler.edicao(this.tbl_listagem.getSelectedRow());
+        }
+    }//GEN-LAST:event_btn_editarMouseClicked
 
-    private void btn_finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_finalizarActionPerformed
+    private void btn_excluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_excluirMouseClicked
+        if (btn_excluir.isEnabled()) {
+            produtoControler.excluir(this.tbl_listagem.getSelectedRow());
+        }
+    }//GEN-LAST:event_btn_excluirMouseClicked
 
-    private void txt_descricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_descricaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_descricaoActionPerformed
+    private void btn_atualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_atualizarMouseClicked
+        if (btn_atualizar.isEnabled()) {
+            produtoControler.atualizar(tbl_listagem);
+        }
+    }//GEN-LAST:event_btn_atualizarMouseClicked
 
-    private void txt_observacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_observacaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_observacaoActionPerformed
+    private void btn_cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cancelarMouseClicked
+        if (btn_cancelar.isEnabled()) {
+            produtoControler.cancelar();
+        }
+    }//GEN-LAST:event_btn_cancelarMouseClicked
+
+    private void btn_finalizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_finalizarMouseClicked
+        if (btn_finalizar.isEnabled()) {
+            produtoControler.finalizar();
+            produtoControler.atualizar(tbl_listagem);
+        }
+    }//GEN-LAST:event_btn_finalizarMouseClicked
+
+    private void btn_cadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cadastrarMouseClicked
+        if (btn_cadastrar.isEnabled()) {
+            produtoControler.cadastrar();
+            produtoControler.atualizar(tbl_listagem);
+        }
+    }//GEN-LAST:event_btn_cadastrarMouseClicked
+
+    private void tbd_abasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbd_abasMouseClicked
+        produtoControler.verificaAba(this.tbd_abas.getSelectedIndex());
+    }//GEN-LAST:event_tbd_abasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -366,7 +410,7 @@ public class ProdutoView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane tbd_abas;
     private javax.swing.JTable tbl_listagem;
     private javax.swing.JTextField txt_descricao;
     private javax.swing.JTextField txt_marca;
@@ -374,4 +418,23 @@ public class ProdutoView extends javax.swing.JFrame {
     private javax.swing.JTextField txt_observacao;
     private javax.swing.JTextField txt_valor;
     // End of variables declaration//GEN-END:variables
+
+    public void inseriMapa() {
+        this.mapaComponentes.put("tela", this);
+        this.mapaComponentes.put("btn_atualizar", this.btn_atualizar);
+        this.mapaComponentes.put("btn_cadastrar", this.btn_cadastrar);
+        this.mapaComponentes.put("btn_editar", this.btn_editar);
+        this.mapaComponentes.put("btn_excluir", this.btn_excluir);
+        this.mapaComponentes.put("btn_finalizar", this.btn_finalizar);
+        this.mapaComponentes.put("btn_cancelar", this.btn_cancelar);
+
+        this.mapaComponentes.put("txt_descricao", this.txt_descricao);
+        this.mapaComponentes.put("txt_marca", this.txt_marca);
+        this.mapaComponentes.put("txt_modelo", this.txt_modelo);
+        this.mapaComponentes.put("txt_observacao", this.txt_observacao);
+        this.mapaComponentes.put("txt_valor", this.txt_valor);
+
+        this.mapaComponentes.put("tbl_listagem", this.tbl_listagem);
+        this.mapaComponentes.put("tbd_abas", this.tbd_abas);
+    }
 }

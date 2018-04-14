@@ -17,7 +17,7 @@ import java.util.ArrayList;
  *
  * @author WesleyReis
  */
-public class ProdutoDAO implements DAO{
+public class ProdutoDAO implements DAO {
 
     BancoDados _BD = new BancoDados();
 
@@ -28,9 +28,30 @@ public class ProdutoDAO implements DAO{
 
 //====================================================================================================================
 //====================================================================================================================
+    @Override
     public ArrayList<Object> listarTodos() {
         abrirConexao();
         try {
+            ArrayList<Object> array = new ArrayList<>();
+
+            this._st = this._con.createStatement();
+            this._rs = this._st.executeQuery("SELECT * FROM produto");
+
+            while (this._rs.next()) {
+                Produto produto = new Produto();
+
+                produto.setIdProduto(this._rs.getInt(1));
+                produto.setDescricaoProduto(this._rs.getString(2));
+                produto.setMarcaProduto(this._rs.getString(3));
+                produto.setValorProduto(this._rs.getFloat(4));
+                produto.setModeloProduto(this._rs.getString(5));
+                produto.setObsProduto(this._rs.getString(6));
+
+
+                array.add(produto);
+            }
+
+            return array;
 
         } catch (Exception ex) {
             System.out.println("Erro: Conexão Banco! :(");
@@ -39,20 +60,61 @@ public class ProdutoDAO implements DAO{
         }
         return null;
     }
-    
-//====================================================================================================================
-//====================================================================================================================
-    public boolean cadastrar(Object obj) {
 
-        return false;
+//====================================================================================================================
+//====================================================================================================================
+    @Override
+    public boolean cadastrar(Object obj) {
+        abrirConexao();
+
+        boolean gravou = true;
+
+        try {
+
+            Produto produto = (Produto) obj;
+
+            this._pst = _con.prepareStatement("INSERT INTO `produto`(`descricaoProduto`,`marcaProduto`,`valorProduto`,"
+                    + "`modeloProduto`,`obsProduto`) VALUES(?,?,?,?,?);");
+            this._pst.setString(1, produto.getDescricaoProduto());
+            this._pst.setString(2, produto.getMarcaProduto());
+            this._pst.setFloat(3, produto.getValorProduto());
+            this._pst.setString(4, produto.getModeloProduto());
+            this._pst.setString(5, produto.getObsProduto());
+
+            this._pst.executeUpdate();
+
+        } catch (Exception ex) {
+            gravou = false;
+            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println(ex);
+        } finally {
+            fecharConexao();
+        }
+        return gravou;
     }
 
+    @Override
     public boolean editar(Object obj) {
         abrirConexao();
         try {
+            Produto produto = (Produto) obj;
+             System.out.println(produto);
+
+            this._pst = this._con.prepareStatement("UPDATE `intelbras`.`produto` SET `descricaoProduto` = ?, `marcaProduto` = ?, `valorProduto` = ?,`modeloProduto` = ?, `obsProduto` = ? WHERE `idProduto` = ?");
+            this._pst.setString(1, produto.getDescricaoProduto());
+            this._pst.setString(2, produto.getMarcaProduto());
+            this._pst.setFloat(3, produto.getValorProduto());
+            this._pst.setString(4, produto.getModeloProduto());
+            this._pst.setString(5, produto.getObsProduto());
+
+            
+            this._pst.setInt(6, produto.getIdProduto());
+
+            this._pst.executeUpdate();
 
         } catch (Exception ex) {
             System.out.println("Erro: Conexão Banco! :(");
+            System.out.println(ex);
         } finally {
             fecharConexao();
         }
@@ -61,12 +123,19 @@ public class ProdutoDAO implements DAO{
 
 //====================================================================================================================
 //====================================================================================================================    
+    @Override
     public boolean remover(int id) {
         abrirConexao();
         try {
 
+            this._pst = this._con.prepareStatement("DELETE FROM `intelbras`.`produto` WHERE idProduto = ?");
+            this._pst.setInt(1, id);
+            this._pst.executeUpdate();
+
+            return true;
         } catch (Exception ex) {
             System.out.println("Erro: Conexão Banco! :(");
+            System.out.println(ex);
         } finally {
             fecharConexao();
         }
@@ -75,6 +144,7 @@ public class ProdutoDAO implements DAO{
 
 //====================================================================================================================
 //====================================================================================================================
+    @Override
     public boolean abrirConexao() {
         try {
             _con = DriverManager.getConnection(_BD.getUrl(), _BD.getUsuario(), _BD.getSenha());
@@ -88,6 +158,7 @@ public class ProdutoDAO implements DAO{
 
 //====================================================================================================================
 //====================================================================================================================
+    @Override
     public void fecharConexao() {
         try {
             if (_rs != null) {
