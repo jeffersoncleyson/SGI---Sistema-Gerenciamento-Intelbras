@@ -28,12 +28,44 @@ public class PontoDAO implements DAO{
 
 //====================================================================================================================
 //====================================================================================================================
+    @Override
     public ArrayList<Object> listarTodos() {
         abrirConexao();
         try {
+             ArrayList<Object> array = new ArrayList<>();
 
+            this._st = this._con.createStatement();
+            this._rs = this._st.executeQuery("SELECT * FROM Ponto INNER JOIN Funcionario ON Ponto.Funcionario_idFuncionario = Funcionario.idFuncionario");
+
+            while (this._rs.next()) {
+                Funcionario funcionario = new Funcionario();
+                Ponto ponto = new Ponto();
+
+                ponto.setIdPonto(this._rs.getInt(1));
+                ponto.setDataPonto(this._rs.getString(2));
+                // 4 chave extrangeira
+                funcionario.setIdFuncionario(this._rs.getInt(5));
+                funcionario.setNomeFuncionario(this._rs.getString(6));
+                funcionario.setCpfFuncionario(this._rs.getString(7));
+                funcionario.setRgFuncionario(this._rs.getString(8));
+                funcionario.setEnderecoFuncionario(this._rs.getString(9));
+                funcionario.setCepFuncionario(this._rs.getString(10));
+                funcionario.setBairroFuncionario(this._rs.getString(11));
+                funcionario.setTelefoneFuncionario(this._rs.getString(12));
+                funcionario.setSexoFuncionario(this._rs.getString(13));
+                funcionario.setSalarioFuncionario(this._rs.getInt(14));
+                funcionario.setSetorFuncionario(this._rs.getString(15));
+                funcionario.setComissaoFuncionario(this._rs.getInt(16));
+
+                ponto.setFuncionario(funcionario);
+                
+                array.add(ponto);
+            }
+
+            return array;
         } catch (Exception ex) {
             System.out.println("Erro: Conexão Banco! :(");
+            System.out.println(ex);
         } finally {
             fecharConexao();
         }
@@ -42,15 +74,15 @@ public class PontoDAO implements DAO{
     
 //====================================================================================================================
 //====================================================================================================================
+    @Override
     public boolean cadastrar(Object obj) {
-
-        return false;
-    }
-
-    public boolean editar(Object obj) {
         abrirConexao();
         try {
 
+            
+            // implementar com micro
+            
+            return true;
         } catch (Exception ex) {
             System.out.println("Erro: Conexão Banco! :(");
         } finally {
@@ -58,23 +90,20 @@ public class PontoDAO implements DAO{
         }
         return false;
     }
-
+//====================================================================================================================
+//==================================================================================================================== 
+    public boolean editar(Object obj) {
+        return false;
+    }
 //====================================================================================================================
 //====================================================================================================================    
     public boolean remover(int id) {
-        abrirConexao();
-        try {
-
-        } catch (Exception ex) {
-            System.out.println("Erro: Conexão Banco! :(");
-        } finally {
-            fecharConexao();
-        }
         return false;
     }
 
 //====================================================================================================================
 //====================================================================================================================
+    @Override
     public boolean abrirConexao() {
         try {
             _con = DriverManager.getConnection(_BD.getUrl(), _BD.getUsuario(), _BD.getSenha());
@@ -88,6 +117,7 @@ public class PontoDAO implements DAO{
 
 //====================================================================================================================
 //====================================================================================================================
+    @Override
     public void fecharConexao() {
         try {
             if (_rs != null) {

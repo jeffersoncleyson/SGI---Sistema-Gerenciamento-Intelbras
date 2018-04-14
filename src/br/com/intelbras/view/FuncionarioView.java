@@ -161,6 +161,7 @@ public class FuncionarioView extends javax.swing.JFrame {
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Sexo"));
 
         buttonGroup1.add(rbtn_sexo);
+        rbtn_sexo.setSelected(true);
         rbtn_sexo.setText("Masculino");
 
         rbtn_feminino.setText("Feminino");
