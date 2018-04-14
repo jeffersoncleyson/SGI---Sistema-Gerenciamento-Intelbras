@@ -6,6 +6,7 @@
 package br.com.intelbras.view;
 
 import br.com.intelbras.controler.PontoControler;
+import java.util.HashMap;
 
 /**
  *
@@ -14,14 +15,18 @@ import br.com.intelbras.controler.PontoControler;
 public class PontosView extends javax.swing.JFrame {
 
     PontoControler pontoControler;
-    
+    HashMap<String, Object> mapaComponentes;
+
     /**
      * Creates new form LoginView
      */
     public PontosView() {
         initComponents();
-        this.pontoControler = new PontoControler();
-        this.setLocationRelativeTo(null);
+        mapaComponentes = new HashMap<>();
+        this.inseriMapa();
+        this.pontoControler = new PontoControler(mapaComponentes);
+
+        pontoControler.preencherTabela(this.tbl_ponto);     // busca os elementos do banco e insere na tabela
     }
 
     /**
@@ -85,10 +90,25 @@ public class PontosView extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa"))));
 
         btn_pesquisaSetor.setText("Ir");
+        btn_pesquisaSetor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_pesquisaSetorMouseClicked(evt);
+            }
+        });
 
         btn_pesquisaNome.setText("Ir");
+        btn_pesquisaNome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_pesquisaNomeMouseClicked(evt);
+            }
+        });
 
         btn_pesuisaData.setText("Ir");
+        btn_pesuisaData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_pesuisaDataMouseClicked(evt);
+            }
+        });
 
         jLabel1.setText("Setor");
 
@@ -159,6 +179,18 @@ public class PontosView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_pesquisaSetorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pesquisaSetorMouseClicked
+
+    }//GEN-LAST:event_btn_pesquisaSetorMouseClicked
+
+    private void btn_pesquisaNomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pesquisaNomeMouseClicked
+
+    }//GEN-LAST:event_btn_pesquisaNomeMouseClicked
+
+    private void btn_pesuisaDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pesuisaDataMouseClicked
+
+    }//GEN-LAST:event_btn_pesuisaDataMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -212,4 +244,14 @@ public class PontosView extends javax.swing.JFrame {
     private javax.swing.JTextField txt_nome;
     private javax.swing.JTextField txt_setor;
     // End of variables declaration//GEN-END:variables
+
+    private void inseriMapa() {
+        this.mapaComponentes.put("tela", this);
+        this.mapaComponentes.put("txt_data", this.txt_data);
+        this.mapaComponentes.put("txt_nome", this.txt_nome);
+        this.mapaComponentes.put("txt_setor", this.txt_setor);
+        
+        this.mapaComponentes.put("tbl_ponto", this.tbl_ponto);
+
+    }
 }

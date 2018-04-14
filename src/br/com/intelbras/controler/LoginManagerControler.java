@@ -56,7 +56,7 @@ public class LoginManagerControler implements AcaoTela{
         this.estadoBotoes(2);
         
         Login login = (Login) array.get(selectedRow);
-        this.idEdicao = login.getIdFuncionario();
+        this.idEdicao = login.getId();
 
         ((JTextField) mapa.get("txt_email")).setText(login.getEmail());
         ((JTextField) mapa.get("txt_username")).setText(login.getUsername());
@@ -82,7 +82,7 @@ public class LoginManagerControler implements AcaoTela{
                 JOptionPane.showMessageDialog(tela, "Nenhuma Linha Selecionada", "Excluir", JOptionPane.WARNING_MESSAGE);
             } else {
                 if (JOptionPane.showConfirmDialog(tela, "Deseja excluir o cliente?", "Excluir", JOptionPane.YES_NO_OPTION) != 1) {
-                    loginDAO.remover(((Login) array.get(id)).getIdFuncionario());
+                    loginDAO.remover(((Login) array.get(id)).getId());
                 }
             }
         } catch (Exception ex) {
@@ -129,7 +129,7 @@ public class LoginManagerControler implements AcaoTela{
             }
         }
         
-        dtm = (DefaultTableModel) mapa.get("tbl_funcionario");
+        dtm = (DefaultTableModel)((JTable)mapa.get("tbl_funcionario")).getModel();
         ArrayList<Object> arrayF = funcionarioDAO.listarTodos();
         
         if (arrayF != null) {
