@@ -34,7 +34,7 @@ public class LoginDAO implements DAO {
             ArrayList<Object> array = new ArrayList<>();
 
             this._st = this._con.createStatement();
-            this._rs = this._st.executeQuery("SELECT * FROM login");
+            this._rs = this._st.executeQuery("SELECT * FROM login ");
             
             while(this._rs.next()){
                 Login login = new Login();
