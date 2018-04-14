@@ -424,6 +424,7 @@ public class ClienteView extends javax.swing.JFrame {
     private void btn_cadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cadastrarMouseClicked
         if (btn_cadastrar.isEnabled()) {
             clienteControler.cadastrar();
+            clienteControler.atualizar(tbl_listagem);
         }
     }//GEN-LAST:event_btn_cadastrarMouseClicked
 

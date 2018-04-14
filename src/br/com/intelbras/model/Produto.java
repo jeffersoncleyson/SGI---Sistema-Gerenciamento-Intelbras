@@ -17,4 +17,54 @@ public class Produto {
     private float valorProduto;
     private String modeloProduto;
     private String obsProduto;
+
+    public int getIdProduto() {
+        return idProduto;
+    }
+
+    public void setIdProduto(int idProduto) {
+        this.idProduto = idProduto;
+    }
+
+    public String getDescricaoProduto() {
+        return descricaoProduto;
+    }
+
+    public void setDescricaoProduto(String descricaoProduto) {
+        this.descricaoProduto = descricaoProduto;
+    }
+
+    public String getMarcaProduto() {
+        return marcaProduto;
+    }
+
+    public void setMarcaProduto(String marcaProduto) {
+        this.marcaProduto = marcaProduto;
+    }
+
+    public float getValorProduto() {
+        return valorProduto;
+    }
+
+    public void setValorProduto(float valorProduto) {
+        this.valorProduto = valorProduto;
+    }
+
+    public String getModeloProduto() {
+        return modeloProduto;
+    }
+
+    public void setModeloProduto(String modeloProduto) {
+        this.modeloProduto = modeloProduto;
+    }
+
+    public String getObsProduto() {
+        return obsProduto;
+    }
+
+    public void setObsProduto(String obsProduto) {
+        this.obsProduto = obsProduto;
+    }
+    
+    
 }
