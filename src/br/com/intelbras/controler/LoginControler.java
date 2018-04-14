@@ -42,7 +42,6 @@ public class LoginControler {
             //checa permissao
             try {
                 funcionario = loginDAO.getNivelAcesso(login);
-                
 
                 // abre a tela
                 InicioView inicioView = new InicioView();
@@ -51,7 +50,7 @@ public class LoginControler {
             } catch (Exception ex) {
                 System.out.println(ex);
             }
-            
+
         } else {
             JOptionPane.showMessageDialog(tela, "Dados Inválidos", "Erro", JOptionPane.WARNING_MESSAGE);
         }
@@ -61,17 +60,19 @@ public class LoginControler {
 
         ArrayList<Object> array = loginDAO.listarTodos();
 
-        for (Object object : array) {
-            Login l = (Login) object;
-            if (l.getEmail().compareTo(usuario) == 0 || l.getUsername().compareTo(usuario) == 0) {
-                if (l.getSenha().compareTo(senha) == 0) {
-                    return l;
+        if (array != null) {
+            for (Object object : array) {
+                Login l = (Login) object;
+                if (l != null) {
+                    if (l.getEmail().compareTo(usuario) == 0 || l.getUsername().compareTo(usuario) == 0) {
+                        if (l.getSenha().compareTo(senha) == 0) {
+                            return l;
+                        }
+                    }
                 }
             }
         }
         return null;
     }
-    
-
 
 }

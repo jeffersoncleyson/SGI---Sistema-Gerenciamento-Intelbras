@@ -38,6 +38,7 @@ public class ClienteControler implements AcaoTela {
 
     public ClienteControler(HashMap<String, Object> mapa) {
         this.clienteDAO = new ClienteDAO();
+
         this.tela = ((ClienteView) mapa.get("tela"));
         this.mapa = mapa;
     }
@@ -61,7 +62,7 @@ public class ClienteControler implements AcaoTela {
             this.cancelar();
             // limpar campos
         } else {
-            JOptionPane.showMessageDialog(tela, "Erro ao cadastrar", "Cadastro", JOptionPane.ERROR);
+            JOptionPane.showMessageDialog(tela, "Erro ao cadastrar", "Cadastro", JOptionPane.OK_OPTION);
         }
 
     }
@@ -74,7 +75,7 @@ public class ClienteControler implements AcaoTela {
 
         Cliente cliente = (Cliente) array.get(row);
         this.idEdicao = cliente.getIdCliente();
-        
+
         ((JTextField) mapa.get("txt_nome")).setText(cliente.getNomeCliente());
         ((JTextField) mapa.get("txt_cpf")).setText(cliente.getCpfCliente());
         ((JTextField) mapa.get("txt_rg")).setText(cliente.getRgCliente());
@@ -93,22 +94,23 @@ public class ClienteControler implements AcaoTela {
 
     @Override
     public void editar(Object obj) {
-        try{
+        try {
             clienteDAO.editar(obj);
             this.cancelar();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             System.out.println(ex);
         }
     }
 
     @Override
-    public void excluir(int id) {
+    public void excluir(int id) { // id significa linha da tabela
         try {
             if (id < 0) {
                 JOptionPane.showMessageDialog(tela, "Nenhuma Linha Selecionada", "Excluir", JOptionPane.WARNING_MESSAGE);
             } else {
-                if(JOptionPane.showConfirmDialog(tela, "Deseja excluir o cliente?","Excluir",JOptionPane.YES_NO_OPTION)!=1)
+                if (JOptionPane.showConfirmDialog(tela, "Deseja excluir o cliente?", "Excluir", JOptionPane.YES_NO_OPTION) != 1) {
                     clienteDAO.remover(((Cliente) array.get(id)).getIdCliente());
+                }
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(tela, "Erro ao excluir", "Erro", JOptionPane.ERROR);
@@ -142,11 +144,11 @@ public class ClienteControler implements AcaoTela {
         cliente.setCepCliente(((JTextField) mapa.get("txt_cep")).getText());
         cliente.setTelefoneCliente(((JTextField) mapa.get("txt_telefone")).getText());
         cliente.setEnderecoCliente(((JTextField) mapa.get("txt_endereco")).getText());
-        
-        if(validaDados()){
+
+        if (validaDados()) {
             this.editar(cliente);
-        }else{
-            
+        } else {
+
         }
     }
 
@@ -156,15 +158,18 @@ public class ClienteControler implements AcaoTela {
 
         array = clienteDAO.listarTodos();
 
-        for (Object object : array) {
-            Cliente cliente = (Cliente) object;
-
-            this.dtm.insertRow(dtm.getRowCount(), new Object[]{
-                cliente.getIdCliente(),
-                cliente.getNomeCliente(),
-                cliente.getCpfCliente(),
-                cliente.getTelefoneCliente()
-            });
+        if (array != null) {
+            for (Object object : array) {
+                Cliente cliente = (Cliente) object;
+                if (cliente != null) {
+                    this.dtm.insertRow(dtm.getRowCount(), new Object[]{
+                        cliente.getIdCliente(),
+                        cliente.getNomeCliente(),
+                        cliente.getCpfCliente(),
+                        cliente.getTelefoneCliente()
+                    });
+                }
+            }
         }
     }
 
@@ -222,10 +227,8 @@ public class ClienteControler implements AcaoTela {
     }
 
     private boolean validaDados() {
-        
-        
+
         return true;
     }
-    
-    
+
 }

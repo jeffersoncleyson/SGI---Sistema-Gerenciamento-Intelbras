@@ -6,18 +6,29 @@
 package br.com.intelbras.controler;
 
 import br.com.intelbras.model.LoginDAO;
+import br.com.intelbras.view.LoginManagerView;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author WesleyReis
  */
 public class LoginManagerControler implements AcaoTela{
-
-    LoginDAO loginDAO;
+    
+    private LoginDAO loginDAO;
+    private LoginManagerView tela;
+    private DefaultTableModel dtm;
+    private ArrayList<Object> array;
+    private HashMap<String, Object> mapa;
+    
+    
 
     public LoginManagerControler() {
         this.loginDAO = new LoginDAO();
+        
     }
     
     @Override
