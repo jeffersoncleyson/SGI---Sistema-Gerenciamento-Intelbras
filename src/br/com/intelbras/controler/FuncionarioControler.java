@@ -92,7 +92,7 @@ public class FuncionarioControler implements AcaoTela{
 
     @Override
     public void preencherTabela(JTable tabela) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
     public void estadoBotoes(int estado) {

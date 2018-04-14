@@ -219,7 +219,7 @@ public class ClienteControler implements AcaoTela {
         ((JTextField) mapa.get("txt_cpf")).setText("");
         ((JTextField) mapa.get("txt_rg")).setText("");
         ((JRadioButton) mapa.get("rbtn_sexo")).setSelected(true);
-        ((JTextField) mapa.get("txt_dataNasc")).setText("");
+        ((JTextField) mapa.get("txt_comissao")).setText("");
         ((JTextField) mapa.get("txt_bairro")).setText("");
         ((JTextField) mapa.get("txt_cep")).setText("");
         ((JTextField) mapa.get("txt_telefone")).setText("");

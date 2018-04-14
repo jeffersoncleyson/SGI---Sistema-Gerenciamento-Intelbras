@@ -6,6 +6,7 @@
 package br.com.intelbras.view;
 
 import br.com.intelbras.controler.FuncionarioControler;
+import java.util.HashMap;
 
 /**
  *
@@ -14,13 +15,18 @@ import br.com.intelbras.controler.FuncionarioControler;
 public class FuncionarioView extends javax.swing.JFrame {
 
     FuncionarioControler funcionarioControler;
+    HashMap<String, Object> mapaComponentes;
     /**
      * Creates new form ClienteView
      */
     public FuncionarioView() {
         initComponents();
+        mapaComponentes = new HashMap<>();
+        this.inseriMapa();
+        this.funcionarioControler = new FuncionarioControler(mapaComponentes);
         
-        this.funcionarioControler = new FuncionarioControler();
+        funcionarioControler.preencherTabela(tbl_listagem);
+        funcionarioControler.estadoBotoes(0);
         
     }
 
@@ -35,7 +41,7 @@ public class FuncionarioView extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel9 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tbd_abas = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         txt_rg = new javax.swing.JTextField();
@@ -45,7 +51,7 @@ public class FuncionarioView extends javax.swing.JFrame {
         txt_cpf = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         rbtn_sexo = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rbtn_feminino = new javax.swing.JRadioButton();
         jPanel10 = new javax.swing.JPanel();
         txt_telefone = new javax.swing.JTextField();
         jPanel11 = new javax.swing.JPanel();
@@ -86,17 +92,11 @@ public class FuncionarioView extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTabbedPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        tbd_abas.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jPanel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("RG"));
-
-        txt_rg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_rgActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -117,12 +117,6 @@ public class FuncionarioView extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
 
-        txt_nome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_nomeActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -141,12 +135,6 @@ public class FuncionarioView extends javax.swing.JFrame {
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("CPF"));
-
-        txt_cpf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_cpfActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -170,7 +158,7 @@ public class FuncionarioView extends javax.swing.JFrame {
         buttonGroup1.add(rbtn_sexo);
         rbtn_sexo.setText("Masculino");
 
-        jRadioButton2.setText("Feminino");
+        rbtn_feminino.setText("Feminino");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -180,7 +168,7 @@ public class FuncionarioView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(rbtn_sexo)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton2)
+                .addComponent(rbtn_feminino)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -189,7 +177,7 @@ public class FuncionarioView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbtn_sexo)
-                    .addComponent(jRadioButton2))
+                    .addComponent(rbtn_feminino))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -381,7 +369,7 @@ public class FuncionarioView extends javax.swing.JFrame {
                 .addContainerGap(179, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Cadastro", jPanel1);
+        tbd_abas.addTab("Cadastro", jPanel1);
 
         tbl_listagem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -422,39 +410,59 @@ public class FuncionarioView extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Listagem", jPanel2);
+        tbd_abas.addTab("Listagem", jPanel2);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 500));
+        getContentPane().add(tbd_abas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 500));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_cadastrar.setText("Cadastrar");
-        btn_cadastrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cadastrarActionPerformed(evt);
+        btn_cadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_cadastrarMouseClicked(evt);
             }
         });
         jPanel3.add(btn_cadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 91, 52));
 
         btn_cancelar.setText("Cancelar");
+        btn_cancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_cancelarMouseClicked(evt);
+            }
+        });
         jPanel3.add(btn_cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 91, 52));
 
         btn_editar.setText("Editar");
+        btn_editar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_editarMouseClicked(evt);
+            }
+        });
         jPanel3.add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 91, 52));
 
         btn_atualizar.setText("Atualizar");
+        btn_atualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_atualizarMouseClicked(evt);
+            }
+        });
         jPanel3.add(btn_atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 91, 52));
 
         btn_finalizar.setText("Finalizar");
-        btn_finalizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_finalizarActionPerformed(evt);
+        btn_finalizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_finalizarMouseClicked(evt);
             }
         });
         jPanel3.add(btn_finalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 91, 52));
 
         btn_excluir.setText("Excluir");
+        btn_excluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_excluirMouseClicked(evt);
+            }
+        });
         jPanel3.add(btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 91, 52));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 0, 140, 500));
@@ -462,25 +470,41 @@ public class FuncionarioView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_cadastrarActionPerformed
+    private void btn_cadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cadastrarMouseClicked
+        if (btn_cadastrar.isEnabled()) {
+            funcionarioControler.cadastrar();
+        }
+    }//GEN-LAST:event_btn_cadastrarMouseClicked
 
-    private void btn_finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_finalizarActionPerformed
+    private void btn_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editarMouseClicked
+        if (btn_editar.isEnabled()) {
+            //funcionarioControler.edicao(this.tbl_listagem.getSelectedRow());
+        }
+    }//GEN-LAST:event_btn_editarMouseClicked
 
-    private void txt_rgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_rgActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_rgActionPerformed
+    private void btn_excluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_excluirMouseClicked
+        if (btn_excluir.isEnabled()) {
+            funcionarioControler.excluir(this.tbl_listagem.getSelectedRow());
+        }
+    }//GEN-LAST:event_btn_excluirMouseClicked
 
-    private void txt_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_nomeActionPerformed
+    private void btn_atualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_atualizarMouseClicked
+        if (btn_atualizar.isEnabled()) {
+            funcionarioControler.atualizar(tbl_listagem);
+        }
+    }//GEN-LAST:event_btn_atualizarMouseClicked
 
-    private void txt_cpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cpfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_cpfActionPerformed
+    private void btn_finalizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_finalizarMouseClicked
+        if (btn_finalizar.isEnabled()) {
+            funcionarioControler.finalizar();
+        }
+    }//GEN-LAST:event_btn_finalizarMouseClicked
+
+    private void btn_cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cancelarMouseClicked
+        if (btn_cancelar.isEnabled()) {
+            funcionarioControler.cancelar();
+        }
+    }//GEN-LAST:event_btn_cancelarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -541,10 +565,10 @@ public class FuncionarioView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JRadioButton rbtn_feminino;
     private javax.swing.JRadioButton rbtn_sexo;
+    private javax.swing.JTabbedPane tbd_abas;
     private javax.swing.JTable tbl_listagem;
     private javax.swing.JTextField txt_bairro;
     private javax.swing.JTextField txt_cep;
@@ -557,4 +581,29 @@ public class FuncionarioView extends javax.swing.JFrame {
     private javax.swing.JTextField txt_setor;
     private javax.swing.JTextField txt_telefone;
     // End of variables declaration//GEN-END:variables
+
+    private void inseriMapa() {
+        this.mapaComponentes.put("tela", this);
+        this.mapaComponentes.put("btn_atualizar", this.btn_atualizar);
+        this.mapaComponentes.put("btn_cadastrar", this.btn_cadastrar);
+        this.mapaComponentes.put("btn_editar", this.btn_editar);
+        this.mapaComponentes.put("btn_excluir", this.btn_excluir);
+        this.mapaComponentes.put("btn_finalizar", this.btn_finalizar);
+        this.mapaComponentes.put("btn_cancelar", this.btn_cancelar);
+        this.mapaComponentes.put("txt_nome", this.txt_nome);
+        this.mapaComponentes.put("txt_bairro", this.txt_bairro);
+        this.mapaComponentes.put("txt_cep", this.txt_cep);
+        this.mapaComponentes.put("txt_cpf", this.txt_cpf);
+        this.mapaComponentes.put("txt_endereco", this.txt_endereco);
+        this.mapaComponentes.put("txt_rg", this.txt_rg);
+        this.mapaComponentes.put("txt_telefone", this.txt_telefone);
+        this.mapaComponentes.put("rbtn_sexo", this.rbtn_sexo);
+        this.mapaComponentes.put("rbtn_feminino", this.rbtn_feminino);
+        this.mapaComponentes.put("txt_salario", this.txt_salario);
+        this.mapaComponentes.put("txt_comissao", this.txt_comissao);
+        this.mapaComponentes.put("txt_setor", this.txt_setor);
+        
+        this.mapaComponentes.put("tbl_listagem", this.tbl_listagem);
+        this.mapaComponentes.put("tbd_abas", this.tbd_abas);
+    }
 }
