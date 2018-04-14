@@ -41,6 +41,7 @@ public class FuncionarioControler implements AcaoTela{
     
     @Override
     public void cadastrar( ) {
+        
         Funcionario funcionario = new Funcionario();
         funcionario.setNomeFuncionario(((JTextField) mapa.get("txt_nome")).getText());
         funcionario.setCepFuncionario(((JTextField) mapa.get("txt_cep")).getText());
@@ -61,20 +62,62 @@ public class FuncionarioControler implements AcaoTela{
             JOptionPane.showMessageDialog(tela, "Erro ao cadastrar", "Cadastro", JOptionPane.OK_OPTION);
         }
     }
+    
+    public void edicao(int row){
+        
+        ((JTabbedPane) mapa.get("tbd_abas")).setSelectedIndex(0);
+        this.editar = true;
+        this.estadoBotoes(2);
+
+        Funcionario funcionario = (Funcionario) array.get(row);
+        this.idEdicao = funcionario.getIdFuncionario();
+
+        ((JTextField) mapa.get("txt_nome")).setText(funcionario.getNomeFuncionario());
+        ((JTextField) mapa.get("txt_cpf")).setText(funcionario.getCpfFuncionario());
+        ((JTextField) mapa.get("txt_rg")).setText(funcionario.getRgFuncionario());
+        if (funcionario.getSexoFuncionario().equals("Masculino")) {
+            ((JRadioButton) mapa.get("rbtn_sexo")).setSelected(true);
+        } else {
+            ((JRadioButton) mapa.get("rbtn_feminino")).setSelected(true);
+        }
+        ((JTextField) mapa.get("txt_bairro")).setText(funcionario.getBairroFuncionario());
+        ((JTextField) mapa.get("txt_cep")).setText(funcionario.getCepFuncionario());
+        ((JTextField) mapa.get("txt_telefone")).setText(funcionario.getTelefoneFuncionario());
+        ((JTextField) mapa.get("txt_endereco")).setText(funcionario.getEnderecoFuncionario());
+        ((JTextField) mapa.get("txt_salario")).setText("" + funcionario.getSalarioFuncionario());
+        ((JTextField) mapa.get("txt_comissao")).setText("" + funcionario.getComissaoFuncionario());
+        ((JTextField) mapa.get("txt_setor")).setText(funcionario.getSetorFuncionario());  
+    }
 
     @Override
     public void editar(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            funcionarioDAO.editar(obj);
+            this.cancelar();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 
     @Override
     public void excluir(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            if (id < 0) {
+                JOptionPane.showMessageDialog(tela, "Nenhuma Linha Selecionada", "Excluir", JOptionPane.WARNING_MESSAGE);
+            } else {
+                if (JOptionPane.showConfirmDialog(tela, "Deseja excluir o funcionario?", "Excluir", JOptionPane.YES_NO_OPTION) != 1) {
+                    funcionarioDAO.remover(((Funcionario) array.get(id)).getIdFuncionario());
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(tela, "Erro ao excluir", "Erro", JOptionPane.ERROR);
+        }
     }
 
     @Override
     public void atualizar(JTable tabela) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dtm.getDataVector().removeAllElements();
+        this.preencherTabela(tabela);
     }
 
     @Override
@@ -87,12 +130,46 @@ public class FuncionarioControler implements AcaoTela{
 
     @Override
     public void finalizar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Funcionario funcionario = new Funcionario();
+        funcionario.setIdFuncionario(this.idEdicao);
+        funcionario.setNomeFuncionario(((JTextField) mapa.get("txt_nome")).getText());
+        funcionario.setCpfFuncionario(((JTextField) mapa.get("txt_cpf")).getText());
+        funcionario.setRgFuncionario(((JTextField) mapa.get("txt_rg")).getText());
+        funcionario.setSexoFuncionario((((JRadioButton) mapa.get("rbtn_sexo")).isSelected()) ? "Masculino" : "Feminino");
+        funcionario.setBairroFuncionario(((JTextField) mapa.get("txt_bairro")).getText());
+        funcionario.setCepFuncionario(((JTextField) mapa.get("txt_cep")).getText());
+        funcionario.setTelefoneFuncionario(((JTextField) mapa.get("txt_telefone")).getText());
+        funcionario.setEnderecoFuncionario(((JTextField) mapa.get("txt_endereco")).getText());
+        funcionario.setSalarioFuncionario(Float.parseFloat(((JTextField) mapa.get("txt_salario")).getText()));
+        funcionario.setComissaoFuncionario(Float.parseFloat(((JTextField) mapa.get("txt_comissao")).getText()));
+        funcionario.setSetorFuncionario(((JTextField) mapa.get("txt_setor")).getText());
+
+        if (validaDados()) {
+            this.editar(funcionario);
+        } else {
+
+        }
     }
 
     @Override
     public void preencherTabela(JTable tabela) {
-        
+       dtm = (DefaultTableModel) tabela.getModel();
+
+        array = funcionarioDAO.listarTodos();
+
+        if (array != null) {
+            for (Object object : array) {
+                Funcionario funcionario = (Funcionario) object;
+                if (funcionario != null) {
+                    this.dtm.insertRow(dtm.getRowCount(), new Object[]{
+                        funcionario.getIdFuncionario(),
+                        funcionario.getNomeFuncionario(),
+                        funcionario.getCpfFuncionario(),
+                        funcionario.getTelefoneFuncionario()
+                    });
+                }
+            }
+        }
     }
     
     public void estadoBotoes(int estado) {
@@ -138,6 +215,20 @@ public class FuncionarioControler implements AcaoTela{
         ((JTextField) mapa.get("txt_salario")).setText("");
         ((JTextField) mapa.get("txt_setor")).setText("");
         ((JTextField) mapa.get("txt_telefone")).setText("");
+        ((JTextField) mapa.get("txt_comissao")).setText("");
     }
     
+    private boolean validaDados() {
+
+        return true;
+    }
+    
+    public void verificaAba(int aba) {
+        if (this.editar) {
+            ((JTabbedPane) mapa.get("tbd_abas")).setSelectedIndex(0);
+        } else {
+            estadoBotoes(aba);
+        }
+
+    }
 }

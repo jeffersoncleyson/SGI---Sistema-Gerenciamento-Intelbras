@@ -93,6 +93,11 @@ public class FuncionarioView extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tbd_abas.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        tbd_abas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbd_abasMouseClicked(evt);
+            }
+        });
 
         jPanel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -373,10 +378,7 @@ public class FuncionarioView extends javax.swing.JFrame {
 
         tbl_listagem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Id", "Nome", "CPF", "Telefone"
@@ -478,7 +480,7 @@ public class FuncionarioView extends javax.swing.JFrame {
 
     private void btn_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editarMouseClicked
         if (btn_editar.isEnabled()) {
-            //funcionarioControler.edicao(this.tbl_listagem.getSelectedRow());
+            funcionarioControler.edicao(this.tbl_listagem.getSelectedRow());
         }
     }//GEN-LAST:event_btn_editarMouseClicked
 
@@ -497,6 +499,7 @@ public class FuncionarioView extends javax.swing.JFrame {
     private void btn_finalizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_finalizarMouseClicked
         if (btn_finalizar.isEnabled()) {
             funcionarioControler.finalizar();
+            funcionarioControler.atualizar(tbl_listagem);
         }
     }//GEN-LAST:event_btn_finalizarMouseClicked
 
@@ -505,6 +508,10 @@ public class FuncionarioView extends javax.swing.JFrame {
             funcionarioControler.cancelar();
         }
     }//GEN-LAST:event_btn_cancelarMouseClicked
+
+    private void tbd_abasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbd_abasMouseClicked
+        funcionarioControler.verificaAba(this.tbd_abas.getSelectedIndex());
+    }//GEN-LAST:event_tbd_abasMouseClicked
 
     /**
      * @param args the command line arguments

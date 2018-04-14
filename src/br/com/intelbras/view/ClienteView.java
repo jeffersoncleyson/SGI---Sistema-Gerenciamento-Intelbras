@@ -448,6 +448,7 @@ public class ClienteView extends javax.swing.JFrame {
     private void btn_finalizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_finalizarMouseClicked
         if (btn_finalizar.isEnabled()) {
             clienteControler.finalizar();
+            clienteControler.atualizar(tbl_listagem);
         }
     }//GEN-LAST:event_btn_finalizarMouseClicked
 
