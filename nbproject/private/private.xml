@@ -3,9 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/Lenovo/Documents/NetBeansProjects/SistemaGerenciamentoIntelbras/src/br/com/intelbras/controler/LoginControler.java</file>
             <file>file:/C:/Users/Lenovo/Documents/NetBeansProjects/SistemaGerenciamentoIntelbras/src/br/com/intelbras/view/LoginView.java</file>
             <file>file:/C:/Users/Lenovo/Documents/NetBeansProjects/SistemaGerenciamentoIntelbras/src/br/com/intelbras/model/LoginDAO.java</file>
+=======
+            <file>file:/C:/Users/WesleyReis/Documents/NetBeansProjects/Intelbras/src/br/com/intelbras/controler/InicioControler.java</file>
+>>>>>>> d0336e9f2b8a23d31bb7a10a555cafbfb1e1b480
         </group>
     </open-files>
 </project-private>
