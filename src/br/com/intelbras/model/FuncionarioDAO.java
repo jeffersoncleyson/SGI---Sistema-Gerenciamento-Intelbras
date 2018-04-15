@@ -52,6 +52,7 @@ public class FuncionarioDAO implements DAO {
                 funcionario.setSalarioFuncionario(this._rs.getFloat(10));
                 funcionario.setSetorFuncionario(this._rs.getString(11));
                 funcionario.setComissaoFuncionario(this._rs.getFloat(12));
+                funcionario.setNivelAcesso(this._rs.getInt(13));
 
                 array.add(funcionario);
             }
@@ -80,7 +81,7 @@ public class FuncionarioDAO implements DAO {
 
             this._pst = _con.prepareStatement("INSERT INTO `intelbras`.`funcionario`(`nomeFuncionario`,`cpfFuncionario`,`rgFuncionario`,"
                     + "`enderecoFuncionario`,`cepFuncionario`,`bairroFuncionario`,`telefoneFuncionario`,"
-                    + "`sexoFuncionario`,`salarioFuncionario`,`setorFuncionario`,`comissaoFuncionario`)VALUES(?,?,?,?,?,?,?,?,?,?,?);");
+                    + "`sexoFuncionario`,`salarioFuncionario`,`setorFuncionario`,`comissaoFuncionario`,`nivelAcessoFuncionario`)VALUES(?,?,?,?,?,?,?,?,?,?,?,?);");
             this._pst.setString(1, funcionario.getNomeFuncionario());
             this._pst.setString(2, funcionario.getCpfFuncionario());
             this._pst.setString(3, funcionario.getRgFuncionario());
@@ -92,6 +93,7 @@ public class FuncionarioDAO implements DAO {
             this._pst.setFloat(9, funcionario.getSalarioFuncionario());
             this._pst.setString(10, funcionario.getSetorFuncionario());
             this._pst.setFloat(11, funcionario.getComissaoFuncionario());
+            this._pst.setInt(12, funcionario.getNivelAcesso());
 
             this._pst.executeUpdate();
 
@@ -114,7 +116,7 @@ public class FuncionarioDAO implements DAO {
 
             this._pst = this._con.prepareStatement("UPDATE `intelbras`.`funcionario` SET `nomeFuncionario` = ?,`cpfFuncionario` = ?,`rgFuncionario` = ?,"
                     + "`enderecoFuncionario` = ?,`cepFuncionario` = ?,`bairroFuncionario` = ?,`telefoneFuncionario` = ?,"
-                    + "`sexoFuncionario` = ?,`salarioFuncionario` = ?,`setorFuncionario` = ?,`comissaoFuncionario` = ? WHERE `idFuncionario` = ?");
+                    + "`sexoFuncionario` = ?,`salarioFuncionario` = ?,`setorFuncionario` = ?,`comissaoFuncionario` = ? ,`nivelAcessoFuncionario` = ? WHERE `idFuncionario` = ?");
 
             this._pst.setString(1, funcionario.getNomeFuncionario());
             this._pst.setString(2, funcionario.getCpfFuncionario());
@@ -127,8 +129,10 @@ public class FuncionarioDAO implements DAO {
             this._pst.setFloat(9, funcionario.getSalarioFuncionario());
             this._pst.setString(10, funcionario.getSetorFuncionario());
             this._pst.setFloat(11, funcionario.getComissaoFuncionario());
+            this._pst.setInt(12, funcionario.getNivelAcesso());
+            
 
-            this._pst.setInt(12, funcionario.getIdFuncionario());
+            this._pst.setInt(13, funcionario.getIdFuncionario());
 
             this._pst.executeUpdate();
 

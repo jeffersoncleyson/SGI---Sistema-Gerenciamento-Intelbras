@@ -78,6 +78,7 @@ public class ProdutoView extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Intelbras - Produto");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tbd_abas.setBorder(javax.swing.BorderFactory.createTitledBorder(""));

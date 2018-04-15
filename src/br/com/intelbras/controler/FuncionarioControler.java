@@ -11,6 +11,7 @@ import br.com.intelbras.view.FuncionarioView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
@@ -22,26 +23,26 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author WesleyReis
  */
-public class FuncionarioControler implements AcaoTela{
+public class FuncionarioControler implements AcaoTela {
 
     private FuncionarioView tela;
     private DefaultTableModel dtm;
     private ArrayList<Object> array;
     private HashMap<String, Object> mapa;
     FuncionarioDAO funcionarioDAO;
-    
+
     private boolean editar = false;
     private int idEdicao = -1;
-    
+
     public FuncionarioControler(HashMap<String, Object> mapa) {
         this.funcionarioDAO = new FuncionarioDAO();
         this.tela = ((FuncionarioView) mapa.get("tela"));
         this.mapa = mapa;
     }
-    
+
     @Override
-    public void cadastrar( ) {
-        
+    public void cadastrar() {
+
         Funcionario funcionario = new Funcionario();
         funcionario.setNomeFuncionario(((JTextField) mapa.get("txt_nome")).getText());
         funcionario.setCepFuncionario(((JTextField) mapa.get("txt_cep")).getText());
@@ -53,7 +54,8 @@ public class FuncionarioControler implements AcaoTela{
         funcionario.setSetorFuncionario(((JTextField) mapa.get("txt_setor")).getText());
         funcionario.setTelefoneFuncionario(((JTextField) mapa.get("txt_telefone")).getText());
         funcionario.setSexoFuncionario(((JRadioButton) mapa.get("rbtn_sexo")).isSelected() ? "Masculino" : "Feminino");
-        
+        funcionario.setNivelAcesso(((JComboBox<String>) mapa.get("cbx_nivelAcesso")).getSelectedIndex());
+
         if (funcionarioDAO.cadastrar(funcionario)) {
             JOptionPane.showMessageDialog(tela, "Cadastrado com sucesso", "Cadastro", JOptionPane.OK_OPTION);
             this.cancelar();
@@ -62,9 +64,9 @@ public class FuncionarioControler implements AcaoTela{
             JOptionPane.showMessageDialog(tela, "Erro ao cadastrar", "Cadastro", JOptionPane.OK_OPTION);
         }
     }
-    
-    public void edicao(int row){
-        
+
+    public void edicao(int row) {
+
         ((JTabbedPane) mapa.get("tbd_abas")).setSelectedIndex(0);
         this.editar = true;
         this.estadoBotoes(2);
@@ -86,7 +88,9 @@ public class FuncionarioControler implements AcaoTela{
         ((JTextField) mapa.get("txt_endereco")).setText(funcionario.getEnderecoFuncionario());
         ((JTextField) mapa.get("txt_salario")).setText("" + funcionario.getSalarioFuncionario());
         ((JTextField) mapa.get("txt_comissao")).setText("" + funcionario.getComissaoFuncionario());
-        ((JTextField) mapa.get("txt_setor")).setText(funcionario.getSetorFuncionario());  
+        ((JTextField) mapa.get("txt_setor")).setText(funcionario.getSetorFuncionario());
+
+        ((JComboBox<String>) mapa.get("cbx_nivelAcesso")).setSelectedIndex(funcionario.getNivelAcesso());
     }
 
     @Override
@@ -143,6 +147,7 @@ public class FuncionarioControler implements AcaoTela{
         funcionario.setSalarioFuncionario(Float.parseFloat(((JTextField) mapa.get("txt_salario")).getText()));
         funcionario.setComissaoFuncionario(Float.parseFloat(((JTextField) mapa.get("txt_comissao")).getText()));
         funcionario.setSetorFuncionario(((JTextField) mapa.get("txt_setor")).getText());
+        funcionario.setNivelAcesso(((JComboBox<String>) mapa.get("cbx_nivelAcesso")).getSelectedIndex());
 
         if (validaDados()) {
             this.editar(funcionario);
@@ -153,7 +158,7 @@ public class FuncionarioControler implements AcaoTela{
 
     @Override
     public void preencherTabela(JTable tabela) {
-       dtm = (DefaultTableModel) tabela.getModel();
+        dtm = (DefaultTableModel) tabela.getModel();
 
         array = funcionarioDAO.listarTodos();
 
@@ -171,7 +176,7 @@ public class FuncionarioControler implements AcaoTela{
             }
         }
     }
-    
+
     public void estadoBotoes(int estado) {
         switch (estado) {
             case 1:
@@ -202,7 +207,7 @@ public class FuncionarioControler implements AcaoTela{
                 break;
         }
     }
-    
+
     private void limparCampos() {
         ((JTabbedPane) mapa.get("tbd_abas")).setSelectedIndex(0);
         ((JTextField) mapa.get("txt_nome")).setText("");
@@ -216,13 +221,14 @@ public class FuncionarioControler implements AcaoTela{
         ((JTextField) mapa.get("txt_setor")).setText("");
         ((JTextField) mapa.get("txt_telefone")).setText("");
         ((JTextField) mapa.get("txt_comissao")).setText("");
+        ((JComboBox<String>) mapa.get("cbx_nivelAcesso")).setSelectedIndex(0);
     }
-    
+
     private boolean validaDados() {
 
         return true;
     }
-    
+
     public void verificaAba(int aba) {
         if (this.editar) {
             ((JTabbedPane) mapa.get("tbd_abas")).setSelectedIndex(0);

@@ -23,13 +23,10 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -47,8 +44,6 @@ public class InicioControler {
         tela = ((InicioView) mapa.get("tela"));
         tela.setExtendedState(tela.MAXIMIZED_BOTH);
 
-        System.out.println(tela.getWidth() + " " + tela.getHeight());
-
         ImageIcon img = new javax.swing.ImageIcon("C:\\Users\\Public\\Pictures\\telaFundo.png");
         img.setImage(img.getImage().getScaledInstance(tela.getWidth(), tela.getHeight(), 100));
         ((JLabel) mapa.get("lbl_fundo")).setIcon(img);
@@ -65,11 +60,8 @@ public class InicioControler {
         try {
             Arquivo arquivo = new Arquivo();
 
-            ArrayList<Point> array = arquivo.le();
+            ArrayList<Point> array = arquivo.leCoordenadaBotoes();
 
-            for (Point point : array) {
-                System.out.println(point);
-            }
             if (array != null) {
                 ((JButton) mapa.get("btn_cliente")).setLocation(array.get(0));
                 ((JButton) mapa.get("btn_funcionario")).setLocation(array.get(1));
@@ -113,7 +105,7 @@ public class InicioControler {
             lista.add(login);
             lista.add(historico);
 
-            arquivo.salva(lista);
+            arquivo.salvaCoordenadaBotoes(lista);
 
         } catch (FileNotFoundException ex) {
             System.out.println("Deu merda");
@@ -198,7 +190,7 @@ public class InicioControler {
             copiarArquivo(origem, destino);
 
             ImageIcon img = new javax.swing.ImageIcon("C:\\Users\\Public\\Pictures\\telaFundo.png");
-            img.setImage(img.getImage().getScaledInstance(617, 447, 100));
+            img.setImage(img.getImage().getScaledInstance(tela.getWidth(), tela.getHeight(), 100));
 
             label.setIcon(img);
         } catch (FileNotFoundException ex) {
