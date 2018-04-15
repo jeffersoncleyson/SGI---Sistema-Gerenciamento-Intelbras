@@ -13,6 +13,7 @@ import br.com.intelbras.view.LoginView;
 import br.com.intelbras.view.PontosView;
 import br.com.intelbras.view.ProdutoView;
 import br.com.intelbras.view.VendasView;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,6 +23,8 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -40,16 +43,16 @@ public class InicioControler {
 
     public InicioControler(HashMap<String, Object> mapa) {
         this.mapa = mapa;
-        
+
         tela = ((InicioView) mapa.get("tela"));
         tela.setExtendedState(tela.MAXIMIZED_BOTH);
 
         System.out.println(tela.getWidth() + " " + tela.getHeight());
-        
+
         ImageIcon img = new javax.swing.ImageIcon("C:\\Users\\Public\\Pictures\\telaFundo.png");
         img.setImage(img.getImage().getScaledInstance(tela.getWidth(), tela.getHeight(), 100));
         ((JLabel) mapa.get("lbl_fundo")).setIcon(img);
-        
+
         tela.repaint();
 
     }
@@ -58,19 +61,50 @@ public class InicioControler {
         botao.setLocation(botao.getLocation().x + evt.getX() - (botao.getSize().width / 2), botao.getLocation().y + evt.getY() - (botao.getSize().height / 2));
     }
 
-    private void guardaPosicao(){
-        try{
+    public void setPosicao() {
+        try {
             Arquivo arquivo = new Arquivo();
-            
+
+            ArrayList<Point> array = arquivo.le();
+
+            for (Point point : array) {
+                System.out.println(point);
+            }
+            if (array != null) {
+                ((JButton) mapa.get("btn_cliente")).setLocation(array.get(0));
+                ((JButton) mapa.get("btn_funcionario")).setLocation(array.get(1));
+                ((JButton) mapa.get("btn_vendas")).setLocation(array.get(2));
+                ((JButton) mapa.get("btn_pontos")).setLocation(array.get(3));
+                ((JButton) mapa.get("btn_produto")).setLocation(array.get(4));
+                ((JButton) mapa.get("btn_login")).setLocation(array.get(5));
+                ((JButton) mapa.get("btn_historico")).setLocation(array.get(6));
+             }
+
+        } catch (FileNotFoundException ex) {
+            System.out.println("Deu merda");
+            System.out.println(ex);
+        } catch (IOException ex) {
+            System.out.println("Deu merda");
+            System.out.println(ex);
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Deu merda");
+            System.out.println(ex);
+        }
+    }
+
+    public void guardaPosicao() {
+        try {
+            Arquivo arquivo = new Arquivo();
+
             ArrayList<String> lista = new ArrayList<>();
-            String cliente = ((JButton)mapa.get("btn_cliente")).getLocation().x + "-" +((JButton)mapa.get("btn_cliente")).getLocation().y;
-            String funcionario = ((JButton)mapa.get("btn_funcionario")).getLocation().x + "-" +((JButton)mapa.get("btn_funcionario")).getLocation().y;
-            String vendas = ((JButton)mapa.get("btn_vendas")).getLocation().x + "-" +((JButton)mapa.get("btn_vendas")).getLocation().y;
-            String ponto = ((JButton)mapa.get("btn_pontos")).getLocation().x + "-" +((JButton)mapa.get("btn_pontos")).getLocation().y;
-            String produto = ((JButton)mapa.get("btn_produto")).getLocation().x + "-" +((JButton)mapa.get("btn_produto")).getLocation().y;
-            String login = ((JButton)mapa.get("btn_login")).getLocation().x + "-" +((JButton)mapa.get("btn_login")).getLocation().y;
-            String historico = ((JButton)mapa.get("btn_historico")).getLocation().x + "-" +((JButton)mapa.get("btn_historico")).getLocation().y;
-        
+            String cliente = ((JButton) mapa.get("btn_cliente")).getLocation().x + "-" + ((JButton) mapa.get("btn_cliente")).getLocation().y;
+            String funcionario = ((JButton) mapa.get("btn_funcionario")).getLocation().x + "-" + ((JButton) mapa.get("btn_funcionario")).getLocation().y;
+            String vendas = ((JButton) mapa.get("btn_vendas")).getLocation().x + "-" + ((JButton) mapa.get("btn_vendas")).getLocation().y;
+            String ponto = ((JButton) mapa.get("btn_pontos")).getLocation().x + "-" + ((JButton) mapa.get("btn_pontos")).getLocation().y;
+            String produto = ((JButton) mapa.get("btn_produto")).getLocation().x + "-" + ((JButton) mapa.get("btn_produto")).getLocation().y;
+            String login = ((JButton) mapa.get("btn_login")).getLocation().x + "-" + ((JButton) mapa.get("btn_login")).getLocation().y;
+            String historico = ((JButton) mapa.get("btn_historico")).getLocation().x + "-" + ((JButton) mapa.get("btn_historico")).getLocation().y;
+
             lista.add(cliente);
             lista.add(funcionario);
             lista.add(vendas);
@@ -78,14 +112,18 @@ public class InicioControler {
             lista.add(produto);
             lista.add(login);
             lista.add(historico);
-            
-            arquivo.salva(lista);
-            
-        }catch(Exception ex){
 
+            arquivo.salva(lista);
+
+        } catch (FileNotFoundException ex) {
+            System.out.println("Deu merda");
+            System.out.println(ex);
+        } catch (IOException ex) {
+            System.out.println("Deu merda");
+            System.out.println(ex);
         }
     }
-    
+
     public void mudarPlanoFundo(JLabel label) {
         alterarImagem(label);
     }
