@@ -42,9 +42,8 @@ public class LoginControler {
                 tela.dispose();
 
             } catch (Exception ex) {
-                System.out.println(ex);
+                System.out.println("ERRO > "+ ex);
             }
-
         } else {
             JOptionPane.showMessageDialog(tela, "Dados Inválidos", "Erro", JOptionPane.WARNING_MESSAGE);
         }
