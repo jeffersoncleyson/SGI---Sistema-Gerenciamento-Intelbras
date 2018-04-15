@@ -72,12 +72,13 @@ public class VendasControler implements AcaoTela {
 
     @Override
     public void atualizar(JTable tabela) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dtmProduto.getDataVector().removeAllElements();
+        this.preencherTabela(tabela);
     }
 
     @Override
     public void cancelar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.tela.dispose();
     }
 
     @Override
