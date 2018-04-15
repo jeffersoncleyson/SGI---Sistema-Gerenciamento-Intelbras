@@ -10,12 +10,6 @@ import br.com.intelbras.model.Login;
 import br.com.intelbras.model.LoginDAO;
 import br.com.intelbras.view.InicioView;
 import br.com.intelbras.view.LoginView;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -43,10 +37,10 @@ public class LoginControler {
             try {
                 funcionario = loginDAO.getNivelAcesso(login);
 
-                // abre a tela
                 InicioView inicioView = new InicioView();
                 inicioView.setVisible(true);
                 tela.dispose();
+
             } catch (Exception ex) {
                 System.out.println(ex);
             }

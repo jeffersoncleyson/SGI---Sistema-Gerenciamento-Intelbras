@@ -72,11 +72,16 @@ public class InicioView extends javax.swing.JFrame {
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Intelbras ");
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(null);
 
+        btn_historico.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btn_historico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/intelbras/imagens/historico.png"))); // NOI18N
         btn_historico.setText("Histórico");
+        btn_historico.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_historico.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_historico.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 btn_historicoMouseDragged(evt);
@@ -91,9 +96,13 @@ public class InicioView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btn_historico);
-        btn_historico.setBounds(140, 180, 110, 70);
+        btn_historico.setBounds(140, 240, 110, 90);
 
+        btn_pontos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btn_pontos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/intelbras/imagens/ponto.png"))); // NOI18N
         btn_pontos.setText("Pontos");
+        btn_pontos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_pontos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_pontos.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 btn_pontosMouseDragged(evt);
@@ -108,9 +117,13 @@ public class InicioView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btn_pontos);
-        btn_pontos.setBounds(10, 270, 110, 70);
+        btn_pontos.setBounds(10, 250, 110, 90);
 
+        btn_vendas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btn_vendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/intelbras/imagens/venda.png"))); // NOI18N
         btn_vendas.setText("Vendas");
+        btn_vendas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_vendas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_vendas.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 btn_vendasMouseDragged(evt);
@@ -125,9 +138,13 @@ public class InicioView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btn_vendas);
-        btn_vendas.setBounds(10, 180, 110, 70);
+        btn_vendas.setBounds(10, 130, 110, 90);
 
+        btn_funcionario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btn_funcionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/intelbras/imagens/funcionario.png"))); // NOI18N
         btn_funcionario.setText("Funcionário");
+        btn_funcionario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_funcionario.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_funcionario.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 btn_funcionarioMouseDragged(evt);
@@ -147,9 +164,14 @@ public class InicioView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btn_funcionario);
-        btn_funcionario.setBounds(10, 100, 110, 70);
+        btn_funcionario.setBounds(150, 10, 110, 90);
 
+        btn_cliente.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btn_cliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/intelbras/imagens/usuario.png"))); // NOI18N
         btn_cliente.setText("Cliente");
+        btn_cliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_cliente.setOpaque(false);
+        btn_cliente.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_cliente.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 btn_clienteMouseDragged(evt);
@@ -169,9 +191,13 @@ public class InicioView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btn_cliente);
-        btn_cliente.setBounds(10, 10, 110, 70);
+        btn_cliente.setBounds(10, 10, 110, 90);
 
+        btn_produto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btn_produto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/intelbras/imagens/produto.png"))); // NOI18N
         btn_produto.setText("Produto");
+        btn_produto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_produto.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_produto.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 btn_produtoMouseDragged(evt);
@@ -186,9 +212,13 @@ public class InicioView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btn_produto);
-        btn_produto.setBounds(140, 10, 110, 70);
+        btn_produto.setBounds(290, 10, 110, 90);
 
+        btn_login.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btn_login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/intelbras/imagens/loginIco.png"))); // NOI18N
         btn_login.setText("Login");
+        btn_login.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_login.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_login.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 btn_loginMouseDragged(evt);
@@ -203,7 +233,7 @@ public class InicioView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btn_login);
-        btn_login.setBounds(140, 100, 110, 70);
+        btn_login.setBounds(140, 130, 110, 90);
         getContentPane().add(lbl_fundo);
         lbl_fundo.setBounds(0, 0, 0, 0);
 

@@ -5,8 +5,6 @@
  */
 package br.com.intelbras.model;
 
-import java.util.Date;
-
 /**
  *
  * @author WesleyReis
@@ -25,6 +23,7 @@ public class Funcionario {
     private String setorFuncionario;
     private float comissaoFuncionario;
     private String cepFuncionario;
+    private int nivelAcesso;
 
     public String getCepFuncionario() {
         return cepFuncionario;
@@ -122,6 +121,15 @@ public class Funcionario {
         this.comissaoFuncionario = comissaoFuncionario;
     }
 
+    public int getNivelAcesso() {
+        return nivelAcesso;
+    }
+
+    public void setNivelAcesso(int nivelAcesso) {
+        this.nivelAcesso = nivelAcesso;
+    }
+
+    
     
     
 }

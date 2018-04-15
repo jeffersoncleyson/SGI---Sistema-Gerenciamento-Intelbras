@@ -76,6 +76,7 @@ public class LoginManagerView extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Intelbras - Login");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tbd_abas.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
