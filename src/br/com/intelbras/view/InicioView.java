@@ -6,6 +6,10 @@
 package br.com.intelbras.view;
 
 import br.com.intelbras.controler.InicioControler;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.util.HashMap;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -14,15 +18,24 @@ import br.com.intelbras.controler.InicioControler;
 public class InicioView extends javax.swing.JFrame {
 
     InicioControler inicioControler;
-
+    HashMap<String, Object> mapaComponentes;
     /**
      * Creates new form InicioView
      */
     public InicioView() {
         initComponents();
-        this.inicioControler = new InicioControler();
-
         this.setLocationRelativeTo(null);
+        this.inseriMapa();
+        
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        int lar = (int) d.getWidth();
+        int alt = (int) d.getHeight();
+        
+        this.setSize(d);
+        this.lbl_fundo.setSize(d);
+        
+        this.inicioControler = new InicioControler(mapaComponentes);
+
     }
 
     /**
@@ -35,14 +48,14 @@ public class InicioView extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuItem1 = new javax.swing.JMenuItem();
-        jPanel1 = new javax.swing.JPanel();
-        btn_login = new javax.swing.JButton();
-        btn_cliente = new javax.swing.JButton();
-        btn_funcionario = new javax.swing.JButton();
+        btn_historico = new javax.swing.JButton();
         btn_pontos = new javax.swing.JButton();
         btn_vendas = new javax.swing.JButton();
+        btn_funcionario = new javax.swing.JButton();
+        btn_cliente = new javax.swing.JButton();
         btn_produto = new javax.swing.JButton();
         lbl_fundo = new javax.swing.JLabel();
+        btn_login1 = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         mnu_cliente = new javax.swing.JMenu();
         mnu_funcionario = new javax.swing.JMenu();
@@ -51,46 +64,59 @@ public class InicioView extends javax.swing.JFrame {
         mnu_produto = new javax.swing.JMenu();
         mnu_login = new javax.swing.JMenu();
         mnu_alterarFundo = new javax.swing.JMenu();
+        mnu_logout = new javax.swing.JMenu();
         mnu_sair = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setOpaque(false);
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btn_login.setText("Login");
-        btn_login.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        btn_historico.setText("Histórico");
+        btn_historico.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
-                btn_loginMouseDragged(evt);
+                btn_historicoMouseDragged(evt);
             }
         });
-        btn_login.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_historico.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_loginMouseClicked(evt);
+                btn_historicoMouseClicked(evt);
             }
         });
-        jPanel1.add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 110, 70));
-
-        btn_cliente.setText("Cliente");
-        btn_cliente.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                btn_clienteMouseDragged(evt);
-            }
-        });
-        btn_cliente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_clienteMouseClicked(evt);
-            }
-        });
-        btn_cliente.addActionListener(new java.awt.event.ActionListener() {
+        btn_historico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_clienteActionPerformed(evt);
+                btn_historicoActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, 70));
+        getContentPane().add(btn_historico, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 110, 70));
+
+        btn_pontos.setText("Pontos");
+        btn_pontos.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                btn_pontosMouseDragged(evt);
+            }
+        });
+        btn_pontos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_pontosMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btn_pontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 110, 70));
+
+        btn_vendas.setText("Vendas");
+        btn_vendas.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                btn_vendasMouseDragged(evt);
+            }
+        });
+        btn_vendas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_vendasMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btn_vendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 110, 70));
 
         btn_funcionario.setText("Funcionário");
         btn_funcionario.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -108,33 +134,25 @@ public class InicioView extends javax.swing.JFrame {
                 btn_funcionarioActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_funcionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 110, 70));
+        getContentPane().add(btn_funcionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 110, 70));
 
-        btn_pontos.setText("Pontos");
-        btn_pontos.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        btn_cliente.setText("Cliente");
+        btn_cliente.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
-                btn_pontosMouseDragged(evt);
+                btn_clienteMouseDragged(evt);
             }
         });
-        btn_pontos.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_cliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_pontosMouseClicked(evt);
+                btn_clienteMouseClicked(evt);
             }
         });
-        jPanel1.add(btn_pontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 110, 70));
-
-        btn_vendas.setText("Vendas");
-        btn_vendas.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                btn_vendasMouseDragged(evt);
+        btn_cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clienteActionPerformed(evt);
             }
         });
-        btn_vendas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_vendasMouseClicked(evt);
-            }
-        });
-        jPanel1.add(btn_vendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 110, 70));
+        getContentPane().add(btn_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, 70));
 
         btn_produto.setText("Produto");
         btn_produto.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -147,10 +165,21 @@ public class InicioView extends javax.swing.JFrame {
                 btn_produtoMouseClicked(evt);
             }
         });
-        jPanel1.add(btn_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 110, 70));
+        getContentPane().add(btn_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 110, 70));
+        getContentPane().add(lbl_fundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 420));
-        getContentPane().add(lbl_fundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 420));
+        btn_login1.setText("Login");
+        btn_login1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                btn_login1MouseDragged(evt);
+            }
+        });
+        btn_login1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_login1MouseClicked(evt);
+            }
+        });
+        getContentPane().add(btn_login1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 110, 70));
 
         mnu_cliente.setText("Cliente");
         mnu_cliente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -208,6 +237,14 @@ public class InicioView extends javax.swing.JFrame {
         });
         jMenuBar2.add(mnu_alterarFundo);
 
+        mnu_logout.setText("Log-Out");
+        mnu_logout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnu_logoutMouseClicked(evt);
+            }
+        });
+        jMenuBar2.add(mnu_logout);
+
         mnu_sair.setText("Sair");
         mnu_sair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -247,16 +284,16 @@ public class InicioView extends javax.swing.JFrame {
         inicioControler.arrastarBotao(this.btn_produto, evt);
     }//GEN-LAST:event_btn_produtoMouseDragged
 
-    private void btn_loginMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_loginMouseDragged
-        inicioControler.arrastarBotao(this.btn_login, evt);
-    }//GEN-LAST:event_btn_loginMouseDragged
+    private void btn_historicoMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_historicoMouseDragged
+        inicioControler.arrastarBotao(this.btn_historico, evt);
+    }//GEN-LAST:event_btn_historicoMouseDragged
 
     private void mnu_alterarFundoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_alterarFundoMouseClicked
         inicioControler.mudarPlanoFundo(lbl_fundo);
     }//GEN-LAST:event_mnu_alterarFundoMouseClicked
 
     private void mnu_sairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_sairMouseClicked
-        inicioControler.logout(this);
+        System.exit(0);
     }//GEN-LAST:event_mnu_sairMouseClicked
 
     private void btn_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_clienteMouseClicked
@@ -279,9 +316,10 @@ public class InicioView extends javax.swing.JFrame {
         inicioControler.abrirProduto(this);
     }//GEN-LAST:event_btn_produtoMouseClicked
 
-    private void btn_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_loginMouseClicked
-        inicioControler.abrirLogin(this);
-    }//GEN-LAST:event_btn_loginMouseClicked
+    private void btn_historicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_historicoMouseClicked
+        
+        
+    }//GEN-LAST:event_btn_historicoMouseClicked
 
     private void mnu_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_clienteMouseClicked
         inicioControler.abrirCliente(this);
@@ -306,6 +344,22 @@ public class InicioView extends javax.swing.JFrame {
     private void mnu_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_loginMouseClicked
         inicioControler.abrirLogin(this);
     }//GEN-LAST:event_mnu_loginMouseClicked
+
+    private void mnu_logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_logoutMouseClicked
+        inicioControler.logout(this);
+    }//GEN-LAST:event_mnu_logoutMouseClicked
+
+    private void btn_login1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_login1MouseDragged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_login1MouseDragged
+
+    private void btn_login1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_login1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_login1MouseClicked
+
+    private void btn_historicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historicoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_historicoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -345,21 +399,38 @@ public class InicioView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cliente;
     private javax.swing.JButton btn_funcionario;
-    private javax.swing.JButton btn_login;
+    private javax.swing.JButton btn_historico;
+    private javax.swing.JButton btn_login1;
     private javax.swing.JButton btn_pontos;
     private javax.swing.JButton btn_produto;
     private javax.swing.JButton btn_vendas;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl_fundo;
     private javax.swing.JMenu mnu_alterarFundo;
     private javax.swing.JMenu mnu_cliente;
     private javax.swing.JMenu mnu_funcionario;
     private javax.swing.JMenu mnu_login;
+    private javax.swing.JMenu mnu_logout;
     private javax.swing.JMenu mnu_pontos;
     private javax.swing.JMenu mnu_produto;
     private javax.swing.JMenu mnu_sair;
     private javax.swing.JMenu mnu_vendas;
     // End of variables declaration//GEN-END:variables
+
+    private void inseriMapa() {
+        this.mapaComponentes = new HashMap<>();
+        
+        this.mapaComponentes.put("tela", this);
+        this.mapaComponentes.put("lbl_fundo", this.lbl_fundo);
+        
+        this.mapaComponentes.put("btn_cliente", this.btn_cliente);
+        this.mapaComponentes.put("btn_funcionario", this.btn_funcionario);
+        this.mapaComponentes.put("btn_login", this.btn_historico);
+        this.mapaComponentes.put("btn_pontos", this.btn_pontos);
+        this.mapaComponentes.put("btn_produto", this.btn_produto);
+        this.mapaComponentes.put("btn_vendas", this.btn_vendas);
+    }
+
+
 }
