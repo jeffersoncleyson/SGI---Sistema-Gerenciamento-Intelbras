@@ -5,8 +5,11 @@
  */
 package br.com.intelbras.controler;
 
+import java.awt.Dimension;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -18,6 +21,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 /**
  *
@@ -25,17 +29,11 @@ import java.io.OutputStreamWriter;
  */
 public class Arquivo {
 
-    private FileOutputStream fos;
-    private FileInputStream fis;
+    private FileWriter fos;
+    private FileReader fis;
 
-    private BufferedOutputStream buffO;
-    private BufferedInputStream buffI;
-
-    private OutputStreamWriter out;
-    private InputStreamReader in;
-
-    private ObjectOutputStream objOut;
-    private ObjectInputStream objIn;
+    private BufferedWriter buffO;
+    private BufferedReader buffI;
 
     public Arquivo() throws FileNotFoundException, IOException {
 
@@ -44,20 +42,24 @@ public class Arquivo {
     //==================================================================
     //==================================================================
     private void abreConexaoIn() throws FileNotFoundException, IOException {
-        fis = new FileInputStream("log.txt");
-        buffI = new BufferedInputStream(fis);
-        in = new InputStreamReader(buffI);
-        objIn = new ObjectInputStream(fis);
+        fis = new FileReader("log.txt");
+        buffI = new BufferedReader(fis);
     }
 
-    public String le() throws IOException, ClassNotFoundException {
+    public ArrayList<Dimension> le() throws IOException, ClassNotFoundException {
         this.abreConexaoIn();
 
-        String valor = (String) objIn.readObject();
-        while (valor != null) {
-            System.out.println(valor);
-            
+        ArrayList<Dimension> array = new ArrayList<>();
+
+        while (buffI.ready()) {
+            String linha = buffI.readLine();
+            if (linha.equals("")) {
+                return null;
+            } else {
+                Dimension d = new Dimension();
+            }
         }
+
         this.fechaConexaoIn();
         return null;
     }
@@ -65,40 +67,38 @@ public class Arquivo {
     public void fechaConexaoIn() throws IOException {
         fis.close();
         buffI.close();
-        in.close();
-        objIn.close();
 
     }
 
     //==================================================================
     //==================================================================
     private void abreConexaoOut() throws FileNotFoundException, IOException {
-        fos = new FileOutputStream("log.txt",true);
-        buffO = new BufferedOutputStream(fos);
-        out = new OutputStreamWriter(buffO);
-        objOut = new ObjectOutputStream(fos);
+        fos = new FileWriter("log.txt");
+        buffO = new BufferedWriter(fos);
     }
 
-    public void salva(String linha) throws IOException {
+    public void salva(ArrayList<String> array) throws IOException {
         this.abreConexaoOut();
-        objOut.writeObject(linha);
+
+        for (String string : array) {
+            if(string != null){
+                buffO.write(string);
+            }
+        }
+ 
+        
         this.fechaConexaoOut();
     }
 
     public void fechaConexaoOut() throws IOException {
         fos.close();
         buffO.close();
-        out.close();
-        objOut.close();
-
     }
 
     //==================================================================
     //==================================================================
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         Arquivo a = new Arquivo();
-
-        a.salva("Hello World");
 
         System.out.println("\n" + a.le());
 

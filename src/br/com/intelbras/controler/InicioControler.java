@@ -20,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -57,6 +58,34 @@ public class InicioControler {
         botao.setLocation(botao.getLocation().x + evt.getX() - (botao.getSize().width / 2), botao.getLocation().y + evt.getY() - (botao.getSize().height / 2));
     }
 
+    private void guardaPosicao(){
+        try{
+            Arquivo arquivo = new Arquivo();
+            
+            ArrayList<String> lista = new ArrayList<>();
+            String cliente = ((JButton)mapa.get("btn_cliente")).getLocation().x + "-" +((JButton)mapa.get("btn_cliente")).getLocation().y;
+            String funcionario = ((JButton)mapa.get("btn_funcionario")).getLocation().x + "-" +((JButton)mapa.get("btn_funcionario")).getLocation().y;
+            String vendas = ((JButton)mapa.get("btn_vendas")).getLocation().x + "-" +((JButton)mapa.get("btn_vendas")).getLocation().y;
+            String ponto = ((JButton)mapa.get("btn_pontos")).getLocation().x + "-" +((JButton)mapa.get("btn_pontos")).getLocation().y;
+            String produto = ((JButton)mapa.get("btn_produto")).getLocation().x + "-" +((JButton)mapa.get("btn_produto")).getLocation().y;
+            String login = ((JButton)mapa.get("btn_login")).getLocation().x + "-" +((JButton)mapa.get("btn_login")).getLocation().y;
+            String historico = ((JButton)mapa.get("btn_historico")).getLocation().x + "-" +((JButton)mapa.get("btn_historico")).getLocation().y;
+        
+            lista.add(cliente);
+            lista.add(funcionario);
+            lista.add(vendas);
+            lista.add(ponto);
+            lista.add(produto);
+            lista.add(login);
+            lista.add(historico);
+            
+            arquivo.salva(lista);
+            
+        }catch(Exception ex){
+
+        }
+    }
+    
     public void mudarPlanoFundo(JLabel label) {
         alterarImagem(label);
     }
