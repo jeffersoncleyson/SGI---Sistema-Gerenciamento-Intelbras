@@ -3,8 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/Lenovo/Documents/NetBeansProjects/SistemaGerenciamentoIntelbras/src/br/com/intelbras/controler/ClienteControler.java</file>
+=======
+<<<<<<< HEAD
+            <file>file:/C:/Users/WesleyReis/Documents/NetBeansProjects/Intelbras/src/br/com/intelbras/view/LoginManagerView.java</file>
+=======
+>>>>>>> 9f349a2522efe3e611cc221190c26f4767aa7e6b
             <file>file:/C:/Users/Lenovo/Documents/NetBeansProjects/SistemaGerenciamentoIntelbras/src/br/com/intelbras/view/ClienteView.java</file>
+>>>>>>> 7f31c8aa6d7cd63fc8a846601377740b1d9dd086
         </group>
     </open-files>
 </project-private>
