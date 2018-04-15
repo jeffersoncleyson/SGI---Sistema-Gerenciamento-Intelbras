@@ -19,8 +19,8 @@ import javax.swing.table.DefaultTableModel;
 public class VendasView extends javax.swing.JFrame {
 
     VendasControler vendasControler;
-    DefaultTableModel dtm;
-    ArrayList<Produto> produto;
+    DefaultTableModel dtmVenda;
+
     Cliente cliente;
     HashMap<String, Object> mapaComponentes;
 
@@ -29,14 +29,19 @@ public class VendasView extends javax.swing.JFrame {
      */
     public VendasView() {
         initComponents();
-        this.vendasControler = new VendasControler();
+        mapaComponentes = new HashMap<>();
+        this.inseriMapa();
+        this.vendasControler = new VendasControler(mapaComponentes);
+        vendasControler.preencherTabela(tbl_produtos);
+        vendasControler.estadoBotoes(0);
     }
 
     public VendasView(DefaultTableModel dtm, ArrayList<Produto> produto, Cliente cliente) {
         initComponents();
-        this.vendasControler = new VendasControler();
-        this.dtm = dtm;
-        this.produto = produto;
+        mapaComponentes = new HashMap<>();
+        this.inseriMapa();
+        this.vendasControler = new VendasControler(mapaComponentes);
+        this.dtmVenda = dtm;
         this.cliente = cliente;
     }
 
@@ -52,7 +57,7 @@ public class VendasView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_produtos = new javax.swing.JTable();
-        btn_adicionarProduto = new javax.swing.JButton();
+        btn_atualizar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -70,7 +75,6 @@ public class VendasView extends javax.swing.JFrame {
         btn_finalizar = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
         btn_adicionarCliente = new javax.swing.JButton();
-        btn_removerProduto = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         scrool = new javax.swing.JScrollPane();
         tbl_compras = new javax.swing.JTable();
@@ -87,10 +91,7 @@ public class VendasView extends javax.swing.JFrame {
 
         tbl_produtos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Id", "Descrição", "Marca", "Valor"
@@ -111,31 +112,36 @@ public class VendasView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbl_produtos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_produtosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_produtos);
 
-        btn_adicionarProduto.setText("Adicinar no pedido");
-        btn_adicionarProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_atualizar.setText("Atualizar tabela de Produtos");
+        btn_atualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_adicionarProdutoMouseClicked(evt);
+                btn_atualizarMouseClicked(evt);
             }
         });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btn_adicionarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(btn_atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1)
-                .addGap(29, 29, 29)
-                .addComponent(btn_adicionarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -158,6 +164,10 @@ public class VendasView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbl_obs, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(lbl_descricao))
@@ -172,11 +182,7 @@ public class VendasView extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addComponent(lbl_modelo))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbl_obs)))
+                        .addComponent(lbl_modelo)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -199,19 +205,19 @@ public class VendasView extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(lbl_valor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(lbl_obs))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lbl_obs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jLabel6.setFont(new java.awt.Font("OCR A Std", 1, 24)); // NOI18N
-        jLabel6.setText("Total");
+        jLabel6.setText("Total : ");
 
         lbl_valorTotalCompra.setFont(new java.awt.Font("OCR A Std", 1, 24)); // NOI18N
-        lbl_valorTotalCompra.setText("R$ 1000,00");
+        lbl_valorTotalCompra.setText("R$ 0000,00");
 
         btn_finalizar.setText("Finalizar");
         btn_finalizar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -227,17 +233,10 @@ public class VendasView extends javax.swing.JFrame {
             }
         });
 
-        btn_adicionarCliente.setText("Adicionar cliente");
+        btn_adicionarCliente.setText("Adicionar/Alterar cliente");
         btn_adicionarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_adicionarClienteMouseClicked(evt);
-            }
-        });
-
-        btn_removerProduto.setText("Remover produto");
-        btn_removerProduto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_removerProdutoMouseClicked(evt);
             }
         });
 
@@ -246,25 +245,18 @@ public class VendasView extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_adicionarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lbl_valorTotalCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(btn_removerProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(btn_finalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(15, 15, 15)
-                                .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbl_valorTotalCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btn_adicionarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btn_finalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_cancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -277,20 +269,16 @@ public class VendasView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_adicionarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_removerProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_finalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_finalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         tbl_compras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Id", "Descrição", "Marca", "Valor"
@@ -309,6 +297,11 @@ public class VendasView extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tbl_compras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_comprasMouseClicked(evt);
             }
         });
         scrool.setViewportView(tbl_compras);
@@ -387,24 +380,38 @@ public class VendasView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_adicionarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_adicionarClienteMouseClicked
-        // TODO add your handling code here:
+        new ClienteAddVenda().setVisible(true);
     }//GEN-LAST:event_btn_adicionarClienteMouseClicked
 
-    private void btn_adicionarProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_adicionarProdutoMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_adicionarProdutoMouseClicked
-
-    private void btn_removerProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_removerProdutoMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_removerProdutoMouseClicked
+    private void btn_atualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_atualizarMouseClicked
+        if (btn_atualizar.isEnabled()) {
+            vendasControler.atualizar(tbl_produtos);
+        }
+    }//GEN-LAST:event_btn_atualizarMouseClicked
 
     private void btn_finalizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_finalizarMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_finalizarMouseClicked
 
     private void btn_cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cancelarMouseClicked
-        // TODO add your handling code here:
+        if(btn_cancelar.isEnabled()){
+            vendasControler.cancelar();
+        }
     }//GEN-LAST:event_btn_cancelarMouseClicked
+
+    private void tbl_produtosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_produtosMouseClicked
+        if (evt.getClickCount() == 2) {
+            vendasControler.preencherTabela(tbl_compras, tbl_produtos.getSelectedRow());
+        }
+    }//GEN-LAST:event_tbl_produtosMouseClicked
+
+    private void tbl_comprasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_comprasMouseClicked
+        if (evt.getClickCount() == 2) {
+            vendasControler.removerTabela(tbl_compras, tbl_compras.getSelectedRow());
+        } else {
+            vendasControler.mostrarDescricao(tbl_compras.getSelectedRow());
+        }
+    }//GEN-LAST:event_tbl_comprasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -443,10 +450,9 @@ public class VendasView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_adicionarCliente;
-    private javax.swing.JButton btn_adicionarProduto;
+    private javax.swing.JButton btn_atualizar;
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_finalizar;
-    private javax.swing.JButton btn_removerProduto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -476,10 +482,9 @@ public class VendasView extends javax.swing.JFrame {
     private void inseriMapa() {
         this.mapaComponentes.put("tela", this);
         this.mapaComponentes.put("btn_adicionarCliente", this.btn_adicionarCliente);
-        this.mapaComponentes.put("btn_adicionarProduto", this.btn_adicionarProduto);
+        this.mapaComponentes.put("btn_adicionarProduto", this.btn_atualizar);
         this.mapaComponentes.put("btn_cancelar", this.btn_cancelar);
         this.mapaComponentes.put("btn_finalizar", this.btn_finalizar);
-        this.mapaComponentes.put("btn_removerProduto", this.btn_removerProduto);
         this.mapaComponentes.put("lbl_cliente", this.lbl_cliente);
         this.mapaComponentes.put("lbl_valorTotalCompra", this.lbl_valorTotalCompra);
         this.mapaComponentes.put("lbl_descricao", this.lbl_descricao);
