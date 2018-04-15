@@ -33,8 +33,10 @@ public class InicioView extends javax.swing.JFrame {
         
         this.setSize(d);
         this.lbl_fundo.setSize(d);
-        
         this.inicioControler = new InicioControler(mapaComponentes);
+        this.inicioControler.setPosicao();
+
+        this.repaint();
 
     }
 
@@ -72,7 +74,7 @@ public class InicioView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(null);
 
         btn_historico.setText("Histórico");
         btn_historico.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -84,13 +86,12 @@ public class InicioView extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_historicoMouseClicked(evt);
             }
-        });
-        btn_historico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_historicoActionPerformed(evt);
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btn_historicoMouseReleased(evt);
             }
         });
-        getContentPane().add(btn_historico, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 110, 70));
+        getContentPane().add(btn_historico);
+        btn_historico.setBounds(140, 180, 110, 70);
 
         btn_pontos.setText("Pontos");
         btn_pontos.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -102,8 +103,12 @@ public class InicioView extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_pontosMouseClicked(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btn_pontosMouseReleased(evt);
+            }
         });
-        getContentPane().add(btn_pontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 110, 70));
+        getContentPane().add(btn_pontos);
+        btn_pontos.setBounds(10, 270, 110, 70);
 
         btn_vendas.setText("Vendas");
         btn_vendas.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -115,8 +120,12 @@ public class InicioView extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_vendasMouseClicked(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btn_vendasMouseReleased(evt);
+            }
         });
-        getContentPane().add(btn_vendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 110, 70));
+        getContentPane().add(btn_vendas);
+        btn_vendas.setBounds(10, 180, 110, 70);
 
         btn_funcionario.setText("Funcionário");
         btn_funcionario.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -128,13 +137,17 @@ public class InicioView extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_funcionarioMouseClicked(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btn_funcionarioMouseReleased(evt);
+            }
         });
         btn_funcionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_funcionarioActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_funcionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 110, 70));
+        getContentPane().add(btn_funcionario);
+        btn_funcionario.setBounds(10, 100, 110, 70);
 
         btn_cliente.setText("Cliente");
         btn_cliente.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -146,13 +159,17 @@ public class InicioView extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_clienteMouseClicked(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btn_clienteMouseReleased(evt);
+            }
         });
         btn_cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_clienteActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, 70));
+        getContentPane().add(btn_cliente);
+        btn_cliente.setBounds(10, 10, 110, 70);
 
         btn_produto.setText("Produto");
         btn_produto.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -164,8 +181,12 @@ public class InicioView extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_produtoMouseClicked(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btn_produtoMouseReleased(evt);
+            }
         });
-        getContentPane().add(btn_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 110, 70));
+        getContentPane().add(btn_produto);
+        btn_produto.setBounds(140, 10, 110, 70);
 
         btn_login.setText("Login");
         btn_login.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -177,9 +198,14 @@ public class InicioView extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_loginMouseClicked(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btn_loginMouseReleased(evt);
+            }
         });
-        getContentPane().add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 110, 70));
-        getContentPane().add(lbl_fundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(btn_login);
+        btn_login.setBounds(140, 100, 110, 70);
+        getContentPane().add(lbl_fundo);
+        lbl_fundo.setBounds(0, 0, 0, 0);
 
         mnu_cliente.setText("Cliente");
         mnu_cliente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -350,16 +376,44 @@ public class InicioView extends javax.swing.JFrame {
     }//GEN-LAST:event_mnu_logoutMouseClicked
 
     private void btn_loginMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_loginMouseDragged
-        // TODO add your handling code here:
+        inicioControler.arrastarBotao(this.btn_login, evt);
     }//GEN-LAST:event_btn_loginMouseDragged
 
     private void btn_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_loginMouseClicked
-        // TODO add your handling code here:
+        inicioControler.abrirLogin(this);
     }//GEN-LAST:event_btn_loginMouseClicked
 
-    private void btn_historicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historicoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_historicoActionPerformed
+    
+    
+    
+    private void btn_clienteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_clienteMouseReleased
+        inicioControler.guardaPosicao();
+    }//GEN-LAST:event_btn_clienteMouseReleased
+
+    private void btn_funcionarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_funcionarioMouseReleased
+        inicioControler.guardaPosicao();
+        
+    }//GEN-LAST:event_btn_funcionarioMouseReleased
+
+    private void btn_vendasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_vendasMouseReleased
+        inicioControler.guardaPosicao();
+    }//GEN-LAST:event_btn_vendasMouseReleased
+
+    private void btn_pontosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pontosMouseReleased
+        inicioControler.guardaPosicao();
+    }//GEN-LAST:event_btn_pontosMouseReleased
+
+    private void btn_produtoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_produtoMouseReleased
+        inicioControler.guardaPosicao();
+    }//GEN-LAST:event_btn_produtoMouseReleased
+
+    private void btn_loginMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_loginMouseReleased
+        inicioControler.guardaPosicao();
+    }//GEN-LAST:event_btn_loginMouseReleased
+
+    private void btn_historicoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_historicoMouseReleased
+        inicioControler.guardaPosicao();
+    }//GEN-LAST:event_btn_historicoMouseReleased
 
     /**
      * @param args the command line arguments
@@ -426,10 +480,11 @@ public class InicioView extends javax.swing.JFrame {
         
         this.mapaComponentes.put("btn_cliente", this.btn_cliente);
         this.mapaComponentes.put("btn_funcionario", this.btn_funcionario);
-        this.mapaComponentes.put("btn_login", this.btn_historico);
+        this.mapaComponentes.put("btn_login", this.btn_login);
         this.mapaComponentes.put("btn_pontos", this.btn_pontos);
         this.mapaComponentes.put("btn_produto", this.btn_produto);
         this.mapaComponentes.put("btn_vendas", this.btn_vendas);
+        this.mapaComponentes.put("btn_historico", this.btn_historico);
     }
 
 

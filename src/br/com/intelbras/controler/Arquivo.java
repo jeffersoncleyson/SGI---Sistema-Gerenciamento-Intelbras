@@ -6,6 +6,7 @@
 package br.com.intelbras.controler;
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -46,22 +47,28 @@ public class Arquivo {
         buffI = new BufferedReader(fis);
     }
 
-    public ArrayList<Dimension> le() throws IOException, ClassNotFoundException {
+    public ArrayList<Point> le() throws IOException, ClassNotFoundException {
         this.abreConexaoIn();
 
-        ArrayList<Dimension> array = new ArrayList<>();
+        ArrayList<Point> array = new ArrayList<>();
 
         while (buffI.ready()) {
             String linha = buffI.readLine();
             if (linha.equals("")) {
-                return null;
+                break;
             } else {
-                Dimension d = new Dimension();
+                Point p = new Point();
+                
+                String[] coordenada = linha.split("-");
+                p.x = Integer.parseInt(coordenada[0]);
+                p.y = Integer.parseInt(coordenada[1]);
+                
+                array.add(p);
             }
         }
 
         this.fechaConexaoIn();
-        return null;
+        return array;
     }
 
     public void fechaConexaoIn() throws IOException {
@@ -82,17 +89,18 @@ public class Arquivo {
 
         for (String string : array) {
             if(string != null){
+                System.out.println(string);
                 buffO.write(string);
+                buffO.newLine();
             }
         }
  
-        
         this.fechaConexaoOut();
     }
 
     public void fechaConexaoOut() throws IOException {
-        fos.close();
         buffO.close();
+        fos.close();
     }
 
     //==================================================================
