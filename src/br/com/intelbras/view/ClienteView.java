@@ -50,6 +50,12 @@ public class ClienteView extends javax.swing.JFrame {
         rbtn_feminino = new javax.swing.JRadioButton();
         jPanel8 = new javax.swing.JPanel();
         txt_dataNasc = new javax.swing.JTextField();
+        try{
+            javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("##/##/####");
+            txt_dataNasc = new javax.swing.JFormattedTextField(data);
+        }
+        catch (Exception e){
+        }
         jPanel10 = new javax.swing.JPanel();
         txt_telefone = new javax.swing.JTextField();
         jPanel11 = new javax.swing.JPanel();

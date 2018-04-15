@@ -171,6 +171,9 @@
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_data">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{&#xd;&#xa;   javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter(&quot;##/##/####&quot;);&#xd;&#xa;   txt_data = new javax.swing.JFormattedTextField(data);&#xd;&#xa;}&#xd;&#xa;   catch (Exception e){&#xd;&#xa;}"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="btn_pesuisaData">
               <Properties>

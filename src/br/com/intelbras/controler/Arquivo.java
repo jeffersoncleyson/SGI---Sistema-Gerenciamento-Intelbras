@@ -73,7 +73,7 @@ public class Arquivo {
     //==================================================================
     //==================================================================
     private void abreConexaoOut() throws FileNotFoundException, IOException {
-        fos = new FileOutputStream("log.txt");
+        fos = new FileOutputStream("log.txt",true);
         buffO = new BufferedOutputStream(fos);
         out = new OutputStreamWriter(buffO);
         objOut = new ObjectOutputStream(fos);

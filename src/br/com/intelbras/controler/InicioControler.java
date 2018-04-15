@@ -20,12 +20,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 
 /**
  *
@@ -33,63 +34,80 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class InicioControler {
 
-    
-    public InicioControler() {
+    private InicioView tela;
+    private HashMap<String, Object> mapa;
+
+    public InicioControler(HashMap<String, Object> mapa) {
+        this.mapa = mapa;
+        
+        tela = ((InicioView) mapa.get("tela"));
+        tela.setExtendedState(tela.MAXIMIZED_BOTH);
+
+        System.out.println(tela.getWidth() + " " + tela.getHeight());
+        
+        ImageIcon img = new javax.swing.ImageIcon("C:\\Users\\Public\\Pictures\\telaFundo.png");
+        img.setImage(img.getImage().getScaledInstance(tela.getWidth(), tela.getHeight(), 100));
+        ((JLabel) mapa.get("lbl_fundo")).setIcon(img);
+        
+        tela.repaint();
 
     }
-    
-    
-    
+
     public void arrastarBotao(JButton botao, MouseEvent evt) {
-        botao.setLocation(botao.getLocation().x + evt.getX() - (botao.getSize().width /2) , botao.getLocation().y + evt.getY() - (botao.getSize().height /2));
+        botao.setLocation(botao.getLocation().x + evt.getX() - (botao.getSize().width / 2), botao.getLocation().y + evt.getY() - (botao.getSize().height / 2));
     }
 
-    public void mudarPlanoFundo(JLabel label){
+    public void mudarPlanoFundo(JLabel label) {
         alterarImagem(label);
     }
-    
-    public void logout(InicioView tela){
+
+    public void logout(InicioView tela) {
         LoginView loginView = new LoginView();
         loginView.setVisible(true);
         tela.dispose();
-        
+
     }
-     //============================== Abrir Views
+    //============================== Abrir Views
     //============================== 
-    public void abrirCliente(InicioView tela){
+
+    public void abrirCliente(InicioView tela) {
         ClienteView cliente = new ClienteView();
         cliente.setVisible(true);
         cliente.setLocationRelativeTo(tela);
     }
-    public void abrirFuncionario(InicioView tela){
+
+    public void abrirFuncionario(InicioView tela) {
         FuncionarioView funcionario = new FuncionarioView();
         funcionario.setVisible(true);
         funcionario.setLocationRelativeTo(tela);
     }
-    public void abrirProduto(InicioView tela){
+
+    public void abrirProduto(InicioView tela) {
         ProdutoView produto = new ProdutoView();
         produto.setVisible(true);
         produto.setLocationRelativeTo(tela);
     }
-    public void abrirPonto(InicioView tela){
+
+    public void abrirPonto(InicioView tela) {
         PontosView ponto = new PontosView();
         ponto.setVisible(true);
         ponto.setLocationRelativeTo(tela);
     }
-    public void abrirVenda(InicioView tela){
+
+    public void abrirVenda(InicioView tela) {
         VendasView venda = new VendasView();
         venda.setVisible(true);
         venda.setLocationRelativeTo(tela);
     }
-    public void abrirLogin(InicioView tela){
+
+    public void abrirLogin(InicioView tela) {
         LoginManagerView loginManager = new LoginManagerView();
         loginManager.setVisible(true);
         loginManager.setLocationRelativeTo(tela);
     }
-    
+
     //============================== Metodos privados
     //============================== 
-    
     // Metodo para alterar a imagem do label de fundo
     private void alterarImagem(JLabel label) {
 
@@ -123,7 +141,6 @@ public class InicioControler {
         }
     }
 
-    
     // Metodo para compiar um arquivo para outro diretorio
     private void copiarArquivo(File source, File destination) throws IOException {
         if (destination.exists()) {
@@ -145,6 +162,5 @@ public class InicioControler {
             }
         }
     }
-    
-    
+
 }
