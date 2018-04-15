@@ -54,8 +54,8 @@ public class InicioView extends javax.swing.JFrame {
         btn_funcionario = new javax.swing.JButton();
         btn_cliente = new javax.swing.JButton();
         btn_produto = new javax.swing.JButton();
+        btn_login = new javax.swing.JButton();
         lbl_fundo = new javax.swing.JLabel();
-        btn_login1 = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         mnu_cliente = new javax.swing.JMenu();
         mnu_funcionario = new javax.swing.JMenu();
@@ -166,20 +166,20 @@ public class InicioView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btn_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 110, 70));
-        getContentPane().add(lbl_fundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        btn_login1.setText("Login");
-        btn_login1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        btn_login.setText("Login");
+        btn_login.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
-                btn_login1MouseDragged(evt);
+                btn_loginMouseDragged(evt);
             }
         });
-        btn_login1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_login.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_login1MouseClicked(evt);
+                btn_loginMouseClicked(evt);
             }
         });
-        getContentPane().add(btn_login1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 110, 70));
+        getContentPane().add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 110, 70));
+        getContentPane().add(lbl_fundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         mnu_cliente.setText("Cliente");
         mnu_cliente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -349,13 +349,13 @@ public class InicioView extends javax.swing.JFrame {
         inicioControler.logout(this);
     }//GEN-LAST:event_mnu_logoutMouseClicked
 
-    private void btn_login1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_login1MouseDragged
+    private void btn_loginMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_loginMouseDragged
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_login1MouseDragged
+    }//GEN-LAST:event_btn_loginMouseDragged
 
-    private void btn_login1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_login1MouseClicked
+    private void btn_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_loginMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_login1MouseClicked
+    }//GEN-LAST:event_btn_loginMouseClicked
 
     private void btn_historicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historicoActionPerformed
         // TODO add your handling code here:
@@ -400,7 +400,7 @@ public class InicioView extends javax.swing.JFrame {
     private javax.swing.JButton btn_cliente;
     private javax.swing.JButton btn_funcionario;
     private javax.swing.JButton btn_historico;
-    private javax.swing.JButton btn_login1;
+    private javax.swing.JButton btn_login;
     private javax.swing.JButton btn_pontos;
     private javax.swing.JButton btn_produto;
     private javax.swing.JButton btn_vendas;
