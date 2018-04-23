@@ -32,10 +32,10 @@ public class BancoDados {
         this.url = "jdbc:mysql://localhost:3306/" + this.nomeBanco;
         this.JDBC = "com.mysql.jdbc.Driver"; 
        
-        /*this.url ="jdbc:mysql://sql132.main-hosting.eu:3306/u483572784_intbr";
-        this.JDBC = "com.mysql.jdbc.Driver";
-        this.usuario = "u483572784_intbr";
-        this.senha = "u_Root#2018";*/
+//        this.url ="jdbc:mysql://sql132.main-hosting.eu:3306/u483572784_intbr";
+//        this.JDBC = "com.mysql.jdbc.Driver";
+//        this.usuario = "u483572784_intbr";
+//        this.senha = "u_Root#2018";
         
     }
 
