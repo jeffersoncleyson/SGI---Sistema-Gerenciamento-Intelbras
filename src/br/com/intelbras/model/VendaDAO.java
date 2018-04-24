@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 public class VendaDAO implements DAO{
 
+    private static VendaDAO uniqueInstance;
     BancoDados _BD = new BancoDados();
 
     private Connection _con = null;
@@ -26,6 +27,17 @@ public class VendaDAO implements DAO{
     private Statement _st = null;
     private PreparedStatement _pst = null;
 
+    private VendaDAO() {
+        this._BD = new BancoDados();
+    }
+
+    public static synchronized VendaDAO getInstance(){
+        if(uniqueInstance==null){
+            uniqueInstance = new VendaDAO();
+        }
+        return uniqueInstance;
+    }
+    
 //====================================================================================================================
 //====================================================================================================================
     public ArrayList<Object> listarTodos() {

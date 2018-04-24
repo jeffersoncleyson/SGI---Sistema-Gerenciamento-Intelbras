@@ -39,8 +39,8 @@ public class VendasControler implements AcaoTela {
     private int idEdicao = -1;
 
     public VendasControler(HashMap<String, Object> mapa) {
-        this.vendaDAO = new VendaDAO();
-        this.produtoDAO = new ProdutoDAO();
+        this.vendaDAO = VendaDAO.getInstance();
+        this.produtoDAO = ProdutoDAO.getInstance();
         arrayProduto = new ArrayList<>();
         arrayVenda = new ArrayList<>();
         this.tela = ((VendasView) mapa.get("tela"));

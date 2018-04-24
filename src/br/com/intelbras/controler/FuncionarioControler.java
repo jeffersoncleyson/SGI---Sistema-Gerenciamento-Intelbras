@@ -35,7 +35,7 @@ public class FuncionarioControler implements AcaoTela {
     private int idEdicao = -1;
 
     public FuncionarioControler(HashMap<String, Object> mapa) {
-        this.funcionarioDAO = new FuncionarioDAO();
+        this.funcionarioDAO = FuncionarioDAO.getInstance();
         this.tela = ((FuncionarioView) mapa.get("tela"));
         this.mapa = mapa;
     }

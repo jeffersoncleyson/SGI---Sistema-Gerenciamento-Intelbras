@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 public class PontoDAO implements DAO{
 
+    private static PontoDAO uniqueInstance;
     BancoDados _BD = new BancoDados();
 
     private Connection _con = null;
@@ -26,6 +27,17 @@ public class PontoDAO implements DAO{
     private Statement _st = null;
     private PreparedStatement _pst = null;
 
+    private PontoDAO() {
+        this._BD = new BancoDados();
+    }
+
+    public static synchronized PontoDAO getInstance(){
+        if(uniqueInstance==null){
+            uniqueInstance = new PontoDAO();
+        }
+        return uniqueInstance;
+    }
+    
 //====================================================================================================================
 //====================================================================================================================
     @Override

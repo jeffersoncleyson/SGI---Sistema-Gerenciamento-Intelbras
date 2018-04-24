@@ -33,7 +33,7 @@ public class ProdutosControler implements AcaoTela {
     private int idEdicao = -1;
 
     public ProdutosControler(HashMap<String, Object> mapa) {
-        this.produtoDAO = new ProdutoDAO();
+        this.produtoDAO = ProdutoDAO.getInstance();
         this.tela = ((ProdutoView) mapa.get("tela"));
         this.mapa = mapa;
     }

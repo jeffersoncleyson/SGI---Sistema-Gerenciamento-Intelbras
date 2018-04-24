@@ -30,7 +30,7 @@ public class PontoControler {
     private HashMap<String, Object> mapa;
 
     public PontoControler(HashMap<String, Object> mapa) {
-        this.pontoDAO = new PontoDAO();
+        this.pontoDAO = PontoDAO.getInstance();
         this.mapa = mapa;
         this.tela = ((PontosView) mapa.get("tela"));
     }

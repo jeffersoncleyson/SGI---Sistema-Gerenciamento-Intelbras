@@ -39,8 +39,8 @@ public class LoginManagerControler implements AcaoTela{
     private int idEdicao = -1;
 
     public LoginManagerControler(HashMap<String, Object> mapa) {
-        this.loginDAO = new LoginDAO();
-        this.funcionarioDAO = new FuncionarioDAO();
+        this.loginDAO = LoginDAO.getInstance();
+        this.funcionarioDAO = FuncionarioDAO.getInstance();
         
         this.tela = ((LoginManagerView) mapa.get("tela"));
         this.mapa = mapa;

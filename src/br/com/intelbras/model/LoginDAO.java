@@ -19,13 +19,25 @@ import java.util.ArrayList;
  */
 public class LoginDAO implements DAO {
 
+    private static LoginDAO uniqueInstance;
     BancoDados _BD = new BancoDados();
 
     private Connection _con = null;
     private ResultSet _rs = null;
     private Statement _st = null;
     private PreparedStatement _pst = null;
+       
+    private LoginDAO() {
+        this._BD = new BancoDados();
+    }
 
+    public static synchronized LoginDAO getInstance(){
+        if(uniqueInstance==null){
+            uniqueInstance = new LoginDAO();
+        }
+        return uniqueInstance;
+    }
+    
 //====================================================================================================================
 //====================================================================================================================
     public ArrayList<Object> listarTodos() {

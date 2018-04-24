@@ -19,12 +19,24 @@ import java.util.ArrayList;
  */
 public class ProdutoDAO implements DAO {
 
+    private static ProdutoDAO uniqueInstance;
     BancoDados _BD = new BancoDados();
 
     private Connection _con = null;
     private ResultSet _rs = null;
     private Statement _st = null;
     private PreparedStatement _pst = null;
+    
+    private ProdutoDAO() {
+        this._BD = new BancoDados();
+    }
+
+    public static synchronized ProdutoDAO getInstance(){
+        if(uniqueInstance==null){
+            uniqueInstance = new ProdutoDAO();
+        }
+        return uniqueInstance;
+    }
 
 //====================================================================================================================
 //====================================================================================================================
