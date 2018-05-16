@@ -107,6 +107,8 @@ public class ClienteControler implements AcaoTela {
             } else {
                 if (JOptionPane.showConfirmDialog(tela, "Deseja excluir o cliente?", "Excluir", JOptionPane.YES_NO_OPTION) != 1) {
                     clienteDAO.remover(((Cliente) array.get(id)).getIdCliente());
+                    dtm.getDataVector().removeAllElements();
+                    this.preencherTabela((JTable)this.mapa.get("tbl_listagem"));
                 }
             }
         } catch (Exception ex) {

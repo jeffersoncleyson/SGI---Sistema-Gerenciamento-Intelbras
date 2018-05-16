@@ -111,6 +111,8 @@ public class FuncionarioControler implements AcaoTela {
             } else {
                 if (JOptionPane.showConfirmDialog(tela, "Deseja excluir o funcionario?", "Excluir", JOptionPane.YES_NO_OPTION) != 1) {
                     funcionarioDAO.remover(((Funcionario) array.get(id)).getIdFuncionario());
+                    dtm.getDataVector().removeAllElements();
+                    this.preencherTabela((JTable)this.mapa.get("tbl_listagem"));
                 }
             }
         } catch (Exception ex) {

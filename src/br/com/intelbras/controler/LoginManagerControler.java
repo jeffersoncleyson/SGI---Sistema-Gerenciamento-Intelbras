@@ -94,7 +94,6 @@ public class LoginManagerControler implements AcaoTela{
     @Override
     public void atualizar(JTable tabela) {
         dtm.getDataVector().removeAllElements();
-        ((DefaultTableModel) mapa.get("tbl_funcionario")).getDataVector().removeAllElements();
         this.preencherTabela(tabela);
     }
 

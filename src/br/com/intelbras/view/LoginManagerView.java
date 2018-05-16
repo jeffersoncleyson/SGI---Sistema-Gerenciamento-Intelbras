@@ -80,6 +80,11 @@ public class LoginManagerView extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tbd_abas.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        tbd_abas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbd_abasMouseClicked(evt);
+            }
+        });
 
         jPanel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -351,6 +356,10 @@ public class LoginManagerView extends javax.swing.JFrame {
             loginManagerControler.cancelar();
         }
     }//GEN-LAST:event_btn_cancelarMouseClicked
+
+    private void tbd_abasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbd_abasMouseClicked
+        this.loginManagerControler.verificaAba(this.tbd_abas.getSelectedIndex());
+    }//GEN-LAST:event_tbd_abasMouseClicked
 
     /**
      * @param args the command line arguments

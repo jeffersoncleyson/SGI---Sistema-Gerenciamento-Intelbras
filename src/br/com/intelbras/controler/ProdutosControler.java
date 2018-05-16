@@ -76,6 +76,7 @@ public class ProdutosControler implements AcaoTela {
         try {
             produtoDAO.editar(obj);
             this.cancelar();
+            JOptionPane.showMessageDialog(tela, "Editado com sucesso!", "Edição", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -89,6 +90,8 @@ public class ProdutosControler implements AcaoTela {
             } else {
                 if (JOptionPane.showConfirmDialog(tela, "Deseja excluir o produto?", "Excluir", JOptionPane.YES_NO_OPTION) != 1) {
                     produtoDAO.remover(((Produto) array.get(id)).getIdProduto());
+                    dtm.getDataVector().removeAllElements();
+                    this.preencherTabela((JTable)this.mapa.get("tbl_listagem"));
                 }
             }
         } catch (Exception ex) {

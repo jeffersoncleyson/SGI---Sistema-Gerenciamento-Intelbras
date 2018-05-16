@@ -47,6 +47,12 @@ public class VendasGerenteView extends javax.swing.JFrame {
         txt_funcionario = new javax.swing.JTextField();
         btn_pesquisaFuncionario = new javax.swing.JButton();
         txt_data = new javax.swing.JTextField();
+        try{
+            javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("##/##/####");
+            txt_data= new javax.swing.JFormattedTextField(data);
+        }
+        catch (Exception e){
+        }
         btn_pesuisaData = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
