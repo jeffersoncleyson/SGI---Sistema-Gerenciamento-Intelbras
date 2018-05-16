@@ -23,7 +23,7 @@ public class LoginControler {
     LoginDAO loginDAO;
 
     public LoginControler() {
-        this.loginDAO = new LoginDAO();
+        this.loginDAO = LoginDAO.getInstance();
     }
 
     public void login(JTextField usuario, JTextField senha, LoginView tela) {

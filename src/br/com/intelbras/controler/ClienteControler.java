@@ -34,7 +34,7 @@ public class ClienteControler implements AcaoTela {
     private int idEdicao = -1;
 
     public ClienteControler(HashMap<String, Object> mapa) {
-        this.clienteDAO = new ClienteDAO();
+        this.clienteDAO = ClienteDAO.getInstance();
 
         this.tela = ((ClienteView) mapa.get("tela"));
         this.mapa = mapa;

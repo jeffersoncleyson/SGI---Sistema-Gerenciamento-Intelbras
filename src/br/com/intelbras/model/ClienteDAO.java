@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 public class ClienteDAO implements DAO {
 
+    private static ClienteDAO uniqueInstance;
     BancoDados _BD;
 
     private Connection _con = null;
@@ -49,8 +50,15 @@ public class ClienteDAO implements DAO {
 //====================================================================================================================
 //====================================================================================================================
 
-    public ClienteDAO() {
+    ClienteDAO() {
         this._BD = new BancoDados();
+    }
+
+    public static synchronized ClienteDAO getInstance(){
+        if(uniqueInstance==null){
+            uniqueInstance = new ClienteDAO();
+        }
+        return uniqueInstance;
     }
 
 //====================================================================================================================

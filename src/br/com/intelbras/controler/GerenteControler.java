@@ -33,7 +33,7 @@ public class GerenteControler implements AcaoTela{
     private int idEdicao = -1;
     
     public GerenteControler(HashMap<String, Object> mapa) {
-        this.vendaDAO = new VendaDAO();
+        this.vendaDAO = VendaDAO.getInstance();
         this.tela = ((VendasView) mapa.get("tela"));
         this.mapa = mapa;
     }

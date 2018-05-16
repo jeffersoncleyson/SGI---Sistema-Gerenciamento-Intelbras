@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 public class FuncionarioDAO implements DAO {
 
+    private static FuncionarioDAO uniqueInstance;
     BancoDados _BD = new BancoDados();
 
     private Connection _con = null;
@@ -26,6 +27,16 @@ public class FuncionarioDAO implements DAO {
     private Statement _st = null;
     private PreparedStatement _pst = null;
 
+    private FuncionarioDAO() {
+        this._BD = new BancoDados();
+    }
+
+    public static synchronized FuncionarioDAO getInstance(){
+        if(uniqueInstance==null){
+            uniqueInstance = new FuncionarioDAO();
+        }
+        return uniqueInstance;
+    }
 //====================================================================================================================
 //====================================================================================================================
     @Override
