@@ -59,21 +59,58 @@ public class LoginDAO implements DAO {
 
 //====================================================================================================================
 //====================================================================================================================
+    @Override
     public boolean cadastrar(Object obj) {
+        abrirConexao();
+        boolean gravou = true;
+        try{
+            
+            Login login = (Login) obj;
+            
+            this._pst = _con.prepareStatement("INSERT INTO `login`(`nomeLogin`,`emailLogin`,`senhaLogin`,`Funcionario_idFuncionario`) VALUES(?,?,?,?);");
+            this._pst.setString(1, login.getUsername());
+            this._pst.setString(2, login.getEmail());
+            this._pst.setString(3, login.getSenha());
+            this._pst.setInt(4, login.getFuncionarioId());
 
-        return false;
+            this._pst.executeUpdate();
+
+        }catch(Exception ex){
+            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println(ex);
+            gravou = false;
+        }finally{
+            fecharConexao();
+        }
+
+        return gravou;
     }
 
+    @Override
     public boolean editar(Object obj) {
         abrirConexao();
+        boolean gravou = true;
         try {
+             Login login = (Login) obj;
+            
+            this._pst = _con.prepareStatement("UPDATE `login` SET `nomeLogin` = ?,`emailLogin` = ?,`senhaLogin` = ?,`Funcionario_idFuncionario` =? WHERE idLogin = ?;");
+            this._pst.setString(1, login.getUsername());
+            this._pst.setString(2, login.getEmail());
+            this._pst.setString(3, login.getSenha());
+            this._pst.setInt(4, login.getFuncionarioId());
+
+            this._pst.setInt(5, login.getId());
+            
+            this._pst.executeUpdate();
 
         } catch (Exception ex) {
             System.out.println("Erro: Conexão Banco! :(");
+            System.out.println(ex);
+            gravou = false;
         } finally {
             fecharConexao();
         }
-        return false;
+        return gravou;
     }
 
 //====================================================================================================================

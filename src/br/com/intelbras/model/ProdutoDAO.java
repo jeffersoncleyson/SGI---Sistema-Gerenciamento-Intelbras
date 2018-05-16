@@ -96,6 +96,7 @@ public class ProdutoDAO implements DAO {
     @Override
     public boolean editar(Object obj) {
         abrirConexao();
+        boolean teste = true;
         try {
             Produto produto = (Produto) obj;
              System.out.println(produto);
@@ -115,10 +116,11 @@ public class ProdutoDAO implements DAO {
         } catch (Exception ex) {
             System.out.println("Erro: Conexão Banco! :(");
             System.out.println(ex);
+            teste = false;
         } finally {
             fecharConexao();
         }
-        return false;
+        return teste;
     }
 
 //====================================================================================================================
