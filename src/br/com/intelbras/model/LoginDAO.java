@@ -117,14 +117,20 @@ public class LoginDAO implements DAO {
 //====================================================================================================================    
     public boolean remover(int id) {
         abrirConexao();
+        boolean teste = true;
         try {
-
+            
+            this._pst = this._con.prepareStatement("DELETE FROM login WHERE idLogin = ?");
+            this._pst.setInt(1, id);
+            this._pst.executeUpdate();
+            
         } catch (Exception ex) {
+            teste = false;
             System.out.println("Erro: Conexão Banco! :(");
         } finally {
             fecharConexao();
         }
-        return false;
+        return teste;
     }
 
 //====================================================================================================================

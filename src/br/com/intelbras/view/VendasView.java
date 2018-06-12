@@ -57,7 +57,6 @@ public class VendasView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_produtos = new javax.swing.JTable();
-        btn_atualizar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -119,29 +118,15 @@ public class VendasView extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbl_produtos);
 
-        btn_atualizar.setText("Atualizar tabela de Produtos");
-        btn_atualizar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_atualizarMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(btn_atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(btn_atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jScrollPane1)
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -225,6 +210,11 @@ public class VendasView extends javax.swing.JFrame {
                 btn_finalizarMouseClicked(evt);
             }
         });
+        btn_finalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_finalizarActionPerformed(evt);
+            }
+        });
 
         btn_cancelar.setText("Cancelar");
         btn_cancelar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -237,6 +227,11 @@ public class VendasView extends javax.swing.JFrame {
         btn_adicionarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_adicionarClienteMouseClicked(evt);
+            }
+        });
+        btn_adicionarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_adicionarClienteActionPerformed(evt);
             }
         });
 
@@ -309,7 +304,6 @@ public class VendasView extends javax.swing.JFrame {
         jLabel8.setText("Cliente :");
 
         lbl_cliente.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbl_cliente.setText("Jefferson Cleyson Gomes Almeida");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -379,17 +373,12 @@ public class VendasView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_adicionarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_adicionarClienteMouseClicked
-        new ClienteAddVenda().setVisible(true);
+       vendasControler.abreBuscaCliente();
     }//GEN-LAST:event_btn_adicionarClienteMouseClicked
 
-    private void btn_atualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_atualizarMouseClicked
-        if (btn_atualizar.isEnabled()) {
-            vendasControler.atualizar(tbl_produtos);
-        }
-    }//GEN-LAST:event_btn_atualizarMouseClicked
-
     private void btn_finalizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_finalizarMouseClicked
-        // TODO add your handling code here:
+         vendasControler.finalizar();
+        
     }//GEN-LAST:event_btn_finalizarMouseClicked
 
     private void btn_cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cancelarMouseClicked
@@ -411,6 +400,16 @@ public class VendasView extends javax.swing.JFrame {
             vendasControler.mostrarDescricao(tbl_compras.getSelectedRow());
         }
     }//GEN-LAST:event_tbl_comprasMouseClicked
+
+    private void btn_adicionarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_adicionarClienteActionPerformed
+
+    private void btn_finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarActionPerformed
+
+        
+        
+    }//GEN-LAST:event_btn_finalizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -449,7 +448,6 @@ public class VendasView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_adicionarCliente;
-    private javax.swing.JButton btn_atualizar;
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_finalizar;
     private javax.swing.JLabel jLabel1;
@@ -481,7 +479,6 @@ public class VendasView extends javax.swing.JFrame {
     private void inseriMapa() {
         this.mapaComponentes.put("tela", this);
         this.mapaComponentes.put("btn_adicionarCliente", this.btn_adicionarCliente);
-        this.mapaComponentes.put("btn_adicionarProduto", this.btn_atualizar);
         this.mapaComponentes.put("btn_cancelar", this.btn_cancelar);
         this.mapaComponentes.put("btn_finalizar", this.btn_finalizar);
         this.mapaComponentes.put("lbl_cliente", this.lbl_cliente);

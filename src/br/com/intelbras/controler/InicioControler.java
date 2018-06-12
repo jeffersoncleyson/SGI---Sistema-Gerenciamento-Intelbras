@@ -12,6 +12,7 @@ import br.com.intelbras.view.LoginManagerView;
 import br.com.intelbras.view.LoginView;
 import br.com.intelbras.view.PontosView;
 import br.com.intelbras.view.ProdutoView;
+import br.com.intelbras.view.VendasGerenteView;
 import br.com.intelbras.view.VendasView;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -70,7 +71,7 @@ public class InicioControler {
                 ((JButton) mapa.get("btn_produto")).setLocation(array.get(4));
                 ((JButton) mapa.get("btn_login")).setLocation(array.get(5));
                 ((JButton) mapa.get("btn_historico")).setLocation(array.get(6));
-             }
+            }
 
         } catch (FileNotFoundException ex) {
             System.out.println("Deu merda");
@@ -163,6 +164,12 @@ public class InicioControler {
         LoginManagerView loginManager = new LoginManagerView();
         loginManager.setVisible(true);
         loginManager.setLocationRelativeTo(tela);
+    }
+
+    public void abrirHistorico(InicioView tela) {
+        VendasGerenteView vendaG = new VendasGerenteView();
+        vendaG.setVisible(true);
+        vendaG.setLocationRelativeTo(tela);
     }
 
     //============================== Metodos privados

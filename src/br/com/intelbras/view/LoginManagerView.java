@@ -168,6 +168,11 @@ public class LoginManagerView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbl_funcionario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_funcionarioMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbl_funcionario);
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Senha"));
@@ -298,6 +303,11 @@ public class LoginManagerView extends javax.swing.JFrame {
                 btn_atualizarMouseClicked(evt);
             }
         });
+        btn_atualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_atualizarActionPerformed(evt);
+            }
+        });
         jPanel3.add(btn_atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 91, 52));
 
         btn_finalizar.setText("Finalizar");
@@ -360,6 +370,14 @@ public class LoginManagerView extends javax.swing.JFrame {
     private void tbd_abasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbd_abasMouseClicked
         this.loginManagerControler.verificaAba(this.tbd_abas.getSelectedIndex());
     }//GEN-LAST:event_tbd_abasMouseClicked
+
+    private void tbl_funcionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_funcionarioMouseClicked
+        this.loginManagerControler.setaId(tbl_funcionario.getSelectedRow());
+    }//GEN-LAST:event_tbl_funcionarioMouseClicked
+
+    private void btn_atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_atualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_atualizarActionPerformed
 
     /**
      * @param args the command line arguments

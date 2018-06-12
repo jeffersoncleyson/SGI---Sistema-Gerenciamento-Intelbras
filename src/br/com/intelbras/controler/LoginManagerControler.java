@@ -34,6 +34,7 @@ public class LoginManagerControler implements AcaoTela{
     private DefaultTableModel dtm;
     private ArrayList<Object> array;
     private HashMap<String, Object> mapa;
+    private ArrayList<Object> arrayF;
     
     private boolean editar = false;
     private int idEdicao = -1;
@@ -83,7 +84,13 @@ public class LoginManagerControler implements AcaoTela{
                 JOptionPane.showMessageDialog(tela, "Nenhuma Linha Selecionada", "Excluir", JOptionPane.WARNING_MESSAGE);
             } else {
                 if (JOptionPane.showConfirmDialog(tela, "Deseja excluir o cliente?", "Excluir", JOptionPane.YES_NO_OPTION) != 1) {
-                    loginDAO.remover(((Login) array.get(id)).getId());
+                    
+                    if(loginDAO.remover(((Login) array.get(id)).getId())){
+                        dtm.getDataVector().removeAllElements();
+                        this.preencherTabela((JTable)this.mapa.get("tbl_listagem"));
+                    }else{
+                        JOptionPane.showMessageDialog(tela, "Erro ao apagar login", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         } catch (Exception ex) {
@@ -114,6 +121,8 @@ public class LoginManagerControler implements AcaoTela{
     @Override
     public void preencherTabela(JTable tabela) {
         dtm = (DefaultTableModel) tabela.getModel();
+        dtm.getDataVector().removeAllElements();
+        tela.repaint();
         array = loginDAO.listarTodos();
 
         if (array != null) {
@@ -130,7 +139,7 @@ public class LoginManagerControler implements AcaoTela{
         }
         
         dtm = (DefaultTableModel)((JTable)mapa.get("tbl_funcionario")).getModel();
-        ArrayList<Object> arrayF = funcionarioDAO.listarTodos();
+        arrayF = funcionarioDAO.listarTodos();
         
         if (arrayF != null) {
             for (Object object : arrayF) {
@@ -145,7 +154,7 @@ public class LoginManagerControler implements AcaoTela{
                 }
             }
         }
-        
+        tela.repaint();
     }
     
         public void estadoBotoes(int estado) {
@@ -200,5 +209,11 @@ public class LoginManagerControler implements AcaoTela{
         return true;
     }
 
-    
+    public void setaId(int selectedRow){
+        if( arrayF != null){
+            if(arrayF.size()-1 >=  selectedRow){
+                ((JTextField) mapa.get("txt_idfuncionario")).setText(""+((Funcionario)arrayF.get(selectedRow)).getIdFuncionario());
+            }
+        }
+    }    
 }

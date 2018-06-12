@@ -6,6 +6,7 @@
 package br.com.intelbras.view;
 
 import br.com.intelbras.controler.VendasControler;
+import br.com.intelbras.controler.VendasGerenteControler;
 import java.util.HashMap;
 
 /**
@@ -14,7 +15,7 @@ import java.util.HashMap;
  */
 public class VendasGerenteView extends javax.swing.JFrame {
     
-    VendasControler vendasControler;
+    VendasGerenteControler vendasGerenteControler;
     HashMap<String, Object> mapaComponentes;
 
     /**
@@ -24,9 +25,8 @@ public class VendasGerenteView extends javax.swing.JFrame {
         initComponents();
         mapaComponentes = new HashMap<>();
         this.inseriMapa();
-        this.vendasControler = new VendasControler(mapaComponentes);
         
-        vendasControler.preencherTabela();     // busca os elementos do banco e insere na tabela
+        this.vendasGerenteControler = new VendasGerenteControler(mapaComponentes);
     }
 
     /**
@@ -48,7 +48,7 @@ public class VendasGerenteView extends javax.swing.JFrame {
         btn_pesquisaFuncionario = new javax.swing.JButton();
         txt_data = new javax.swing.JTextField();
         try{
-            javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("##/##/####");
+            javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("##-##-####");
             txt_data= new javax.swing.JFormattedTextField(data);
         }
         catch (Exception e){
@@ -58,14 +58,11 @@ public class VendasGerenteView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        btn_ver = new javax.swing.JButton();
-        btn_atualizar = new javax.swing.JButton();
         btn_excluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Intelbras - Histórico Vendas");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tbl_listagem.setModel(new javax.swing.table.DefaultTableModel(
@@ -180,29 +177,13 @@ public class VendasGerenteView extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btn_ver.setText("Ver");
-        btn_ver.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_verMouseClicked(evt);
-            }
-        });
-        jPanel3.add(btn_ver, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 91, 52));
-
-        btn_atualizar.setText("Atualizar");
-        btn_atualizar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_atualizarMouseClicked(evt);
-            }
-        });
-        jPanel3.add(btn_atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 91, 52));
-
         btn_excluir.setText("Excluir");
         btn_excluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_excluirMouseClicked(evt);
             }
         });
-        jPanel3.add(btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 91, 52));
+        jPanel3.add(btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 91, 52));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 130, 390));
 
@@ -223,33 +204,21 @@ public class VendasGerenteView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_pesquisaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pesquisaClienteMouseClicked
-        vendasControler.pesquisaCliente(txt_cliente.getText());
+        vendasGerenteControler.preencheTabela(txt_cliente.getText());
     }//GEN-LAST:event_btn_pesquisaClienteMouseClicked
 
     private void btn_pesquisaFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pesquisaFuncionarioMouseClicked
-        vendasControler.pesquisaFuncionario(txt_funcionario.getText());
+        vendasGerenteControler.preencheTabela(txt_funcionario.getText());
     }//GEN-LAST:event_btn_pesquisaFuncionarioMouseClicked
 
     private void btn_pesuisaDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pesuisaDataMouseClicked
-        vendasControler.pesquisaData(txt_data.getText());
+        vendasGerenteControler.preencheTabela(txt_data.getText());
       
     }//GEN-LAST:event_btn_pesuisaDataMouseClicked
 
-    private void btn_verMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_verMouseClicked
-        if (btn_ver.isEnabled()) {
-            vendasControler.edicao(this.tbl_listagem.getSelectedRow());
-        }
-    }//GEN-LAST:event_btn_verMouseClicked
-
-    private void btn_atualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_atualizarMouseClicked
-        if (btn_atualizar.isEnabled()) {
-            vendasControler.atualizar(tbl_listagem);
-        }
-    }//GEN-LAST:event_btn_atualizarMouseClicked
-
     private void btn_excluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_excluirMouseClicked
         if (btn_excluir.isEnabled()) {
-            vendasControler.excluir(this.tbl_listagem.getSelectedRow());
+            
         }
     }//GEN-LAST:event_btn_excluirMouseClicked
 
@@ -296,12 +265,10 @@ public class VendasGerenteView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_atualizar;
     private javax.swing.JButton btn_excluir;
     private javax.swing.JButton btn_pesquisaCliente;
     private javax.swing.JButton btn_pesquisaFuncionario;
     private javax.swing.JButton btn_pesuisaData;
-    private javax.swing.JButton btn_ver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -321,7 +288,7 @@ public class VendasGerenteView extends javax.swing.JFrame {
         this.mapaComponentes.put("txt_nome", this.txt_funcionario);
         this.mapaComponentes.put("txt_setor", this.txt_cliente);
         
-        this.mapaComponentes.put("tbl_ponto", this.tbl_listagem);
+        this.mapaComponentes.put("tbl_vendas", this.tbl_listagem);
         
     }
 }
