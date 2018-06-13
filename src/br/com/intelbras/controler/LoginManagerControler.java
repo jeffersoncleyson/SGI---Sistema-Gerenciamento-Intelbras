@@ -34,6 +34,7 @@ public class LoginManagerControler implements AcaoTela{
     private DefaultTableModel dtm;
     private ArrayList<Object> array;
     private HashMap<String, Object> mapa;
+    private ArrayList<Object> arrayF;
     
     private boolean editar = false;
     private int idEdicao = -1;
@@ -48,7 +49,29 @@ public class LoginManagerControler implements AcaoTela{
     
     @Override
     public void cadastrar( ) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        Login login = new Login();
+
+       if(validaDados()){
+           
+           login.setUsername(((JTextField) mapa.get("txt_username")).getText());
+           login.setEmail(((JTextField) mapa.get("txt_email")).getText());
+           login.setSenha(((JTextField) mapa.get("txt_senha")).getText());
+           login.setFuncionarioId( Integer.parseInt( ((JTextField) mapa.get("txt_idfuncionario")).getText())  );
+           
+           if (loginDAO.cadastrar(login)) {
+                JOptionPane.showMessageDialog(tela, "Cadastrado com sucesso", "Cadastro", JOptionPane.OK_OPTION);
+                this.cancelar();
+                this.preencherTabela((JTable)this.mapa.get("tbl_listagem"));
+                // limpar campos
+            } else {
+                JOptionPane.showMessageDialog(tela, "Erro ao cadastrar", "Cadastro", JOptionPane.OK_OPTION);
+            }
+           
+       }else{
+           JOptionPane.showMessageDialog(tela, "Preencha todos os campos", "Erro",JOptionPane.ERROR_MESSAGE);
+       }
+
     }
     
     public void edicao(int selectedRow) {
@@ -61,7 +84,7 @@ public class LoginManagerControler implements AcaoTela{
 
         ((JTextField) mapa.get("txt_email")).setText(login.getEmail());
         ((JTextField) mapa.get("txt_username")).setText(login.getUsername());
-        ((JTextField) mapa.get("txt_idfuncionario")).setText(""+login.getId());
+        ((JTextField) mapa.get("txt_idfuncionario")).setText(""+login.getFuncionarioId());
         
         
     }
@@ -83,7 +106,13 @@ public class LoginManagerControler implements AcaoTela{
                 JOptionPane.showMessageDialog(tela, "Nenhuma Linha Selecionada", "Excluir", JOptionPane.WARNING_MESSAGE);
             } else {
                 if (JOptionPane.showConfirmDialog(tela, "Deseja excluir o cliente?", "Excluir", JOptionPane.YES_NO_OPTION) != 1) {
-                    loginDAO.remover(((Login) array.get(id)).getId());
+                    
+                    if(loginDAO.remover(((Login) array.get(id)).getId())){
+                        dtm.getDataVector().removeAllElements();
+                        this.preencherTabela((JTable)this.mapa.get("tbl_listagem"));
+                    }else{
+                        JOptionPane.showMessageDialog(tela, "Erro ao apagar login", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         } catch (Exception ex) {
@@ -94,7 +123,6 @@ public class LoginManagerControler implements AcaoTela{
     @Override
     public void atualizar(JTable tabela) {
         dtm.getDataVector().removeAllElements();
-        ((DefaultTableModel) mapa.get("tbl_funcionario")).getDataVector().removeAllElements();
         this.preencherTabela(tabela);
     }
 
@@ -104,10 +132,34 @@ public class LoginManagerControler implements AcaoTela{
         this.idEdicao = -1;
         this.limparCampos();
         this.estadoBotoes(0);
+
     }
 
     @Override
     public void finalizar() {
+        
+        Login login = new Login();
+
+       if(validaDados()){
+           
+           login.setId(this.idEdicao);
+           login.setUsername(((JTextField) mapa.get("txt_username")).getText());
+           login.setEmail(((JTextField) mapa.get("txt_email")).getText());
+           login.setSenha(((JTextField) mapa.get("txt_senha")).getText());
+           login.setFuncionarioId( Integer.parseInt( ((JTextField) mapa.get("txt_idfuncionario")).getText())  );
+           
+           if(this.loginDAO.editar(login)){
+                JOptionPane.showMessageDialog(tela, "Editado com sucesso", "Edição", JOptionPane.OK_OPTION);
+                this.cancelar();
+                this.preencherTabela((JTable)this.mapa.get("tbl_listagem"));
+                // limpar campos
+            } else {
+                JOptionPane.showMessageDialog(tela, "Erro ao editar", "Edição", JOptionPane.OK_OPTION);
+            }
+           
+       }else{
+           JOptionPane.showMessageDialog(tela, "Preencha todos os campos", "Erro",JOptionPane.ERROR_MESSAGE);
+       }        
       
     
     }
@@ -115,6 +167,8 @@ public class LoginManagerControler implements AcaoTela{
     @Override
     public void preencherTabela(JTable tabela) {
         dtm = (DefaultTableModel) tabela.getModel();
+        dtm.getDataVector().removeAllElements();
+        tela.repaint();
         array = loginDAO.listarTodos();
 
         if (array != null) {
@@ -131,7 +185,8 @@ public class LoginManagerControler implements AcaoTela{
         }
         
         dtm = (DefaultTableModel)((JTable)mapa.get("tbl_funcionario")).getModel();
-        ArrayList<Object> arrayF = funcionarioDAO.listarTodos();
+        dtm.getDataVector().removeAllElements();
+        arrayF = funcionarioDAO.listarTodos();
         
         if (arrayF != null) {
             for (Object object : arrayF) {
@@ -146,7 +201,7 @@ public class LoginManagerControler implements AcaoTela{
                 }
             }
         }
-        
+        tela.repaint();
     }
     
         public void estadoBotoes(int estado) {
@@ -194,12 +249,26 @@ public class LoginManagerControler implements AcaoTela{
         ((JTextField) mapa.get("txt_email")).setText("");
         ((JTextField) mapa.get("txt_username")).setText("");
         ((JTextField) mapa.get("txt_idfuncionario")).setText("");
+        ((JTextField) mapa.get("txt_senha")).setText("");
     }
 
     private boolean validaDados() {
+        
+        boolean teste = true;
+        
+        if(((JTextField) mapa.get("txt_email")).getText().equals("")) teste = false;
+        if(((JTextField) mapa.get("txt_username")).getText().equals("")) teste = false;
+        if(((JTextField) mapa.get("txt_idfuncionario")).getText().equals("")) teste = false;
+        if(((JTextField) mapa.get("txt_senha")).getText().equals("")) teste = false;
 
-        return true;
+        return teste;
     }
 
-    
+    public void setaId(int selectedRow){
+        if( arrayF != null){
+            if(arrayF.size()-1 >=  selectedRow){
+                ((JTextField) mapa.get("txt_idfuncionario")).setText(""+((Funcionario)arrayF.get(selectedRow)).getIdFuncionario());
+            }
+        }
+    }    
 }

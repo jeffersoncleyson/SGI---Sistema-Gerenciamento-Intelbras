@@ -6,7 +6,6 @@
 package br.com.intelbras.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -16,9 +15,28 @@ public class Venda {
    private int idVenda;
    private String dataVenda;
    private float valorTotalVenda;
-   private String obsVenda;
    private ArrayList<Produto> produtos;
+   private int clienteId;
+   private int funcionarioId;
 
+    public int getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(int clienteId) {
+        this.clienteId = clienteId;
+    }
+
+    public int getFuncionarioId() {
+        return funcionarioId;
+    }
+
+    public void setFuncionarioId(int funcionarioId) {
+        this.funcionarioId = funcionarioId;
+    }
+
+   
+   
     public int getIdVenda() {
         return idVenda;
     }
@@ -41,14 +59,6 @@ public class Venda {
 
     public void setValorTotalVenda(float valorTotalVenda) {
         this.valorTotalVenda = valorTotalVenda;
-    }
-
-    public String getObsVenda() {
-        return obsVenda;
-    }
-
-    public void setObsVenda(String obsVenda) {
-        this.obsVenda = obsVenda;
     }
 
     public ArrayList<Produto> getProdutos() {

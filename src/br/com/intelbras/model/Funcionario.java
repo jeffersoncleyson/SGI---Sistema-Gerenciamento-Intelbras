@@ -11,6 +11,9 @@ package br.com.intelbras.model;
  */
 public class Funcionario {
 
+    public static int nivelAcessoLogado = 0;
+    public static int idAcessoLogado = -1;
+    
     private int idFuncionario;
     private String nomeFuncionario;
     private String cpfFuncionario;
@@ -24,7 +27,16 @@ public class Funcionario {
     private float comissaoFuncionario;
     private String cepFuncionario;
     private int nivelAcesso;
+    private String rfidFuncionario;
 
+    public String getRfidFuncionario() {
+        return rfidFuncionario;
+    }
+
+    public void setRfidFuncionario(String rfidFuncionario) {
+        this.rfidFuncionario = rfidFuncionario;
+    }
+    
     public String getCepFuncionario() {
         return cepFuncionario;
     }

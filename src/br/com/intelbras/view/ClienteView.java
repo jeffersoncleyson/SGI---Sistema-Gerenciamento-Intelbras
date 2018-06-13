@@ -43,8 +43,20 @@ public class ClienteView extends javax.swing.JFrame {
         txt_nome = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         txt_cpf = new javax.swing.JTextField();
+        try{
+            javax.swing.text.MaskFormatter cpf= new javax.swing.text.MaskFormatter("###.###.###-##");
+            txt_cpf = new javax.swing.JFormattedTextField(cpf);
+        }
+        catch (Exception e){
+        }
         jPanel4 = new javax.swing.JPanel();
         txt_rg = new javax.swing.JTextField();
+        try{
+            javax.swing.text.MaskFormatter rg= new javax.swing.text.MaskFormatter("##.###.###");
+            txt_rg = new javax.swing.JFormattedTextField(rg);
+        }
+        catch (Exception e){
+        }
         jPanel7 = new javax.swing.JPanel();
         rbtn_sexo = new javax.swing.JRadioButton();
         rbtn_feminino = new javax.swing.JRadioButton();
@@ -58,6 +70,12 @@ public class ClienteView extends javax.swing.JFrame {
         }
         jPanel10 = new javax.swing.JPanel();
         txt_telefone = new javax.swing.JTextField();
+        try{
+            javax.swing.text.MaskFormatter tel= new javax.swing.text.MaskFormatter("(##) #####-####");
+            txt_telefone = new javax.swing.JFormattedTextField(tel);
+        }
+        catch (Exception e){
+        }
         jPanel11 = new javax.swing.JPanel();
         txt_endereco = new javax.swing.JTextField();
         jPanel13 = new javax.swing.JPanel();
@@ -264,6 +282,13 @@ public class ClienteView extends javax.swing.JFrame {
         );
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("CEP"));
+
+        try{
+            javax.swing.text.MaskFormatter cep= new javax.swing.text.MaskFormatter("#####-###");
+            txt_cep = new javax.swing.JFormattedTextField(cep);
+        }
+        catch (Exception e){
+        }
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);

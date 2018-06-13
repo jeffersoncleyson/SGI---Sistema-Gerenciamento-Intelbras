@@ -17,7 +17,7 @@ import java.util.ArrayList;
  *
  * @author WesleyReis
  */
-public class VendaDAO implements DAO{
+public class VendaDAO implements DAO {
 
     private static VendaDAO uniqueInstance;
     BancoDados _BD = new BancoDados();
@@ -27,6 +27,7 @@ public class VendaDAO implements DAO{
     private Statement _st = null;
     private PreparedStatement _pst = null;
 
+<<<<<<< HEAD
     private VendaDAO() {
         this._BD = new BancoDados();
     }
@@ -38,11 +39,97 @@ public class VendaDAO implements DAO{
         return uniqueInstance;
     }
     
+=======
+    public static void main(String[] args) {
+
+        /*Produto p = new Produto();
+        p.setIdProduto(1);
+        p.setMarcaProduto("Bom Bril");
+        p.setModeloProduto("Palha de Aço");
+        p.setValorProduto(4);
+
+        Venda venda = new Venda();
+        ArrayList<Produto> array = new ArrayList<>();
+        array.add(p);
+
+        venda.setClienteId(1);
+        venda.setFuncionarioId(1);
+        venda.setValorTotalVenda(40);
+        venda.setProdutos(array);
+
+        VendaDAO v = new VendaDAO();
+        v.cadastrar(venda);*/
+        
+        VendaDAO v = new VendaDAO();
+        for (Object obj : v.listarTodos()) {
+            Venda venda = (Venda) obj;
+            
+            System.out.println(venda.getIdVenda());
+            System.out.println(venda.getValorTotalVenda());
+            for (Produto produto : venda.getProdutos()) {
+                System.out.println("\t"+produto.getIdProduto());
+                System.out.println("\t"+produto.getMarcaProduto());
+                
+            }
+            
+        }
+        
+    }
+
+>>>>>>> 85570548b2cfa1549eaa86867fea66c6e0709503
 //====================================================================================================================
 //====================================================================================================================
     public ArrayList<Object> listarTodos() {
         abrirConexao();
         try {
+
+            ArrayList<Object> array = new ArrayList<>();
+            
+
+            this._st = this._con.createStatement();
+            this._rs = this._st.executeQuery("SELECT * FROM Vendas");
+
+            while (this._rs.next()) {
+                Venda venda = new Venda();
+
+                venda.setIdVenda(this._rs.getInt(1));
+                venda.setDataVenda(this._rs.getString(2));
+                venda.setValorTotalVenda(this._rs.getFloat(3));
+                venda.setClienteId(this._rs.getInt(4));
+                venda.setFuncionarioId(this._rs.getInt(5));
+
+                array.add(venda);
+            }
+            //===============================================================
+            
+            
+            for (Object obj : array) {
+                ArrayList<Produto> produtos = new ArrayList<>();
+                Venda venda = (Venda) obj;
+                
+                this._pst = _con.prepareStatement("SELECT * FROM produto INNER JOIN vendas_has_produto ON "
+                    + "produto.idProduto = vendas_has_produto.Produto_idProduto WHERE vendas_has_produto.Vendas_idVendas = ?;");
+                this._pst.setInt(1, venda.getIdVenda());
+                
+                this._rs = this._pst.executeQuery();
+                
+                while (this._rs.next()) {
+                    Produto produto = new Produto();
+                    
+                    produto.setIdProduto(this._rs.getInt(1));
+                    produto.setDescricaoProduto(this._rs.getString(2));
+                    produto.setMarcaProduto(this._rs.getString(3));
+                    produto.setValorProduto(this._rs.getFloat(4));
+                    produto.setModeloProduto(this._rs.getString(5));
+                    produto.setObsProduto(this._rs.getString(6));
+                    
+                    produtos.add(produto);
+                    
+                }
+                venda.setProdutos(produtos);
+            }
+            
+            return array;
 
         } catch (Exception ex) {
             System.out.println("Erro: Conexão Banco! :(");
@@ -51,14 +138,54 @@ public class VendaDAO implements DAO{
         }
         return null;
     }
-    
+
 //====================================================================================================================
 //====================================================================================================================
     public boolean cadastrar(Object obj) {
+        boolean gravou = true;
 
-        return false;
+        Venda venda = (Venda) obj;
+        abrirConexao();
+        try {
+
+            this._pst = _con.prepareStatement("INSERT INTO vendas(`dataVenda`,`valorTotalVenda`,`Cliente_idCliente`,`Funcionario_idFuncionario`) VALUES(?,?,?,?);");
+            this._pst.setString(1, venda.getDataVenda());
+            this._pst.setFloat(2, venda.getValorTotalVenda());
+            this._pst.setInt(3, venda.getClienteId());
+            this._pst.setInt(4, venda.getFuncionarioId());
+
+            this._pst.executeUpdate();
+
+            //========================== pegar ultimo id
+            _st = _con.createStatement();
+            // O ResultSet gera uma tabela de dados retornados por uma pesquisa SQL.
+            _rs = _st.executeQuery("SELECT idVendas FROM vendas ORDER BY idVendas DESC LIMIT 1;");
+
+            while (_rs.next()) {
+                venda.setIdVenda(_rs.getInt(1));
+                //System.out.println(v.getId());
+            }
+
+            for (Produto produto : venda.getProdutos()) {
+                this._pst = _con.prepareStatement("INSERT INTO vendas_has_produto(`Vendas_idVendas`,`Produto_idProduto`)VALUES(?,?);");
+                this._pst.setInt(1, venda.getIdVenda());
+                this._pst.setInt(2, produto.getIdProduto());
+            }
+
+            this._pst.executeUpdate();
+
+        } catch (Exception ex) {
+            gravou = false;
+            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println(ex);
+        } finally {
+            fecharConexao();
+        }
+        return gravou;
     }
 
+//              FORA DO ESCOPO    
+//
     public boolean editar(Object obj) {
         abrirConexao();
         try {
@@ -76,7 +203,11 @@ public class VendaDAO implements DAO{
     public boolean remover(int id) {
         abrirConexao();
         try {
+            this._pst = this._con.prepareStatement("DELETE FROM `intelbras`.`vendas` WHERE idVendas = ?");
+            this._pst.setInt(1, id);
+            this._pst.executeUpdate();
 
+            return true;
         } catch (Exception ex) {
             System.out.println("Erro: Conexão Banco! :(");
         } finally {

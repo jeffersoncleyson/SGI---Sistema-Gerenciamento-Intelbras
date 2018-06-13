@@ -95,6 +95,11 @@ public class InicioView extends javax.swing.JFrame {
                 btn_historicoMouseReleased(evt);
             }
         });
+        btn_historico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_historicoActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_historico);
         btn_historico.setBounds(140, 240, 110, 90);
 
@@ -444,6 +449,10 @@ public class InicioView extends javax.swing.JFrame {
     private void btn_historicoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_historicoMouseReleased
         inicioControler.guardaPosicao();
     }//GEN-LAST:event_btn_historicoMouseReleased
+
+    private void btn_historicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historicoActionPerformed
+        inicioControler.abrirHistorico(this);
+    }//GEN-LAST:event_btn_historicoActionPerformed
 
     /**
      * @param args the command line arguments

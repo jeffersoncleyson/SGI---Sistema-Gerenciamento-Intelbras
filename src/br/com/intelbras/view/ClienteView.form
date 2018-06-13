@@ -201,6 +201,9 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="txt_cpf">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{&#xd;&#xa;   javax.swing.text.MaskFormatter cpf= new javax.swing.text.MaskFormatter(&quot;###.###.###-##&quot;);&#xd;&#xa;   txt_cpf = new javax.swing.JFormattedTextField(cpf);&#xd;&#xa;}&#xd;&#xa;   catch (Exception e){&#xd;&#xa;}"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -235,6 +238,9 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="txt_rg">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{&#xd;&#xa;   javax.swing.text.MaskFormatter rg= new javax.swing.text.MaskFormatter(&quot;##.###.###&quot;);&#xd;&#xa;   txt_rg = new javax.swing.JFormattedTextField(rg);&#xd;&#xa;}&#xd;&#xa;   catch (Exception e){&#xd;&#xa;}"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -360,6 +366,9 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="txt_telefone">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{&#xd;&#xa;   javax.swing.text.MaskFormatter tel= new javax.swing.text.MaskFormatter(&quot;(##) #####-####&quot;);&#xd;&#xa;   txt_telefone = new javax.swing.JFormattedTextField(tel);&#xd;&#xa;}&#xd;&#xa;   catch (Exception e){&#xd;&#xa;}"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -462,6 +471,9 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="txt_cep">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="try{&#xd;&#xa;   javax.swing.text.MaskFormatter cep= new javax.swing.text.MaskFormatter(&quot;#####-###&quot;);&#xd;&#xa;   txt_cep = new javax.swing.JFormattedTextField(cep);&#xd;&#xa;}&#xd;&#xa;   catch (Exception e){&#xd;&#xa;}"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

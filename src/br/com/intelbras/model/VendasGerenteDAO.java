@@ -17,52 +17,42 @@ import java.util.ArrayList;
  *
  * @author WesleyReis
  */
-public class ProdutoDAO implements DAO {
+public class VendasGerenteDAO  implements DAO {
 
-    private static ProdutoDAO uniqueInstance;
     BancoDados _BD = new BancoDados();
 
     private Connection _con = null;
     private ResultSet _rs = null;
     private Statement _st = null;
     private PreparedStatement _pst = null;
-    
-    private ProdutoDAO() {
-        this._BD = new BancoDados();
-    }
-
-    public static synchronized ProdutoDAO getInstance(){
-        if(uniqueInstance==null){
-            uniqueInstance = new ProdutoDAO();
-        }
-        return uniqueInstance;
-    }
 
 //====================================================================================================================
 //====================================================================================================================
-    @Override
     public ArrayList<Object> listarTodos() {
         abrirConexao();
         try {
+
             ArrayList<Object> array = new ArrayList<>();
+            
 
             this._st = this._con.createStatement();
-            this._rs = this._st.executeQuery("SELECT * FROM produto");
+            this._rs = this._st.executeQuery("SELECT vendas.idVendas, cliente.nomeCliente, funcionario.nomeFuncionario, vendas.dataVenda from vendas "
+                    + "inner join cliente on vendas.Cliente_idCliente = cliente.idCliente "
+                    + "inner join funcionario on vendas.Funcionario_idFuncionario = funcionario.idFuncionario;");
 
             while (this._rs.next()) {
-                Produto produto = new Produto();
+                VendasGerente vendaG = new VendasGerente();
 
-                produto.setIdProduto(this._rs.getInt(1));
-                produto.setDescricaoProduto(this._rs.getString(2));
-                produto.setMarcaProduto(this._rs.getString(3));
-                produto.setValorProduto(this._rs.getFloat(4));
-                produto.setModeloProduto(this._rs.getString(5));
-                produto.setObsProduto(this._rs.getString(6));
+                vendaG.setIdVenda(this._rs.getInt(1));
+                vendaG.setNomeCliente(this._rs.getString(2));
+                vendaG.setNomeFuncionario(this._rs.getString(3));
+                vendaG.setData(this._rs.getString(4));
 
-
-                array.add(produto);
+                array.add(vendaG);
             }
-
+            //===============================================================
+            
+            
             return array;
 
         } catch (Exception ex) {
@@ -75,81 +65,27 @@ public class ProdutoDAO implements DAO {
 
 //====================================================================================================================
 //====================================================================================================================
-    @Override
     public boolean cadastrar(Object obj) {
-        abrirConexao();
-
-        boolean gravou = true;
-
-        try {
-
-            Produto produto = (Produto) obj;
-
-            this._pst = _con.prepareStatement("INSERT INTO `produto`(`descricaoProduto`,`marcaProduto`,`valorProduto`,"
-                    + "`modeloProduto`,`obsProduto`) VALUES(?,?,?,?,?);");
-            this._pst.setString(1, produto.getDescricaoProduto());
-            this._pst.setString(2, produto.getMarcaProduto());
-            this._pst.setFloat(3, produto.getValorProduto());
-            this._pst.setString(4, produto.getModeloProduto());
-            this._pst.setString(5, produto.getObsProduto());
-
-            this._pst.executeUpdate();
-
-        } catch (Exception ex) {
-            gravou = false;
-            System.out.println("Erro: Conexão Banco! :(");
-            System.out.println(ex);
-        } finally {
-            fecharConexao();
-        }
-        return gravou;
+        return false;
     }
-
-    @Override
+    
     public boolean editar(Object obj) {
-        abrirConexao();
-        boolean teste = true;
-        try {
-            Produto produto = (Produto) obj;
-             System.out.println(produto);
 
-            this._pst = this._con.prepareStatement("UPDATE `intelbras`.`produto` SET `descricaoProduto` = ?, `marcaProduto` = ?, `valorProduto` = ?,`modeloProduto` = ?, `obsProduto` = ? WHERE `idProduto` = ?");
-            this._pst.setString(1, produto.getDescricaoProduto());
-            this._pst.setString(2, produto.getMarcaProduto());
-            this._pst.setFloat(3, produto.getValorProduto());
-            this._pst.setString(4, produto.getModeloProduto());
-            this._pst.setString(5, produto.getObsProduto());
-
-            
-            this._pst.setInt(6, produto.getIdProduto());
-
-            this._pst.executeUpdate();
-
-        } catch (Exception ex) {
-            System.out.println("Erro: Conexão Banco! :(");
-            System.out.println(ex);
-            teste = false;
-        } finally {
-            fecharConexao();
-        }
-        return teste;
+        return false;
     }
 
 //====================================================================================================================
 //====================================================================================================================    
-    @Override
     public boolean remover(int id) {
         abrirConexao();
         try {
-
-            this._pst = this._con.prepareStatement("DELETE FROM `intelbras`.`produto` WHERE idProduto = ?");
+            this._pst = this._con.prepareStatement("DELETE FROM `intelbras`.`vendas` WHERE idVendas = ?");
             this._pst.setInt(1, id);
             this._pst.executeUpdate();
 
             return true;
         } catch (Exception ex) {
             System.out.println("Erro: Conexão Banco! :(");
-            System.out.println(ex);
         } finally {
             fecharConexao();
         }
@@ -158,7 +94,6 @@ public class ProdutoDAO implements DAO {
 
 //====================================================================================================================
 //====================================================================================================================
-    @Override
     public boolean abrirConexao() {
         try {
             _con = DriverManager.getConnection(_BD.getUrl(), _BD.getUsuario(), _BD.getSenha());
@@ -172,7 +107,6 @@ public class ProdutoDAO implements DAO {
 
 //====================================================================================================================
 //====================================================================================================================
-    @Override
     public void fecharConexao() {
         try {
             if (_rs != null) {

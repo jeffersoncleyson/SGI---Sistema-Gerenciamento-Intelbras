@@ -11,6 +11,7 @@ import br.com.intelbras.view.VendasView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -21,49 +22,28 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author WesleyReis
  */
-public class GerenteControler implements AcaoTela{
+public class GerenteControler {
 
     private VendasView tela;
     private DefaultTableModel dtm;
     private ArrayList<Object> array;
     private HashMap<String, Object> mapa;
     VendaDAO vendaDAO;
-    
+
     private boolean editar = false;
     private int idEdicao = -1;
-    
+
     public GerenteControler(HashMap<String, Object> mapa) {
         this.vendaDAO = VendaDAO.getInstance();
         this.tela = ((VendasView) mapa.get("tela"));
         this.mapa = mapa;
     }
-    
-    @Override
-    public void cadastrar( ) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    public void edicao(int row){
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.  
-    }
 
-    @Override
-    public void editar(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void excluir(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void atualizar(JTable tabela) {
         dtm.getDataVector().removeAllElements();
         this.preencherTabela(tabela);
     }
 
-    @Override
     public void cancelar() {
         this.editar = false;
         this.idEdicao = -1;
@@ -71,14 +51,18 @@ public class GerenteControler implements AcaoTela{
         this.estadoBotoes(0);
     }
 
-    @Override
-    public void finalizar() {
-       throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void excluir(int id) {
+
+        if (this.vendaDAO.remover(id)) {
+            JOptionPane.showMessageDialog(tela, "Excluido com sucesso!", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(tela, "Falha ao excluir!", "Exclusão", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 
-    @Override
     public void preencherTabela(JTable tabela) {
-       dtm = (DefaultTableModel) tabela.getModel();
+        dtm = (DefaultTableModel) tabela.getModel();
 
         array = vendaDAO.listarTodos();
 
@@ -96,7 +80,7 @@ public class GerenteControler implements AcaoTela{
             }
         }
     }
-    
+
     public void estadoBotoes(int estado) {
         switch (estado) {
             case 1:
@@ -127,7 +111,7 @@ public class GerenteControler implements AcaoTela{
                 break;
         }
     }
-    
+
     private void limparCampos() {
         ((JTabbedPane) mapa.get("tbd_abas")).setSelectedIndex(0);
         ((JTextField) mapa.get("txt_nome")).setText("");
@@ -142,12 +126,7 @@ public class GerenteControler implements AcaoTela{
         ((JTextField) mapa.get("txt_telefone")).setText("");
         ((JTextField) mapa.get("txt_comissao")).setText("");
     }
-    
-    private boolean validaDados() {
 
-        return true;
-    }
-    
     public void verificaAba(int aba) {
         if (this.editar) {
             ((JTabbedPane) mapa.get("tbd_abas")).setSelectedIndex(0);

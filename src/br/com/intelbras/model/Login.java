@@ -15,6 +15,7 @@ public class Login {
     private String username;
     private String senha;
     private String email;
+    private int funcionarioId;
 
     public String getUsername() {
         return username;
@@ -46,6 +47,14 @@ public class Login {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getFuncionarioId() {
+        return funcionarioId;
+    }
+
+    public void setFuncionarioId(int funcionarioId) {
+        this.funcionarioId = funcionarioId;
     }
     
     

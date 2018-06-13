@@ -14,11 +14,12 @@ import java.util.HashMap;
  */
 public class ClienteAddVenda extends javax.swing.JFrame {
 
-    /**
-     * Creates new form LoginView
-     */
+    HashMap<String, Object> mapaComponentes = new HashMap<>();
+    
     public ClienteAddVenda() {
         initComponents();
+        
+        this.inseriMapa();
     }
 
     /**
@@ -32,21 +33,18 @@ public class ClienteAddVenda extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_ponto = new javax.swing.JTable();
+        tbl_cliente = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         txt_cpf = new javax.swing.JTextField();
         btn_pesquisaSetor = new javax.swing.JButton();
-        txt_nome = new javax.swing.JTextField();
-        btn_pesquisaNome = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tbl_ponto.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_cliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -69,7 +67,12 @@ public class ClienteAddVenda extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tbl_ponto);
+        tbl_cliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_clienteMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_cliente);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 580, 130));
 
@@ -79,17 +82,13 @@ public class ClienteAddVenda extends javax.swing.JFrame {
                 btn_pesquisaSetorMouseClicked(evt);
             }
         });
-
-        btn_pesquisaNome.setText("Ir");
-        btn_pesquisaNome.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_pesquisaNomeMouseClicked(evt);
+        btn_pesquisaSetor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_pesquisaSetorActionPerformed(evt);
             }
         });
 
         jLabel1.setText("CPF");
-
-        jLabel2.setText("Nome");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -102,30 +101,17 @@ public class ClienteAddVenda extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_pesquisaSetor))
                     .addComponent(jLabel1))
-                .addGap(25, 25, 25)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txt_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_pesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addContainerGap(319, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_pesquisaSetor)
-                    .addComponent(txt_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_pesquisaNome))
+                    .addComponent(btn_pesquisaSetor))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
 
@@ -148,62 +134,37 @@ public class ClienteAddVenda extends javax.swing.JFrame {
     private void btn_pesquisaSetorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pesquisaSetorMouseClicked
     }//GEN-LAST:event_btn_pesquisaSetorMouseClicked
 
-    private void btn_pesquisaNomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pesquisaNomeMouseClicked
-    }//GEN-LAST:event_btn_pesquisaNomeMouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClienteAddVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClienteAddVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClienteAddVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ClienteAddVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void tbl_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_clienteMouseClicked
+        if (evt.getClickCount() == 2) {
+            this.dispose();
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+    }//GEN-LAST:event_tbl_clienteMouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ClienteAddVenda().setVisible(true);
-            }
-        });
-    }
+    private void btn_pesquisaSetorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisaSetorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_pesquisaSetorActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_pesquisaNome;
     private javax.swing.JButton btn_pesquisaSetor;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbl_ponto;
+    private javax.swing.JTable tbl_cliente;
     private javax.swing.JTextField txt_cpf;
-    private javax.swing.JTextField txt_nome;
     // End of variables declaration//GEN-END:variables
+       
+    private void inseriMapa() {
+        this.mapaComponentes.put("tela", this);
+        this.mapaComponentes.put("btn_pesquisaSetor", this.btn_pesquisaSetor);
+        this.mapaComponentes.put("txt_cpf", this.txt_cpf);
+        this.mapaComponentes.put("tbl_cliente", this.tbl_cliente);
 
+    }
+    
+    public HashMap<String,Object> getMap(){
+        return mapaComponentes;
+    }
+    
 }
