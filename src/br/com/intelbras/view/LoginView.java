@@ -6,6 +6,7 @@
 package br.com.intelbras.view;
 
 import br.com.intelbras.controler.LoginControler;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -52,9 +53,19 @@ public class LoginView extends javax.swing.JFrame {
 
         txt_usuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_usuario.setText("wesleyreis");
+        txt_usuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_usuarioKeyPressed(evt);
+            }
+        });
 
         txt_senha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_senha.setText("1234");
+        txt_senha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_senhaKeyPressed(evt);
+            }
+        });
 
         btn_login.setBackground(new java.awt.Color(102, 102, 255));
         btn_login.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -103,6 +114,18 @@ public class LoginView extends javax.swing.JFrame {
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
         loginControler.login(txt_usuario, txt_senha, this);
     }//GEN-LAST:event_btn_loginActionPerformed
+
+    private void txt_usuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_usuarioKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+             loginControler.login(txt_usuario, txt_senha, this);
+        }
+    }//GEN-LAST:event_txt_usuarioKeyPressed
+
+    private void txt_senhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_senhaKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+             loginControler.login(txt_usuario, txt_senha, this);
+        }
+    }//GEN-LAST:event_txt_senhaKeyPressed
 
     /**
      * @param args the command line arguments
