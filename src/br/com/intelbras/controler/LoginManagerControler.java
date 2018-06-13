@@ -49,7 +49,29 @@ public class LoginManagerControler implements AcaoTela{
     
     @Override
     public void cadastrar( ) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        Login login = new Login();
+
+       if(validaDados()){
+           
+           login.setUsername(((JTextField) mapa.get("txt_username")).getText());
+           login.setEmail(((JTextField) mapa.get("txt_email")).getText());
+           login.setSenha(((JTextField) mapa.get("txt_senha")).getText());
+           login.setFuncionarioId( Integer.parseInt( ((JTextField) mapa.get("txt_idfuncionario")).getText())  );
+           
+           if (loginDAO.cadastrar(login)) {
+                JOptionPane.showMessageDialog(tela, "Cadastrado com sucesso", "Cadastro", JOptionPane.OK_OPTION);
+                this.cancelar();
+                this.preencherTabela((JTable)this.mapa.get("tbl_listagem"));
+                // limpar campos
+            } else {
+                JOptionPane.showMessageDialog(tela, "Erro ao cadastrar", "Cadastro", JOptionPane.OK_OPTION);
+            }
+           
+       }else{
+           JOptionPane.showMessageDialog(tela, "Preencha todos os campos", "Erro",JOptionPane.ERROR_MESSAGE);
+       }
+
     }
     
     public void edicao(int selectedRow) {
@@ -62,7 +84,7 @@ public class LoginManagerControler implements AcaoTela{
 
         ((JTextField) mapa.get("txt_email")).setText(login.getEmail());
         ((JTextField) mapa.get("txt_username")).setText(login.getUsername());
-        ((JTextField) mapa.get("txt_idfuncionario")).setText(""+login.getId());
+        ((JTextField) mapa.get("txt_idfuncionario")).setText(""+login.getFuncionarioId());
         
         
     }
@@ -110,10 +132,34 @@ public class LoginManagerControler implements AcaoTela{
         this.idEdicao = -1;
         this.limparCampos();
         this.estadoBotoes(0);
+
     }
 
     @Override
     public void finalizar() {
+        
+        Login login = new Login();
+
+       if(validaDados()){
+           
+           login.setId(this.idEdicao);
+           login.setUsername(((JTextField) mapa.get("txt_username")).getText());
+           login.setEmail(((JTextField) mapa.get("txt_email")).getText());
+           login.setSenha(((JTextField) mapa.get("txt_senha")).getText());
+           login.setFuncionarioId( Integer.parseInt( ((JTextField) mapa.get("txt_idfuncionario")).getText())  );
+           
+           if(this.loginDAO.editar(login)){
+                JOptionPane.showMessageDialog(tela, "Editado com sucesso", "Edição", JOptionPane.OK_OPTION);
+                this.cancelar();
+                this.preencherTabela((JTable)this.mapa.get("tbl_listagem"));
+                // limpar campos
+            } else {
+                JOptionPane.showMessageDialog(tela, "Erro ao editar", "Edição", JOptionPane.OK_OPTION);
+            }
+           
+       }else{
+           JOptionPane.showMessageDialog(tela, "Preencha todos os campos", "Erro",JOptionPane.ERROR_MESSAGE);
+       }        
       
     
     }
@@ -139,6 +185,7 @@ public class LoginManagerControler implements AcaoTela{
         }
         
         dtm = (DefaultTableModel)((JTable)mapa.get("tbl_funcionario")).getModel();
+        dtm.getDataVector().removeAllElements();
         arrayF = funcionarioDAO.listarTodos();
         
         if (arrayF != null) {
@@ -202,11 +249,19 @@ public class LoginManagerControler implements AcaoTela{
         ((JTextField) mapa.get("txt_email")).setText("");
         ((JTextField) mapa.get("txt_username")).setText("");
         ((JTextField) mapa.get("txt_idfuncionario")).setText("");
+        ((JTextField) mapa.get("txt_senha")).setText("");
     }
 
     private boolean validaDados() {
+        
+        boolean teste = true;
+        
+        if(((JTextField) mapa.get("txt_email")).getText().equals("")) teste = false;
+        if(((JTextField) mapa.get("txt_username")).getText().equals("")) teste = false;
+        if(((JTextField) mapa.get("txt_idfuncionario")).getText().equals("")) teste = false;
+        if(((JTextField) mapa.get("txt_senha")).getText().equals("")) teste = false;
 
-        return true;
+        return teste;
     }
 
     public void setaId(int selectedRow){

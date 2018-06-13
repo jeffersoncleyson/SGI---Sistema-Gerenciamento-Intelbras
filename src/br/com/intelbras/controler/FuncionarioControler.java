@@ -44,24 +44,31 @@ public class FuncionarioControler implements AcaoTela {
     public void cadastrar() {
 
         Funcionario funcionario = new Funcionario();
-        funcionario.setNomeFuncionario(((JTextField) mapa.get("txt_nome")).getText());
-        funcionario.setCepFuncionario(((JTextField) mapa.get("txt_cep")).getText());
-        funcionario.setComissaoFuncionario(Float.parseFloat(((JTextField) mapa.get("txt_comissao")).getText()));
-        funcionario.setCpfFuncionario(((JTextField) mapa.get("txt_cpf")).getText());
-        funcionario.setEnderecoFuncionario(((JTextField) mapa.get("txt_endereco")).getText());
-        funcionario.setSalarioFuncionario(Float.parseFloat(((JTextField) mapa.get("txt_salario")).getText()));
-        funcionario.setRgFuncionario(((JTextField) mapa.get("txt_rg")).getText());
-        funcionario.setSetorFuncionario(((JTextField) mapa.get("txt_setor")).getText());
-        funcionario.setTelefoneFuncionario(((JTextField) mapa.get("txt_telefone")).getText());
-        funcionario.setSexoFuncionario(((JRadioButton) mapa.get("rbtn_sexo")).isSelected() ? "Masculino" : "Feminino");
-        funcionario.setNivelAcesso(((JComboBox<String>) mapa.get("cbx_nivelAcesso")).getSelectedIndex());
 
-        if (funcionarioDAO.cadastrar(funcionario)) {
-            JOptionPane.showMessageDialog(tela, "Cadastrado com sucesso", "Cadastro", JOptionPane.OK_OPTION);
-            this.cancelar();
-            // limpar campos
+        if (validaDados()) {
+
+            funcionario.setNomeFuncionario(((JTextField) mapa.get("txt_nome")).getText());
+            funcionario.setCepFuncionario(((JTextField) mapa.get("txt_cep")).getText());
+            funcionario.setComissaoFuncionario(Float.parseFloat(((JTextField) mapa.get("txt_comissao")).getText()));
+            funcionario.setCpfFuncionario(((JTextField) mapa.get("txt_cpf")).getText());
+            funcionario.setEnderecoFuncionario(((JTextField) mapa.get("txt_endereco")).getText());
+            funcionario.setSalarioFuncionario(Float.parseFloat(((JTextField) mapa.get("txt_salario")).getText()));
+            funcionario.setRgFuncionario(((JTextField) mapa.get("txt_rg")).getText());
+            funcionario.setSetorFuncionario(((JTextField) mapa.get("txt_setor")).getText());
+            funcionario.setTelefoneFuncionario(((JTextField) mapa.get("txt_telefone")).getText());
+            funcionario.setSexoFuncionario(((JRadioButton) mapa.get("rbtn_sexo")).isSelected() ? "Masculino" : "Feminino");
+            funcionario.setNivelAcesso(((JComboBox<String>) mapa.get("cbx_nivelAcesso")).getSelectedIndex());
+            funcionario.setRfidFuncionario(((JTextField) mapa.get("txt_rfid")).getText());
+
+            if (funcionarioDAO.cadastrar(funcionario)) {
+                JOptionPane.showMessageDialog(tela, "Cadastrado com sucesso", "Cadastro", JOptionPane.OK_OPTION);
+                this.cancelar();
+                // limpar campos
+            } else {
+                JOptionPane.showMessageDialog(tela, "Erro ao cadastrar", "Cadastro", JOptionPane.OK_OPTION);
+            }
         } else {
-            JOptionPane.showMessageDialog(tela, "Erro ao cadastrar", "Cadastro", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(tela, "Preencha todos os campos", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -89,6 +96,7 @@ public class FuncionarioControler implements AcaoTela {
         ((JTextField) mapa.get("txt_salario")).setText("" + funcionario.getSalarioFuncionario());
         ((JTextField) mapa.get("txt_comissao")).setText("" + funcionario.getComissaoFuncionario());
         ((JTextField) mapa.get("txt_setor")).setText(funcionario.getSetorFuncionario());
+        ((JTextField) mapa.get("txt_rfid")).setText(funcionario.getRfidFuncionario());
 
         ((JComboBox<String>) mapa.get("cbx_nivelAcesso")).setSelectedIndex(funcionario.getNivelAcesso());
     }
@@ -112,7 +120,7 @@ public class FuncionarioControler implements AcaoTela {
                 if (JOptionPane.showConfirmDialog(tela, "Deseja excluir o funcionario?", "Excluir", JOptionPane.YES_NO_OPTION) != 1) {
                     funcionarioDAO.remover(((Funcionario) array.get(id)).getIdFuncionario());
                     dtm.getDataVector().removeAllElements();
-                    this.preencherTabela((JTable)this.mapa.get("tbl_listagem"));
+                    this.preencherTabela((JTable) this.mapa.get("tbl_listagem"));
                 }
             }
         } catch (Exception ex) {
@@ -150,6 +158,7 @@ public class FuncionarioControler implements AcaoTela {
         funcionario.setComissaoFuncionario(Float.parseFloat(((JTextField) mapa.get("txt_comissao")).getText()));
         funcionario.setSetorFuncionario(((JTextField) mapa.get("txt_setor")).getText());
         funcionario.setNivelAcesso(((JComboBox<String>) mapa.get("cbx_nivelAcesso")).getSelectedIndex());
+        funcionario.setRfidFuncionario(((JTextField) mapa.get("txt_rfid")).getText());
 
         if (validaDados()) {
             this.editar(funcionario);
@@ -224,11 +233,45 @@ public class FuncionarioControler implements AcaoTela {
         ((JTextField) mapa.get("txt_telefone")).setText("");
         ((JTextField) mapa.get("txt_comissao")).setText("");
         ((JComboBox<String>) mapa.get("cbx_nivelAcesso")).setSelectedIndex(0);
+        ((JTextField) mapa.get("txt_rfid")).setText("");
     }
 
     private boolean validaDados() {
 
-        return true;
+        boolean teste = true;
+
+        if (((JTextField) mapa.get("txt_nome")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_cep")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_comissao")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_cpf")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_endereco")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_salario")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_rg")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_setor")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_telefone")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_rfid")).getText().equals("")) {
+            teste = false;
+        }
+
+        return teste;
     }
 
     public void verificaAba(int aba) {

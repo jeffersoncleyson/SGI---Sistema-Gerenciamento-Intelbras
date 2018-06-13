@@ -7,6 +7,7 @@ package br.com.intelbras.controler;
 
 import br.com.intelbras.model.Cliente;
 import br.com.intelbras.model.ClienteDAO;
+import br.com.intelbras.model.Funcionario;
 import br.com.intelbras.model.Produto;
 import br.com.intelbras.model.ProdutoDAO;
 import br.com.intelbras.model.Venda;
@@ -109,7 +110,7 @@ public class VendasControler implements AcaoTela {
 
             Venda venda = new Venda();
             venda.setClienteId(cliente.getIdCliente());
-            venda.setFuncionarioId(1);  //=================================================================== mudar aki
+            venda.setFuncionarioId(Funcionario.idAcessoLogado);  //=================================================================== mudar aki
             venda.setProdutos(arrayVenda);
             venda.setValorTotalVenda(calculaValor());
 
@@ -294,5 +295,9 @@ public class VendasControler implements AcaoTela {
         }
 
     }
+    
+
+    
+    
 
 }

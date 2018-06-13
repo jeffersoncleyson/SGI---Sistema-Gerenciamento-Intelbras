@@ -41,18 +41,23 @@ public class ProdutosControler implements AcaoTela {
     @Override
     public void cadastrar() {
         Produto produto = new Produto();
-        produto.setDescricaoProduto(((JTextField) mapa.get("txt_descricao")).getText());
-        produto.setMarcaProduto(((JTextField) mapa.get("txt_marca")).getText());
-        produto.setModeloProduto(((JTextField) mapa.get("txt_modelo")).getText());
-        produto.setObsProduto(((JTextField) mapa.get("txt_observacao")).getText());
-        produto.setValorProduto(Float.parseFloat(((JTextField) mapa.get("txt_valor")).getText()));
+        if (validaDados()) {
 
-        if (produtoDAO.cadastrar(produto)) {
-            JOptionPane.showMessageDialog(tela, "Cadastrado com sucesso", "Cadastro", JOptionPane.OK_OPTION);
-            this.cancelar();
-            // limpar campos
+            produto.setDescricaoProduto(((JTextField) mapa.get("txt_descricao")).getText());
+            produto.setMarcaProduto(((JTextField) mapa.get("txt_marca")).getText());
+            produto.setModeloProduto(((JTextField) mapa.get("txt_modelo")).getText());
+            produto.setObsProduto(((JTextField) mapa.get("txt_observacao")).getText());
+            produto.setValorProduto(Float.parseFloat(((JTextField) mapa.get("txt_valor")).getText()));
+
+            if (produtoDAO.cadastrar(produto)) {
+                JOptionPane.showMessageDialog(tela, "Cadastrado com sucesso", "Cadastro", JOptionPane.OK_OPTION);
+                this.cancelar();
+                // limpar campos
+            } else {
+                JOptionPane.showMessageDialog(tela, "Erro ao cadastrar", "Cadastro", JOptionPane.OK_OPTION);
+            }
         } else {
-            JOptionPane.showMessageDialog(tela, "Erro ao cadastrar", "Cadastro", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(tela, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -91,7 +96,7 @@ public class ProdutosControler implements AcaoTela {
                 if (JOptionPane.showConfirmDialog(tela, "Deseja excluir o produto?", "Excluir", JOptionPane.YES_NO_OPTION) != 1) {
                     produtoDAO.remover(((Produto) array.get(id)).getIdProduto());
                     dtm.getDataVector().removeAllElements();
-                    this.preencherTabela((JTable)this.mapa.get("tbl_listagem"));
+                    this.preencherTabela((JTable) this.mapa.get("tbl_listagem"));
                 }
             }
         } catch (Exception ex) {
@@ -202,7 +207,25 @@ public class ProdutosControler implements AcaoTela {
 
     private boolean validaDados() {
 
-        return true;
+        boolean teste = true;
+
+        if (((JTextField) mapa.get("txt_descricao")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_marca")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_modelo")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_observacao")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_valor")).getText().equals("")) {
+            teste = false;
+        }
+
+        return teste;
     }
 
 }

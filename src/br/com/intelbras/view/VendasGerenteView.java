@@ -8,13 +8,14 @@ package br.com.intelbras.view;
 import br.com.intelbras.controler.VendasControler;
 import br.com.intelbras.controler.VendasGerenteControler;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author aluno
  */
 public class VendasGerenteView extends javax.swing.JFrame {
-    
+
     VendasGerenteControler vendasGerenteControler;
     HashMap<String, Object> mapaComponentes;
 
@@ -25,7 +26,7 @@ public class VendasGerenteView extends javax.swing.JFrame {
         initComponents();
         mapaComponentes = new HashMap<>();
         this.inseriMapa();
-        
+
         this.vendasGerenteControler = new VendasGerenteControler(mapaComponentes);
     }
 
@@ -183,6 +184,11 @@ public class VendasGerenteView extends javax.swing.JFrame {
                 btn_excluirMouseClicked(evt);
             }
         });
+        btn_excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_excluirActionPerformed(evt);
+            }
+        });
         jPanel3.add(btn_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 91, 52));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 130, 390));
@@ -213,14 +219,22 @@ public class VendasGerenteView extends javax.swing.JFrame {
 
     private void btn_pesuisaDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pesuisaDataMouseClicked
         vendasGerenteControler.preencheTabela(txt_data.getText());
-      
+
     }//GEN-LAST:event_btn_pesuisaDataMouseClicked
 
     private void btn_excluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_excluirMouseClicked
         if (btn_excluir.isEnabled()) {
-            
+
         }
     }//GEN-LAST:event_btn_excluirMouseClicked
+
+    private void btn_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_excluirActionPerformed
+        try {
+            this.vendasGerenteControler.excluir((int) tbl_listagem.getModel().getValueAt(tbl_listagem.getSelectedRow(), 0));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um item!");
+        }
+    }//GEN-LAST:event_btn_excluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,8 +301,8 @@ public class VendasGerenteView extends javax.swing.JFrame {
         this.mapaComponentes.put("txt_data", this.txt_data);
         this.mapaComponentes.put("txt_nome", this.txt_funcionario);
         this.mapaComponentes.put("txt_setor", this.txt_cliente);
-        
+
         this.mapaComponentes.put("tbl_vendas", this.tbl_listagem);
-        
+
     }
 }

@@ -15,6 +15,7 @@ import br.com.intelbras.view.VendasGerenteView;
 import br.com.intelbras.view.VendasView;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -63,6 +64,22 @@ public class VendasGerenteControler {
             }
         }
         tela.repaint();
+    }
+
+    public void excluir(int id) {
+
+        VendaDAO vendaDAO = new VendaDAO();
+        if (JOptionPane.showConfirmDialog(tela, "Deseja excluir a venda?", "Excluir", JOptionPane.YES_NO_OPTION) != 1) {
+            if (vendaDAO.remover(id)) {
+                JOptionPane.showMessageDialog(tela, "Excluido com sucesso!", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
+
+                preencheTabela("");
+
+            } else {
+                JOptionPane.showMessageDialog(tela, "Falha ao excluir!", "Exclusão", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
     }
 
 }

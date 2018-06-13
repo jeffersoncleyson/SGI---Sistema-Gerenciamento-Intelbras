@@ -35,11 +35,18 @@ public class LoginControler {
         if (login != null) {
             //checa permissao
             try {
-                funcionario = loginDAO.getNivelAcesso(login);
+                Funcionario.idAcessoLogado = login.getFuncionarioId();
+                int nivel = loginDAO.getNivelAcesso(login);
+                
+                if (nivel == -1) {
+                    JOptionPane.showMessageDialog(tela, "Erro ao buscar funcionario", "Erro", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    Funcionario.nivelAcessoLogado = nivel;
 
-                InicioView inicioView = new InicioView();
-                inicioView.setVisible(true);
-                tela.dispose();
+                    InicioView inicioView = new InicioView();
+                    inicioView.setVisible(true);
+                    tela.dispose();
+                }
 
             } catch (Exception ex) {
                 System.out.println(ex);

@@ -35,22 +35,23 @@ public class LoginDAO implements DAO {
 
             this._st = this._con.createStatement();
             this._rs = this._st.executeQuery("SELECT * FROM login ");
-            
-            while(this._rs.next()){
+
+            while (this._rs.next()) {
                 Login login = new Login();
-                
+
                 login.setId(this._rs.getInt(1));
                 login.setUsername(this._rs.getString(2));
                 login.setEmail(this._rs.getString(3));
                 login.setSenha(this._rs.getString(4));
-                
+                login.setFuncionarioId(this._rs.getInt(5));
+
                 array.add(login);
-                
+
             }
 
             return array;
         } catch (Exception ex) {
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :'(");
         } finally {
             fecharConexao();
         }
@@ -63,10 +64,10 @@ public class LoginDAO implements DAO {
     public boolean cadastrar(Object obj) {
         abrirConexao();
         boolean gravou = true;
-        try{
-            
+        try {
+
             Login login = (Login) obj;
-            
+
             this._pst = _con.prepareStatement("INSERT INTO `login`(`nomeLogin`,`emailLogin`,`senhaLogin`,`Funcionario_idFuncionario`) VALUES(?,?,?,?);");
             this._pst.setString(1, login.getUsername());
             this._pst.setString(2, login.getEmail());
@@ -75,11 +76,11 @@ public class LoginDAO implements DAO {
 
             this._pst.executeUpdate();
 
-        }catch(Exception ex){
+        } catch (Exception ex) {
             System.out.println("Erro: Conexão Banco! :(");
             System.out.println(ex);
             gravou = false;
-        }finally{
+        } finally {
             fecharConexao();
         }
 
@@ -91,8 +92,8 @@ public class LoginDAO implements DAO {
         abrirConexao();
         boolean gravou = true;
         try {
-             Login login = (Login) obj;
-            
+            Login login = (Login) obj;
+
             this._pst = _con.prepareStatement("UPDATE `login` SET `nomeLogin` = ?,`emailLogin` = ?,`senhaLogin` = ?,`Funcionario_idFuncionario` =? WHERE idLogin = ?;");
             this._pst.setString(1, login.getUsername());
             this._pst.setString(2, login.getEmail());
@@ -100,7 +101,7 @@ public class LoginDAO implements DAO {
             this._pst.setInt(4, login.getFuncionarioId());
 
             this._pst.setInt(5, login.getId());
-            
+
             this._pst.executeUpdate();
 
         } catch (Exception ex) {
@@ -119,11 +120,11 @@ public class LoginDAO implements DAO {
         abrirConexao();
         boolean teste = true;
         try {
-            
+
             this._pst = this._con.prepareStatement("DELETE FROM login WHERE idLogin = ?");
             this._pst.setInt(1, id);
             this._pst.executeUpdate();
-            
+
         } catch (Exception ex) {
             teste = false;
             System.out.println("Erro: Conexão Banco! :(");
@@ -166,15 +167,29 @@ public class LoginDAO implements DAO {
 //====================================================================================================================
 //====================================================================================================================
 
-    public Funcionario getNivelAcesso(Login l) {
+    public int getNivelAcesso(Login l) {
         abrirConexao();
+        int nivel = -1;
         try {
+
+            this._pst = this._con.prepareStatement("SELECT funcionario.nivelAcessoFuncionario FROM funcionario "
+                    + "INNER JOIN login ON login.Funcionario_idFuncionario = funcionario.idFuncionario "
+                    + "WHERE funcionario.idFuncionario = ?;");
+            this._pst.setInt(1, l.getFuncionarioId());
+
+            this._rs = this._pst.executeQuery();
+
+            if(this._rs.next()){
+                nivel = this._rs.getInt(1);
+            }
             
+
         } catch (Exception ex) {
             System.out.println("Erro: Conexão Banco! :(");
+            ex.printStackTrace();
         } finally {
             fecharConexao();
         }
-        return null;
+        return nivel;
     }
 }

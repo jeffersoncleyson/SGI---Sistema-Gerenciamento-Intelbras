@@ -5,6 +5,7 @@
  */
 package br.com.intelbras.controler;
 
+import br.com.intelbras.model.Funcionario;
 import br.com.intelbras.view.ClienteView;
 import br.com.intelbras.view.FuncionarioView;
 import br.com.intelbras.view.InicioView;
@@ -28,6 +29,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -131,45 +133,73 @@ public class InicioControler {
     //============================== 
 
     public void abrirCliente(InicioView tela) {
-        ClienteView cliente = new ClienteView();
-        cliente.setVisible(true);
-        cliente.setLocationRelativeTo(tela);
+        if (Funcionario.nivelAcessoLogado != 2) {
+            ClienteView cliente = new ClienteView();
+            cliente.setVisible(true);
+            cliente.setLocationRelativeTo(tela);
+        } else {
+            JOptionPane.showMessageDialog(tela, "Você não tem permição para acessar esta área!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void abrirFuncionario(InicioView tela) {
-        FuncionarioView funcionario = new FuncionarioView();
-        funcionario.setVisible(true);
-        funcionario.setLocationRelativeTo(tela);
+        if (Funcionario.nivelAcessoLogado == 2) {
+            FuncionarioView funcionario = new FuncionarioView();
+            funcionario.setVisible(true);
+            funcionario.setLocationRelativeTo(tela);
+        } else {
+            JOptionPane.showMessageDialog(tela, "Você não tem permição para acessar esta área!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void abrirProduto(InicioView tela) {
-        ProdutoView produto = new ProdutoView();
-        produto.setVisible(true);
-        produto.setLocationRelativeTo(tela);
+        if (Funcionario.nivelAcessoLogado == 1) {
+            ProdutoView produto = new ProdutoView();
+            produto.setVisible(true);
+            produto.setLocationRelativeTo(tela);
+        } else {
+            JOptionPane.showMessageDialog(tela, "Você não tem permição para acessar esta área!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void abrirPonto(InicioView tela) {
-        PontosView ponto = new PontosView();
-        ponto.setVisible(true);
-        ponto.setLocationRelativeTo(tela);
+        if (Funcionario.nivelAcessoLogado == 1) {
+            PontosView ponto = new PontosView();
+            ponto.setVisible(true);
+            ponto.setLocationRelativeTo(tela);
+        } else {
+            JOptionPane.showMessageDialog(tela, "Você não tem permição para acessar esta área!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void abrirVenda(InicioView tela) {
-        VendasView venda = new VendasView();
-        venda.setVisible(true);
-        venda.setLocationRelativeTo(tela);
+        if (Funcionario.nivelAcessoLogado != 2) {
+            VendasView venda = new VendasView();
+            venda.setVisible(true);
+            venda.setLocationRelativeTo(tela);
+        } else {
+            JOptionPane.showMessageDialog(tela, "Você não tem permição para acessar esta área!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void abrirLogin(InicioView tela) {
-        LoginManagerView loginManager = new LoginManagerView();
-        loginManager.setVisible(true);
-        loginManager.setLocationRelativeTo(tela);
+        if (Funcionario.nivelAcessoLogado == 2) {
+            LoginManagerView loginManager = new LoginManagerView();
+            loginManager.setVisible(true);
+            loginManager.setLocationRelativeTo(tela);
+        } else {
+            JOptionPane.showMessageDialog(tela, "Você não tem permição para acessar esta área!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void abrirHistorico(InicioView tela) {
-        VendasGerenteView vendaG = new VendasGerenteView();
-        vendaG.setVisible(true);
-        vendaG.setLocationRelativeTo(tela);
+        if (Funcionario.nivelAcessoLogado == 1) {
+            VendasGerenteView vendaG = new VendasGerenteView();
+            vendaG.setVisible(true);
+            vendaG.setLocationRelativeTo(tela);
+        } else {
+            JOptionPane.showMessageDialog(tela, "Você não tem permição para acessar esta área!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     //============================== Metodos privados
