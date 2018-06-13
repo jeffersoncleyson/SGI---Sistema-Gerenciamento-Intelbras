@@ -27,7 +27,6 @@ public class VendaDAO implements DAO {
     private Statement _st = null;
     private PreparedStatement _pst = null;
 
-<<<<<<< HEAD
     private VendaDAO() {
         this._BD = new BancoDados();
     }
@@ -39,7 +38,6 @@ public class VendaDAO implements DAO {
         return uniqueInstance;
     }
     
-=======
     public static void main(String[] args) {
 
         /*Produto p = new Produto();
@@ -76,7 +74,6 @@ public class VendaDAO implements DAO {
         
     }
 
->>>>>>> 85570548b2cfa1549eaa86867fea66c6e0709503
 //====================================================================================================================
 //====================================================================================================================
     public ArrayList<Object> listarTodos() {
