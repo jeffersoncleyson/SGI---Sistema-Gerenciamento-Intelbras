@@ -1,0 +1,6 @@
+
+username		senha
+
+wesleyreis              1234
+gerente			1234
+vendedor		1234
