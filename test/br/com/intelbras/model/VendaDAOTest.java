@@ -17,7 +17,7 @@ public class VendaDAOTest {
     private VendaDAO vendaDAO;
     
     public VendaDAOTest() {
-        vendaDAO = new VendaDAO();
+        vendaDAO = VendaDAO.getInstance();
     }
 
     @Test

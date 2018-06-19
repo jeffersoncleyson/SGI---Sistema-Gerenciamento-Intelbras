@@ -68,7 +68,7 @@ public class VendasGerenteControler {
 
     public void excluir(int id) {
 
-        VendaDAO vendaDAO = new VendaDAO();
+        VendaDAO vendaDAO = VendaDAO.getInstance();
         if (JOptionPane.showConfirmDialog(tela, "Deseja excluir a venda?", "Excluir", JOptionPane.YES_NO_OPTION) != 1) {
             if (vendaDAO.remover(id)) {
                 JOptionPane.showMessageDialog(tela, "Excluido com sucesso!", "Exclusão", JOptionPane.INFORMATION_MESSAGE);

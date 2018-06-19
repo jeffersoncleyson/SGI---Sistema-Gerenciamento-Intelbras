@@ -17,7 +17,7 @@ public class LoginDAOTest {
     private LoginDAO loginDAO;
     
     public LoginDAOTest() {
-        loginDAO = new LoginDAO();
+        loginDAO = LoginDAO.getInstance();
     }
 
     @Test

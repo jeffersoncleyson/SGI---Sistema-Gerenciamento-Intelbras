@@ -17,7 +17,7 @@ public class ProdutoDAOTest {
     private ProdutoDAO produtoDAO;
     
     public ProdutoDAOTest() {
-        produtoDAO = new ProdutoDAO();
+        produtoDAO = ProdutoDAO.getInstance();
     }
 
     @Test

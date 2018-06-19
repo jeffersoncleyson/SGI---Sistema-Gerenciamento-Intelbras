@@ -232,7 +232,7 @@ public class VendasControler implements AcaoTela {
     //==========================================================================
     //======================== Tela add cliente ================================
     private HashMap<String, Object> mapaCliente;
-    private ClienteDAO clienteDAO = new ClienteDAO();
+    private ClienteDAO clienteDAO = ClienteDAO.getInstance();
     private DefaultTableModel dtmCliente;
     private ArrayList<Object> arrayCliente;
     Cliente cliente;
