@@ -44,22 +44,29 @@ public class ClienteControler implements AcaoTela {
     public void cadastrar() {
 
         Cliente cliente = new Cliente();
-        cliente.setNomeCliente(((JTextField) mapa.get("txt_nome")).getText());
-        cliente.setCpfCliente(((JTextField) mapa.get("txt_cpf")).getText());
-        cliente.setRgCliente(((JTextField) mapa.get("txt_rg")).getText());
-        cliente.setSexoCliente((((JRadioButton) mapa.get("rbtn_sexo")).isSelected()) ? "Masculino" : "Feminino");
-        cliente.setDataNascCliente(((JTextField) mapa.get("txt_dataNasc")).getText());
-        cliente.setBairroCliente(((JTextField) mapa.get("txt_bairro")).getText());
-        cliente.setCepCliente(((JTextField) mapa.get("txt_cep")).getText());
-        cliente.setTelefoneCliente(((JTextField) mapa.get("txt_telefone")).getText());
-        cliente.setEnderecoCliente(((JTextField) mapa.get("txt_endereco")).getText());
 
-        if (clienteDAO.cadastrar(cliente)) {
-            JOptionPane.showMessageDialog(tela, "Cadastrado com sucesso", "Cadastro", JOptionPane.OK_OPTION);
-            this.cancelar();
-            // limpar campos
+        if (validaDados()) {
+            
+            cliente.setNomeCliente(((JTextField) mapa.get("txt_nome")).getText());
+            cliente.setCpfCliente(((JTextField) mapa.get("txt_cpf")).getText());
+            cliente.setRgCliente(((JTextField) mapa.get("txt_rg")).getText());
+            cliente.setSexoCliente((((JRadioButton) mapa.get("rbtn_sexo")).isSelected()) ? "Masculino" : "Feminino");
+            cliente.setDataNascCliente(((JTextField) mapa.get("txt_dataNasc")).getText());
+            cliente.setBairroCliente(((JTextField) mapa.get("txt_bairro")).getText());
+            cliente.setCepCliente(((JTextField) mapa.get("txt_cep")).getText());
+            cliente.setTelefoneCliente(((JTextField) mapa.get("txt_telefone")).getText());
+            cliente.setEnderecoCliente(((JTextField) mapa.get("txt_endereco")).getText());
+
+            if (clienteDAO.cadastrar(cliente)) {
+                JOptionPane.showMessageDialog(tela, "Cadastrado com sucesso", "Cadastro", JOptionPane.OK_OPTION);
+                this.cancelar();
+                // limpar campos
+            } else {
+                JOptionPane.showMessageDialog(tela, "Erro ao cadastrar", "Cadastro", JOptionPane.OK_OPTION);
+            }
         } else {
-            JOptionPane.showMessageDialog(tela, "Erro ao cadastrar", "Cadastro", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(tela, "Preencha todos os campos", "Cadastro", JOptionPane.OK_OPTION);
+
         }
 
     }
@@ -107,6 +114,8 @@ public class ClienteControler implements AcaoTela {
             } else {
                 if (JOptionPane.showConfirmDialog(tela, "Deseja excluir o cliente?", "Excluir", JOptionPane.YES_NO_OPTION) != 1) {
                     clienteDAO.remover(((Cliente) array.get(id)).getIdCliente());
+                    dtm.getDataVector().removeAllElements();
+                    this.preencherTabela((JTable) this.mapa.get("tbl_listagem"));
                 }
             }
         } catch (Exception ex) {
@@ -145,7 +154,7 @@ public class ClienteControler implements AcaoTela {
         if (validaDados()) {
             this.editar(cliente);
         } else {
-
+            JOptionPane.showMessageDialog(tela, "Preencha todos os campos", "Cadastro", JOptionPane.OK_OPTION);
         }
     }
 
@@ -225,7 +234,34 @@ public class ClienteControler implements AcaoTela {
 
     private boolean validaDados() {
 
-        return true;
+        boolean teste = true;
+
+        if (((JTextField) mapa.get("txt_nome")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_cpf")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_rg")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_dataNasc")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_bairro")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_cep")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_telefone")).getText().equals("")) {
+            teste = false;
+        }
+        if (((JTextField) mapa.get("txt_endereco")).getText().equals("")) {
+            teste = false;
+        }
+
+        return teste;
     }
 
 }
