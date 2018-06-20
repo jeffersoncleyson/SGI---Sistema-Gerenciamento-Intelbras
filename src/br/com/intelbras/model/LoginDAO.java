@@ -63,7 +63,7 @@ public class LoginDAO implements DAO {
 
             return array;
         } catch (Exception ex) {
-            System.out.println("Erro: Conexão Banco! :'(");
+            System.out.println("Erro: Conexão Banco! :'( Listar login");
         } finally {
             fecharConexao();
         }
@@ -80,7 +80,7 @@ public class LoginDAO implements DAO {
 
             Login login = (Login) obj;
 
-            this._pst = _con.prepareStatement("INSERT INTO `login`(`nomeLogin`,`emailLogin`,`senhaLogin`,`Funcionario_idFuncionario`) VALUES(?,?,?,?);");
+            this._pst = _con.prepareStatement("INSERT INTO login(`nomeLogin`,`emailLogin`,`senhaLogin`,`Funcionario_idFuncionario`) VALUES(?,?,?,?);");
             this._pst.setString(1, login.getUsername());
             this._pst.setString(2, login.getEmail());
             this._pst.setString(3, login.getSenha());
@@ -89,7 +89,7 @@ public class LoginDAO implements DAO {
             this._pst.executeUpdate();
 
         } catch (Exception ex) {
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :( Cadastrar login");
             System.out.println(ex);
             gravou = false;
         } finally {
@@ -106,7 +106,7 @@ public class LoginDAO implements DAO {
         try {
             Login login = (Login) obj;
 
-            this._pst = _con.prepareStatement("UPDATE `login` SET `nomeLogin` = ?,`emailLogin` = ?,`senhaLogin` = ?,`Funcionario_idFuncionario` =? WHERE idLogin = ?;");
+            this._pst = _con.prepareStatement("UPDATE login SET `nomeLogin` = ?,`emailLogin` = ?,`senhaLogin` = ?,`Funcionario_idFuncionario` =? WHERE idLogin = ?;");
             this._pst.setString(1, login.getUsername());
             this._pst.setString(2, login.getEmail());
             this._pst.setString(3, login.getSenha());
@@ -117,7 +117,7 @@ public class LoginDAO implements DAO {
             this._pst.executeUpdate();
 
         } catch (Exception ex) {
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :( Editar Login");
             System.out.println(ex);
             gravou = false;
         } finally {
@@ -139,7 +139,7 @@ public class LoginDAO implements DAO {
 
         } catch (Exception ex) {
             teste = false;
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :( Remover Login");
         } finally {
             fecharConexao();
         }

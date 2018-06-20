@@ -35,7 +35,7 @@ public class BancoDados {
         this.url ="jdbc:mysql://sql132.main-hosting.eu:3306/u483572784_intbr";
         this.JDBC = "com.mysql.jdbc.Driver";
         this.usuario = "u483572784_intbr";
-        this.senha = "u_Root#2018";
+        this.senha = "GU1pE6nGrIVEGHSco";
         
     }
 

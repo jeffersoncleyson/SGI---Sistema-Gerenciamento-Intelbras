@@ -66,7 +66,7 @@ public class ProdutoDAO implements DAO {
             return array;
 
         } catch (Exception ex) {
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :( Listar produto");
         } finally {
             fecharConexao();
         }
@@ -85,7 +85,7 @@ public class ProdutoDAO implements DAO {
 
             Produto produto = (Produto) obj;
 
-            this._pst = _con.prepareStatement("INSERT INTO `produto`(`descricaoProduto`,`marcaProduto`,`valorProduto`,"
+            this._pst = _con.prepareStatement("INSERT INTO produto(`descricaoProduto`,`marcaProduto`,`valorProduto`,"
                     + "`modeloProduto`,`obsProduto`) VALUES(?,?,?,?,?);");
             this._pst.setString(1, produto.getDescricaoProduto());
             this._pst.setString(2, produto.getMarcaProduto());
@@ -97,7 +97,7 @@ public class ProdutoDAO implements DAO {
 
         } catch (Exception ex) {
             gravou = false;
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :( Cadastrar produto");
             System.out.println(ex);
         } finally {
             fecharConexao();
@@ -113,7 +113,7 @@ public class ProdutoDAO implements DAO {
             Produto produto = (Produto) obj;
              System.out.println(produto);
 
-            this._pst = this._con.prepareStatement("UPDATE `intelbras`.`produto` SET `descricaoProduto` = ?, `marcaProduto` = ?, `valorProduto` = ?,`modeloProduto` = ?, `obsProduto` = ? WHERE `idProduto` = ?");
+            this._pst = this._con.prepareStatement("UPDATE produto SET `descricaoProduto` = ?, `marcaProduto` = ?, `valorProduto` = ?,`modeloProduto` = ?, `obsProduto` = ? WHERE `idProduto` = ?");
             this._pst.setString(1, produto.getDescricaoProduto());
             this._pst.setString(2, produto.getMarcaProduto());
             this._pst.setFloat(3, produto.getValorProduto());
@@ -126,7 +126,7 @@ public class ProdutoDAO implements DAO {
             this._pst.executeUpdate();
 
         } catch (Exception ex) {
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :( Editar produto");
             System.out.println(ex);
             teste = false;
         } finally {
@@ -142,13 +142,13 @@ public class ProdutoDAO implements DAO {
         abrirConexao();
         try {
 
-            this._pst = this._con.prepareStatement("DELETE FROM `intelbras`.`produto` WHERE idProduto = ?");
+            this._pst = this._con.prepareStatement("DELETE FROM produto WHERE idProduto = ?");
             this._pst.setInt(1, id);
             this._pst.executeUpdate();
 
             return true;
         } catch (Exception ex) {
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :( Deleter produto");
             System.out.println(ex);
         } finally {
             fecharConexao();

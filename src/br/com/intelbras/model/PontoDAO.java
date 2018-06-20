@@ -47,7 +47,7 @@ public class PontoDAO implements DAO{
              ArrayList<Object> array = new ArrayList<>();
 
             this._st = this._con.createStatement();
-            this._rs = this._st.executeQuery("SELECT * FROM Ponto INNER JOIN Funcionario ON Ponto.Funcionario_idFuncionario = Funcionario.idFuncionario");
+            this._rs = this._st.executeQuery("SELECT * FROM ponto INNER JOIN Funcionario ON Ponto.Funcionario_idFuncionario = Funcionario.idFuncionario");
 
             while (this._rs.next()) {
                 Funcionario funcionario = new Funcionario();
@@ -76,7 +76,7 @@ public class PontoDAO implements DAO{
 
             return array;
         } catch (Exception ex) {
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :( Listar pontos");
             System.out.println(ex);
         } finally {
             fecharConexao();

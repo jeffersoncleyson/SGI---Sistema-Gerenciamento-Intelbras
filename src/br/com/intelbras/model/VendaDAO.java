@@ -129,7 +129,7 @@ public class VendaDAO implements DAO {
             return array;
 
         } catch (Exception ex) {
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :( Listagem de vendas");
         } finally {
             fecharConexao();
         }
@@ -173,7 +173,7 @@ public class VendaDAO implements DAO {
 
         } catch (Exception ex) {
             gravou = false;
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :( Cadastro de vendas");
             System.out.println(ex);
         } finally {
             fecharConexao();
@@ -200,13 +200,13 @@ public class VendaDAO implements DAO {
     public boolean remover(int id) {
         abrirConexao();
         try {
-            this._pst = this._con.prepareStatement("DELETE FROM `intelbras`.`vendas` WHERE idVendas = ?");
+            this._pst = this._con.prepareStatement("DELETE FROM `vendas` WHERE idVendas = ?");
             this._pst.setInt(1, id);
             this._pst.executeUpdate();
 
             return true;
         } catch (Exception ex) {
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :( Remover venda");
         } finally {
             fecharConexao();
         }

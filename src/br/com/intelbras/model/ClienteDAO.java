@@ -69,7 +69,7 @@ public class ClienteDAO implements DAO {
             ArrayList<Object> array = new ArrayList<>();
 
             this._st = this._con.createStatement();
-            this._rs = this._st.executeQuery("SELECT * FROM Cliente");
+            this._rs = this._st.executeQuery("SELECT * FROM cliente");
 
             while (this._rs.next()) {
                 Cliente cliente = new Cliente();
@@ -91,7 +91,7 @@ public class ClienteDAO implements DAO {
             return array;
 
         } catch (Exception ex) {
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :( Listar todos clientes");
         } finally {
             fecharConexao();
         }
@@ -108,7 +108,7 @@ public class ClienteDAO implements DAO {
         abrirConexao();
         try {
 
-            this._pst = _con.prepareStatement("INSERT INTO `intelbras`.`cliente`(`nomeCliente`,`cpfCliente`,`rgCliente`,`sexoCliente`,`dataNascCliente`,`bairroCliente`,`cepCliente`,`telefoneCliente`,`enderecoCliente`)VALUES(?,?,?,?,?,?,?,?,?);");
+            this._pst = _con.prepareStatement("INSERT INTO cliente(`nomeCliente`,`cpfCliente`,`rgCliente`,`sexoCliente`,`dataNascCliente`,`bairroCliente`,`cepCliente`,`telefoneCliente`,`enderecoCliente`)VALUES(?,?,?,?,?,?,?,?,?);");
             this._pst.setString(1, cliente.getNomeCliente());
             this._pst.setString(2, cliente.getCpfCliente());
             this._pst.setString(3, cliente.getRgCliente());
@@ -123,7 +123,7 @@ public class ClienteDAO implements DAO {
 
         } catch (Exception ex) {
             gravou = false;
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :( Cadastrar cliente");
             System.out.println(ex);
         } finally {
             fecharConexao();
@@ -139,7 +139,7 @@ public class ClienteDAO implements DAO {
             Cliente cliente = (Cliente) obj;
              System.out.println(cliente);
 
-            this._pst = this._con.prepareStatement("UPDATE `intelbras`.`cliente` SET `nomeCliente` = ?, `cpfCliente` = ?, `rgCliente` = ?,`sexoCliente` = ?, `dataNascCliente` = ?, `bairroCliente` = ?, `cepCliente` = ?, `telefoneCliente` = ?,`enderecoCliente` = ? WHERE `idCliente` = ?");
+            this._pst = this._con.prepareStatement("UPDATE cliente SET `nomeCliente` = ?, `cpfCliente` = ?, `rgCliente` = ?,`sexoCliente` = ?, `dataNascCliente` = ?, `bairroCliente` = ?, `cepCliente` = ?, `telefoneCliente` = ?,`enderecoCliente` = ? WHERE `idCliente` = ?");
             this._pst.setString(1, cliente.getNomeCliente());
             this._pst.setString(2, cliente.getCpfCliente());
             this._pst.setString(3, cliente.getRgCliente());
@@ -155,7 +155,7 @@ public class ClienteDAO implements DAO {
             this._pst.executeUpdate();
 
         } catch (Exception ex) {
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :( Editar cliente");
             System.out.println(ex);
         } finally {
             fecharConexao();
@@ -170,13 +170,13 @@ public class ClienteDAO implements DAO {
         abrirConexao();
         try {
 
-            this._pst = this._con.prepareStatement("DELETE FROM `intelbras`.`cliente` WHERE idCliente = ?");
+            this._pst = this._con.prepareStatement("DELETE FROM cliente WHERE idCliente = ?");
             this._pst.setInt(1, id);
             this._pst.executeUpdate();
 
             return true;
         } catch (Exception ex) {
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :( Remover Cliente");
             System.out.println(ex);
         } finally {
             fecharConexao();

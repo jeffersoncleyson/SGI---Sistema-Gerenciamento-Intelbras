@@ -72,7 +72,7 @@ public class FuncionarioDAO implements DAO {
             return array;
 
         } catch (Exception ex) {
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :( Listar funcionario");
         } finally {
             fecharConexao();
         }
@@ -91,7 +91,7 @@ public class FuncionarioDAO implements DAO {
 
             Funcionario funcionario = (Funcionario) obj;
 
-            this._pst = _con.prepareStatement("INSERT INTO `intelbras`.`funcionario`(`nomeFuncionario`,`cpfFuncionario`,`rgFuncionario`,"
+            this._pst = _con.prepareStatement("INSERT INTO funcionario(`nomeFuncionario`,`cpfFuncionario`,`rgFuncionario`,"
                     + "`enderecoFuncionario`,`cepFuncionario`,`bairroFuncionario`,`telefoneFuncionario`,"
                     + "`sexoFuncionario`,`salarioFuncionario`,`setorFuncionario`,`comissaoFuncionario`,`nivelAcessoFuncionario`, `rfidFuncionario`)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);");
             this._pst.setString(1, funcionario.getNomeFuncionario());
@@ -112,7 +112,7 @@ public class FuncionarioDAO implements DAO {
 
         } catch (Exception ex) {
             gravou = false;
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :( Cadastrar funcionario");
             System.out.println(ex);
         } finally {
             fecharConexao();
@@ -127,7 +127,7 @@ public class FuncionarioDAO implements DAO {
             Funcionario funcionario = (Funcionario) obj;
             System.out.println(funcionario);
 
-            this._pst = this._con.prepareStatement("UPDATE `intelbras`.`funcionario` SET `nomeFuncionario` = ?,`cpfFuncionario` = ?,`rgFuncionario` = ?,"
+            this._pst = this._con.prepareStatement("UPDATE funcionario SET `nomeFuncionario` = ?,`cpfFuncionario` = ?,`rgFuncionario` = ?,"
                     + "`enderecoFuncionario` = ?,`cepFuncionario` = ?,`bairroFuncionario` = ?,`telefoneFuncionario` = ?,"
                     + "`sexoFuncionario` = ?,`salarioFuncionario` = ?,`setorFuncionario` = ?,`comissaoFuncionario` = ? ,`nivelAcessoFuncionario` = ? , `rfidFuncionario` = ? WHERE `idFuncionario` = ?");
 
@@ -151,7 +151,7 @@ public class FuncionarioDAO implements DAO {
             this._pst.executeUpdate();
 
         } catch (Exception ex) {
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :( Editar funcionario");
             System.out.println(ex);
         } finally {
             fecharConexao();
@@ -166,13 +166,13 @@ public class FuncionarioDAO implements DAO {
         abrirConexao();
         try {
 
-            this._pst = this._con.prepareStatement("DELETE FROM `intelbras`.`funcionario` WHERE idFuncionario = ?");
+            this._pst = this._con.prepareStatement("DELETE FROM funcionario WHERE idFuncionario = ?");
             this._pst.setInt(1, id);
             this._pst.executeUpdate();
 
             return true;
         } catch (Exception ex) {
-            System.out.println("Erro: Conexão Banco! :(");
+            System.out.println("Erro: Conexão Banco! :( Remover funcionario");
             System.out.println(ex);
         } finally {
             fecharConexao();
